@@ -1,18 +1,21 @@
 const ALLOWED_ORIGIN = 'https://andriangajona-gif.github.io';
+const ALLOWED_STORES = ['Bravo', 'Amore Sushi', 'Panda', 'Farmacie', 'Samurai Sushi', 'Davidan'];
 
-function json(body, status = 200) {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Cache-Control': 'no-store',
-    },
-  });
+function json(body, status = 200, origin = '') {
+  const headers = {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': 'no-store',
+  };
+  if (origin === ALLOWED_ORIGIN) {
+    headers['Access-Control-Allow-Origin'] = ALLOWED_ORIGIN;
+    headers['Vary'] = 'Origin';
+  }
+  return new Response(JSON.stringify(body), { status, headers });
 }
 
 export default {
   async fetch(request, env) {
-    const origin = request.headers.get('Origin');
+    const origin = request.headers.get('Origin') || '';
     if (origin !== ALLOWED_ORIGIN) return json({ ok: false, error: 'Origine nepermisă.' }, 403);
 
     if (request.method === 'OPTIONS') {
@@ -27,35 +30,48 @@ export default {
         },
       });
     }
-    if (request.method !== 'POST') return json({ ok: false, error: 'Metodă nepermisă.' }, 405);
+    if (request.method !== 'POST') return json({ ok: false, error: 'Metodă nepermisă.' }, 405, origin);
     if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) {
-      return json({ ok: false, error: 'Serverul Telegram nu este configurat.' }, 503);
+      return json({ ok: false, error: 'Serverul Telegram nu este configurat.' }, 503, origin);
     }
 
     let order;
     try {
       order = await request.json();
     } catch {
-      return json({ ok: false, error: 'Datele comenzii nu sunt valide.' }, 400);
+      return json({ ok: false, error: 'Datele comenzii nu sunt valide.' }, 400, origin);
     }
 
-    const limits = { store: 80, items: 3000, name: 120, phone: 40, locality: 120, street: 200, details: 300 };
+    const limits = { name: 120, phone: 40, locality: 120, street: 200, details: 300 };
     for (const [field, max] of Object.entries(limits)) {
-      if (typeof order[field] !== 'string' || order[field].trim().length === 0 && field !== 'details' || order[field].length > max) {
-        return json({ ok: false, error: 'Verifică datele formularului și încearcă din nou.' }, 400);
+      if (typeof order[field] !== 'string' || !order[field].trim() || order[field].length > max) {
+        return json({ ok: false, error: 'Verifică datele formularului și încearcă din nou.' }, 400, origin);
       }
     }
+    if (typeof order.details !== 'string') {
+      return json({ ok: false, error: 'Verifică datele formularului și încearcă din nou.' }, 400, origin);
+    }
 
-    const allowedStores = ['Bravo', 'Amore Sushi', 'Panda', 'Farmacie', 'Samurai Sushi', 'Davidan'];
-    if (!allowedStores.includes(order.store)) {
-      return json({ ok: false, error: 'Magazinul selectat nu este valid.' }, 400);
+    // Accept the previous single-store payload too, so older versions of the page still work.
+    let orders = order.orders;
+    if (!Array.isArray(orders) && typeof order.store === 'string' && typeof order.items === 'string') {
+      orders = [{ store: order.store, items: order.items }];
+    }
+    if (!Array.isArray(orders) || orders.length < 1 || orders.length > ALLOWED_STORES.length) {
+      return json({ ok: false, error: 'Adaugă produse pentru cel puțin un magazin.' }, 400, origin);
+    }
+
+    const seenStores = new Set();
+    for (const entry of orders) {
+      if (!entry || typeof entry.store !== 'string' || !ALLOWED_STORES.includes(entry.store) || seenStores.has(entry.store) || typeof entry.items !== 'string' || !entry.items.trim() || entry.items.length > 3000) {
+        return json({ ok: false, error: 'Verifică magazinele și produsele introduse.' }, 400, origin);
+      }
+      seenStores.add(entry.store);
     }
 
     const text = [
       '🛍 COMANDĂ NOUĂ',
-      `Magazin: ${order.store.trim()}`,
-      '',
-      `Produse: ${order.items.trim()}`,
+      ...orders.flatMap((entry) => [`\n🏬 ${entry.store}`, entry.items.trim()]),
       '',
       `Client: ${order.name.trim()}`,
       `Telefon: ${order.phone.trim()}`,
@@ -72,22 +88,14 @@ export default {
         body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text }),
       });
     } catch {
-      return json({ ok: false, error: 'Nu am putut contacta Telegram. Încearcă din nou.' }, 502);
+      return json({ ok: false, error: 'Nu am putut contacta Telegram. Încearcă din nou.' }, 502, origin);
     }
 
     const telegramResult = await telegramResponse.json().catch(() => ({}));
     if (!telegramResponse.ok || !telegramResult.ok) {
-      return json({ ok: false, error: 'Telegram nu a acceptat mesajul. Verifică configurarea botului.' }, 502);
+      return json({ ok: false, error: 'Telegram nu a acceptat mesajul. Verifică configurarea botului.' }, 502, origin);
     }
 
-    return new Response(JSON.stringify({ ok: true }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'Cache-Control': 'no-store',
-        'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
-        'Vary': 'Origin',
-      },
-    });
+    return json({ ok: true }, 200, origin);
   },
 };
