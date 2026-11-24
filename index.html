@@ -24,11 +24,13 @@
     .stores { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
     .store-option { position:relative; }
     .store-option input { position:absolute; opacity:0; inset:0; cursor:pointer; }
-    .store-card { min-height:146px; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:8px; border:1px solid var(--line); border-radius:15px; cursor:pointer; transition:.18s; text-align:center; padding:12px; }
+    .store-card { position:relative; min-height:146px; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:8px; border:1px solid var(--line); border-radius:15px; cursor:pointer; transition:.18s; text-align:center; padding:12px; }
     .store-card img { display:block; width:100%; max-width:150px; height:68px; object-fit:contain; border-radius:8px; }
     .store-card strong { font-size:15px; }
     .store-card small { color:var(--muted); font-size:12px; }
+    .store-card::after { content:"✓"; position:absolute; top:9px; right:9px; display:grid; place-items:center; width:23px; height:23px; border-radius:50%; background:var(--green); color:#fff; font-size:14px; font-weight:800; opacity:0; transform:scale(.75); transition:.15s; }
     .store-option input:checked + .store-card { border:2px solid var(--green); background:#f0f8f2; box-shadow:0 0 0 3px #23755312; }
+    .store-option input:checked + .store-card::after { opacity:1; transform:scale(1); }
     .store-option input:focus-visible + .store-card { outline:3px solid #9ed6b5; outline-offset:2px; }
     .fields { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
     label.field { display:grid; gap:7px; color:#35443b; font-size:14px; font-weight:700; }
@@ -56,14 +58,14 @@
     </section>
     <form id="order-form">
       <section class="panel" aria-labelledby="store-heading">
-        <h2 class="step-title" id="store-heading"><span class="step">1</span> Alege magazinul</h2>
+        <h2 class="step-title" id="store-heading"><span class="step">1</span> Alege un magazin</h2>
         <div class="stores">
           <label class="store-option"><input type="radio" name="store" value="Bravo" required><span class="store-card"><img src="assets/bravo.svg" alt="Logo Bravo"><strong>Bravo</strong><small>Pizza și băuturi</small></span></label>
-          <label class="store-option"><input type="radio" name="store" value="Amore Sushi"><span class="store-card"><img src="assets/amore-sushi.svg" alt="Logo Amore Sushi"><strong>Amore Sushi</strong><small>Sushi și role</small></span></label>
-          <label class="store-option"><input type="radio" name="store" value="Panda"><span class="store-card"><img src="assets/panda.svg" alt="Logo Panda"><strong>Panda</strong><small>Shaorma și kebab</small></span></label>
-          <label class="store-option"><input type="radio" name="store" value="Farmacie"><span class="store-card"><img src="assets/farmacie.svg" alt="Logo Farmacia Familiei"><strong>Farmacie</strong><small>Produse farmaceutice</small></span></label>
-          <label class="store-option"><input type="radio" name="store" value="Samurai Sushi"><span class="store-card"><img src="assets/samurai-sushi.svg" alt="Logo Samurai Sushi"><strong>Samurai Sushi</strong><small>Sushi și role</small></span></label>
-          <label class="store-option"><input type="radio" name="store" value="Davidan"><span class="store-card"><img src="assets/davidan.svg" alt="Logo Davidan"><strong>Davidan</strong><small>Cafenea și produse de patiserie</small></span></label>
+          <label class="store-option"><input type="radio" name="store" value="Amore Sushi" required><span class="store-card"><img src="assets/amore-sushi.svg" alt="Logo Amore Sushi"><strong>Amore Sushi</strong><small>Sushi și role</small></span></label>
+          <label class="store-option"><input type="radio" name="store" value="Panda" required><span class="store-card"><img src="assets/panda.svg" alt="Logo Panda Central Point"><strong>Panda</strong><small>Shaorma și kebab</small></span></label>
+          <label class="store-option"><input type="radio" name="store" value="Farmacie" required><span class="store-card"><img src="assets/farmacie.svg" alt="Logo Farmacia Familiei"><strong>Farmacie</strong><small>Produse farmaceutice</small></span></label>
+          <label class="store-option"><input type="radio" name="store" value="Samurai Sushi" required><span class="store-card"><img src="assets/samurai-sushi.svg" alt="Logo Samurai Sushi"><strong>Samurai Sushi</strong><small>Sushi și role</small></span></label>
+          <label class="store-option"><input type="radio" name="store" value="Davidan" required><span class="store-card"><img src="assets/davidan.svg" alt="Logo Davidan"><strong>Davidan</strong><small>Cafenea și produse de patiserie</small></span></label>
         </div>
       </section>
       <section class="panel">
