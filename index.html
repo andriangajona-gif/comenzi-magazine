@@ -97,6 +97,7 @@
           <label class="field wide">Satul sau orașul
             <select id="locality" name="locality" required>
               <option value="" data-fee="">Alege localitatea</option>
+              <option value="Florești" data-fee="55">Florești — 55 lei</option>
               <option value="Vărvăreuca" data-fee="60">Vărvăreuca — 60 lei</option>
               <option value="Bubulești" data-fee="80">Bubulești — 80 lei</option>
               <option value="Alexeevca" data-fee="90">Alexeevca — 90 lei</option>
@@ -135,7 +136,6 @@
     </form>
   </main>
   <footer>Comanda este confirmată după ce primești un răspuns de la magazin.</footer>
-
   <dialog id="product-dialog" aria-labelledby="dialog-title">
     <div class="dialog-content">
       <h2 id="dialog-title">Produse pentru magazin</h2>
@@ -148,7 +148,6 @@
       </div>
     </div>
   </dialog>
-
   <script>
     const ORDER_API_URL = 'https://comenzitelegram.andriangajona.workers.dev/';
     const form = document.getElementById('order-form');
@@ -233,7 +232,6 @@
       const selectedOption = localitySelect.selectedOptions[0];
       const fee = Number(selectedOption.dataset.fee);
       if (!Number.isFinite(fee)) return;
-
       const payload = Object.fromEntries(new FormData(form).entries());
       payload.deliveryFee = fee;
       payload.orders = Array.from(orderByStore, ([store, items]) => ({ store, items }));
