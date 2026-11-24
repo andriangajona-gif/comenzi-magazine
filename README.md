@@ -1,14 +1,21 @@
 # ComandăLocal
 
-Site simplu în limba română pentru comenzi de la Bravo, Amore Sushi, Panda, Farmacie, Samurai Sushi și Davidan. Cardurile magazinelor includ logo-uri SVG locale. La alegerea magazinului, cardul selectat este evidențiat și primește un marcaj de bifă.
+Site în limba română pentru comenzi de la Bravo, Amore Sushi, Panda, Farmacie, Samurai Sushi și Davidan. Clientul completează formularul și trimite comanda direct pe Telegram printr-un Cloudflare Worker; pagina nu redirecționează clientul în Telegram.
 
-## Publicare pe GitHub Pages
+## Activarea trimiterii comenzilor în Telegram
 
-1. Deschide repository-ul și mergi la **Settings → Pages**.
-2. La **Build and deployment**, alege **Deploy from a branch**.
-3. Selectează ramura `main` și folderul `/ (root)`, apoi apasă **Save**.
-4. După publicare, site-ul va apărea la `https://andriangajona-gif.github.io/comenzi-magazine/`.
+Site-ul GitHub Pages este static, așa că tokenul Telegram nu trebuie pus în `index.html` sau în alt cod trimis browserului. Pentru trimitere directă, configurează `worker.js` ca Cloudflare Worker:
 
-## Cum ajunge comanda în Telegram
+1. Creează un bot cu `@BotFather` în Telegram și copiază tokenul privat. Nu îl publica și nu îl trimite în conversații.
+2. Deschide conversația cu botul și apasă **Start**.
+3. Află ID-ul numeric al conversației tale (de exemplu, printr-un bot de tip `getUpdates` după ce ai scris botului) și păstrează-l privat.
+4. În Cloudflare, creează un Worker nou și publică conținutul din `worker.js`.
+5. În Worker **Settings → Variables and Secrets**, adaugă ca **secrets** `TELEGRAM_BOT_TOKEN` (tokenul de la BotFather) și `TELEGRAM_CHAT_ID` (ID-ul conversației destinatare). Nu le adăuga în repository.
+6. În `index.html`, înlocuiește `https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev` din `ORDER_API_URL` cu URL-ul Worker-ului publicat și salvează modificarea.
+7. Pentru ca botul să poată trimite mesaje, ai nevoie să fi pornit conversația cu botul; apoi testează o comandă.
 
-Clientul completează formularul și apasă **Continuă în Telegram**. Se deschide conversația cu [@AndrianG2](https://t.me/AndrianG2) cu textul comenzii pregătit. Clientul trebuie să apese **Trimite** în Telegram pentru ca mesajul să ajungă la tine. Site-ul static nu transmite automat datele și nu are nevoie de un token de bot.
+Worker-ul acceptă cereri doar de la originea GitHub Pages a acestui repository și trimite prin Telegram numele, telefonul, adresa și detaliile comenzii. Configurează politicile de confidențialitate și păstrează tokenul botului secret. Înainte de configurare, formularul nu trimite nicio comandă și afișează un mesaj informativ.
+
+## Publicare GitHub Pages
+
+În repository mergi la **Settings → Pages**, alege **Deploy from a branch**, ramura `main` și folderul `/ (root)`. Site-ul este la `https://andriangajona-gif.github.io/comenzi-magazine/` după publicare.
