@@ -94,8 +94,7 @@
   </main>
   <footer>Comanda este confirmată după ce primești un răspuns de la magazin.</footer>
   <script>
-    // Înlocuiește URL-ul cu adresa Worker-ului Cloudflare după publicare. Nu pune tokenul botului aici.
-    const ORDER_API_URL = 'https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev';
+    const ORDER_API_URL = 'https://comenzitelegram.andriangajona.workers.dev/';
     const form = document.getElementById('order-form');
     const notice = document.getElementById('notice');
     const submitButton = document.getElementById('submit-button');
@@ -103,12 +102,6 @@
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!form.reportValidity()) return;
-      if (ORDER_API_URL.includes('YOUR-WORKER')) {
-        notice.className = 'notice error';
-        notice.textContent = 'Trimiterea comenzilor nu este încă activată. Administratorul trebuie să configureze Telegram bot și adresa serverului.';
-        notice.style.display = 'block';
-        return;
-      }
 
       const data = new FormData(form);
       const payload = Object.fromEntries(data.entries());
