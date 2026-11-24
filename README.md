@@ -18,6 +18,8 @@ Worker-ul acceptă cereri doar de la originea GitHub Pages a acestui repository 
 
 Primul magazin comandat este inclus în taxa de livrare, iar fiecare magazin suplimentar adaugă 10 lei. După modificarea `worker.js`, publică din nou codul în Cloudflare pentru ca validarea prețului și notificările comenzilor să rămână sincronizate cu site-ul.
 
+Catalogul Amore Sushi este construit din meniul PDF: include cele 39 de produse și imaginile lor, grupate momentan în Rolluri și Sushi. Produsele selectate și totalul lor sunt atașate comenzii către curier.
+
 ## Publicare GitHub Pages
 
 În repository mergi la **Settings → Pages**, alege **Deploy from a branch**, ramura `main` și folderul `/ (root)`. Site-ul este la `https://andriangajona-gif.github.io/comenzi-magazine/` după publicare.
