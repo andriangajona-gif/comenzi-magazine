@@ -15,6 +15,7 @@
     .top span { color:var(--green); }
     main { width:min(920px,calc(100% - 28px)); margin:38px auto 64px; }
     .intro { max-width:660px; margin:0 0 26px; }
+    .hero-image { width:100%; height:clamp(220px,42vw,390px); object-fit:cover; object-position:center 58%; display:block; border:1px solid rgba(255,255,255,.82); border-radius:26px; box-shadow:0 18px 45px rgba(39,70,52,.14); margin-bottom:18px; }
     .eyebrow { color:var(--green); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.13em; }
     h1 { margin:8px 0 10px; font-size:clamp(38px,7vw,60px); line-height:1.02; letter-spacing:-.065em; }
     .intro p { max-width:620px; margin:0; color:var(--muted); line-height:1.65; }
@@ -22,72 +23,32 @@
     .glass { border:1px solid var(--line); border-radius:24px; background:var(--glass); backdrop-filter:blur(24px) saturate(170%); -webkit-backdrop-filter:blur(24px) saturate(170%); box-shadow:0 18px 45px rgba(39,70,52,.10),inset 0 1px 0 rgba(255,255,255,.85); }
     .panel { padding:22px; }
     .step-title { display:flex; align-items:center; gap:11px; margin:0 0 18px; font-size:19px; letter-spacing:-.025em; }
-    .step { width:31px; height:31px; display:grid; place-items:center; border-radius:50%; background:rgba(36,123,86,.12); color:var(--green); font-size:14px; box-shadow:inset 0 1px 0 rgba(255,255,255,.9); }
+    .step { width:31px; height:31px; display:grid; place-items:center; border-radius:50%; background:rgba(36,123,86,.12); color:var(--green); font-size:14px; }
     .stores { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
-    .store-card { position:relative; min-height:150px; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; border:1px solid rgba(255,255,255,.78); border-radius:18px; background:rgba(255,255,255,.46); color:var(--ink); cursor:pointer; text-align:center; padding:11px; font:inherit; overflow:hidden; box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 7px 18px rgba(43,77,59,.05); transition:transform .18s,background .18s,border-color .18s,box-shadow .18s; }
-    .store-card::before { content:""; position:absolute; inset:0; background:linear-gradient(145deg,rgba(255,255,255,.42),transparent 55%); pointer-events:none; }
+    .store-card { position:relative; min-height:150px; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; border:1px solid rgba(255,255,255,.78); border-radius:18px; background:rgba(255,255,255,.46); color:var(--ink); cursor:pointer; text-align:center; padding:11px; font:inherit; overflow:hidden; box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 7px 18px rgba(43,77,59,.05); transition:.18s; }
     .store-card:hover { transform:translateY(-2px); background:rgba(255,255,255,.68); }
-    .store-card[aria-pressed="true"] { border-color:rgba(36,123,86,.72); background:rgba(220,241,228,.66); box-shadow:0 0 0 3px rgba(36,123,86,.09),inset 0 1px 0 rgba(255,255,255,.95); }
+    .store-card[aria-pressed="true"] { border-color:rgba(36,123,86,.72); background:rgba(220,241,228,.66); box-shadow:0 0 0 3px rgba(36,123,86,.09); }
     .store-card img { display:block; width:100%; max-width:145px; height:66px; object-fit:contain; border-radius:8px; }
-    .store-card[data-store="Amore Sushi"] img { object-fit:cover; max-width:150px; height:76px; border-radius:12px; box-shadow:0 5px 14px rgba(26,33,28,.16); }
-    .store-card strong { font-size:15px; }
-    .store-card small { color:var(--muted); font-size:12px; }
-    .store-status { min-height:18px; color:var(--green); font-size:12px; font-weight:750; }
-    .hint { margin:12px 2px 0; color:var(--muted); font-size:13px; line-height:1.5; }
-    .summary { display:grid; gap:8px; margin-top:15px; }
-    .summary:empty { display:none; }
-    .summary-item { border:1px solid rgba(255,255,255,.8); border-radius:14px; background:rgba(255,255,255,.48); padding:12px 14px; }
-    .summary-item strong { display:block; margin-bottom:4px; }
-    .summary-item p { margin:0; color:#405047; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.45; }
-    .fields { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
-    label.field { display:grid; gap:7px; color:#35443b; font-size:14px; font-weight:750; }
-    input[type="text"],input[type="tel"],select,textarea { width:100%; border:1px solid rgba(188,205,195,.8); border-radius:13px; background:rgba(255,255,255,.72); color:var(--ink); padding:13px 14px; font:400 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; outline:none; box-shadow:inset 0 1px 2px rgba(42,63,51,.03),0 1px 0 rgba(255,255,255,.8); }
-    input:focus,select:focus,textarea:focus { border-color:rgba(36,123,86,.72); box-shadow:0 0 0 4px rgba(36,123,86,.10),inset 0 1px 2px rgba(42,63,51,.03); }
-    textarea { min-height:145px; resize:vertical; line-height:1.5; }
-    .wide { grid-column:1/-1; }
+    .store-card[data-store="Amore Sushi"] img { object-fit:cover; max-width:150px; height:76px; border-radius:12px; }
+    .store-card strong { font-size:15px; }.store-card small { color:var(--muted); font-size:12px; }.store-status { min-height:18px; color:var(--green); font-size:12px; font-weight:750; }
+    .hint { margin:12px 2px 0; color:var(--muted); font-size:13px; line-height:1.5; }.summary { display:grid; gap:8px; margin-top:15px; }.summary:empty { display:none; }.summary-item { border:1px solid rgba(255,255,255,.8); border-radius:14px; background:rgba(255,255,255,.48); padding:12px 14px; }.summary-item strong { display:block; margin-bottom:4px; }.summary-item p { margin:0; color:#405047; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.45; }
+    .fields { display:grid; grid-template-columns:1fr 1fr; gap:13px; }label.field { display:grid; gap:7px; color:#35443b; font-size:14px; font-weight:750; }
+    input[type="text"],input[type="tel"],select,textarea { width:100%; border:1px solid rgba(188,205,195,.8); border-radius:13px; background:rgba(255,255,255,.72); color:var(--ink); padding:13px 14px; font:400 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; outline:none; }.wide { grid-column:1/-1; }
     .delivery-price { grid-column:1/-1; border:1px solid rgba(255,255,255,.82); border-radius:14px; background:rgba(219,239,226,.72); color:#185b38; padding:13px 15px; font-weight:800; }
-    .submit { border:1px solid rgba(255,255,255,.3); border-radius:15px; background:linear-gradient(180deg,rgba(43,145,96,.96),rgba(30,112,77,.96)); color:#fff; padding:16px 22px; font:800 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; cursor:pointer; box-shadow:0 12px 24px rgba(36,123,86,.24),inset 0 1px 0 rgba(255,255,255,.32); transition:.18s; }
-    .submit:hover { transform:translateY(-1px); filter:saturate(1.05); }
-    .submit:disabled { opacity:.62; cursor:wait; transform:none; }
-    .privacy { margin:-7px 10px 0; color:var(--muted); text-align:center; font-size:12px; line-height:1.5; }
-    .notice { display:none; border-radius:14px; padding:13px 15px; font-size:14px; line-height:1.5; backdrop-filter:blur(16px); }
-    .notice.success { background:rgba(220,244,228,.82); color:#185b38; }
-    .notice.error { background:rgba(255,235,230,.88); color:#8d2b1d; }
-    dialog { width:min(620px,calc(100% - 28px)); max-height:min(88dvh,760px); padding:0; border:1px solid rgba(255,255,255,.82); border-radius:26px; color:var(--ink); background:rgba(247,250,247,.92); backdrop-filter:blur(30px) saturate(180%); -webkit-backdrop-filter:blur(30px) saturate(180%); box-shadow:0 30px 100px rgba(24,50,36,.32); overflow:hidden; }
-    dialog::backdrop { background:rgba(27,48,38,.38); backdrop-filter:blur(11px); -webkit-backdrop-filter:blur(11px); }
-    .store-dialog-banner { min-height:158px; display:flex; align-items:center; gap:18px; padding:18px 22px; color:#fff; position:relative; overflow:hidden; background:linear-gradient(135deg,#207853,#4dbb82); }
-    .store-dialog-banner::before { content:""; position:absolute; width:230px; height:230px; right:-90px; top:-115px; border-radius:50%; background:rgba(255,255,255,.18); }
-    .store-dialog-banner::after { content:""; position:absolute; width:140px; height:140px; left:-70px; bottom:-100px; border-radius:50%; background:rgba(255,255,255,.12); }
-    .store-dialog-banner img { width:118px; height:118px; object-fit:contain; padding:10px; border-radius:22px; background:rgba(255,255,255,.94); box-shadow:0 12px 28px rgba(0,0,0,.18); z-index:1; }
-    dialog[data-store="Amore Sushi"] .store-dialog-banner img { object-fit:cover; padding:0; background:#fff; }
-    .store-dialog-copy { z-index:1; }
-    .store-dialog-copy small { display:block; margin-bottom:5px; text-transform:uppercase; letter-spacing:.12em; opacity:.82; font-size:11px; }
-    .store-dialog-copy h2 { margin:0; font-size:clamp(24px,7vw,36px); line-height:1.05; letter-spacing:-.045em; text-shadow:0 2px 12px rgba(0,0,0,.16); }
-    dialog[data-store="Bravo"] .store-dialog-banner { background:linear-gradient(135deg,#9e1518,#ef3b21 58%,#ffb400); }
-    dialog[data-store="Amore Sushi"] .store-dialog-banner { background:linear-gradient(135deg,#160f18,#43212e 58%,#a63e5b); }
-    dialog[data-store="Panda"] .store-dialog-banner { background:linear-gradient(135deg,#f0c400,#d91f26 48%,#8e1017); }
-    dialog[data-store="Panda"] .store-dialog-copy h2 { color:#fff5b0; }
-    dialog[data-store="Farmacie"] .store-dialog-banner { background:linear-gradient(135deg,#167d4b,#34a865 58%,#93cf5b); }
-    dialog[data-store="Samurai Sushi"] .store-dialog-banner { background:linear-gradient(135deg,#11161e,#262d3a 58%,#bb1d32); }
-    dialog[data-store="Davidan"] .store-dialog-banner { background:linear-gradient(135deg,#7d3c0a,#cf5d1a 55%,#ffbd62); }
-    .dialog-content { padding:22px; }
-    .dialog-content p { margin:0 0 16px; color:var(--muted); line-height:1.5; }
-    .dialog-content textarea { min-height:180px; }
-    .dialog-actions { display:flex; justify-content:flex-end; gap:9px; margin-top:16px; }
-    .secondary,.save-products { border-radius:12px; padding:12px 16px; font:750 15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; cursor:pointer; }
-    .secondary { border:1px solid rgba(160,180,169,.52); background:rgba(255,255,255,.66); color:var(--ink); }
-    .save-products { border:1px solid rgba(255,255,255,.28); background:var(--green); color:#fff; }
+    .submit { border:1px solid rgba(255,255,255,.3); border-radius:15px; background:linear-gradient(180deg,rgba(43,145,96,.96),rgba(30,112,77,.96)); color:#fff; padding:16px 22px; font:800 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; cursor:pointer; }.submit:disabled { opacity:.62; cursor:wait; }.privacy { margin:-7px 10px 0; color:var(--muted); text-align:center; font-size:12px; line-height:1.5; }
+    .notice { display:none; border-radius:14px; padding:13px 15px; font-size:14px; }.notice.success { background:rgba(220,244,228,.82); color:#185b38; }.notice.error { background:rgba(255,235,230,.88); color:#8d2b1d; }
+    dialog { width:min(620px,calc(100% - 28px)); max-height:min(88dvh,760px); padding:0; border:1px solid rgba(255,255,255,.82); border-radius:26px; color:var(--ink); background:rgba(247,250,247,.92); box-shadow:0 30px 100px rgba(24,50,36,.32); overflow:hidden; }dialog::backdrop { background:rgba(27,48,38,.38); backdrop-filter:blur(11px); }.store-dialog-banner { min-height:158px; display:flex; align-items:center; gap:18px; padding:18px 22px; color:#fff; background:linear-gradient(135deg,#207853,#4dbb82); }.store-dialog-banner img { width:118px; height:118px; object-fit:cover; border-radius:22px; }.store-dialog-copy small { display:block; text-transform:uppercase; letter-spacing:.12em; opacity:.82; }.store-dialog-copy h2 { margin:5px 0 0; font-size:36px; }dialog[data-store="Bravo"] .store-dialog-banner { background:linear-gradient(135deg,#9e1518,#ef3b21,#ffb400); }dialog[data-store="Amore Sushi"] .store-dialog-banner { background:linear-gradient(135deg,#160f18,#43212e,#a63e5b); }dialog[data-store="Panda"] .store-dialog-banner { background:linear-gradient(135deg,#f0c400,#d91f26,#8e1017); }dialog[data-store="Farmacie"] .store-dialog-banner { background:linear-gradient(135deg,#167d4b,#34a865,#93cf5b); }dialog[data-store="Samurai Sushi"] .store-dialog-banner { background:linear-gradient(135deg,#11161e,#262d3a,#bb1d32); }dialog[data-store="Davidan"] .store-dialog-banner { background:linear-gradient(135deg,#7d3c0a,#cf5d1a,#ffbd62); }
+    .dialog-content { padding:22px; }.dialog-actions { display:flex; justify-content:flex-end; gap:9px; margin-top:16px; }.secondary,.save-products { border-radius:12px; padding:12px 16px; font-weight:750; cursor:pointer; }.secondary { border:1px solid #b0c0b6; background:#fff; }.save-products { border:0; background:var(--green); color:#fff; }
     footer { color:var(--muted); text-align:center; font-size:12px; padding:0 16px 28px; }
-    @media(max-width:650px) { main { margin-top:28px; } .stores { grid-template-columns:repeat(2,minmax(0,1fr)); } .panel { padding:17px; } }
-    @media(max-width:460px) { .fields { grid-template-columns:1fr; } .wide,.delivery-price { grid-column:auto; } .store-card { min-height:138px; } .store-dialog-banner { min-height:145px; gap:13px; padding:15px; } .store-dialog-banner img { width:96px; height:96px; } .dialog-content { padding:18px; } }
+    @media(max-width:650px){main{margin-top:28px}.stores{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:17px}.hero-image{height:210px;border-radius:20px}}@media(max-width:460px){.fields{grid-template-columns:1fr}.wide,.delivery-price{grid-column:auto}.store-card{min-height:138px}}
   </style>
 </head>
 <body>
   <header class="top"><span>Curier cu livrare din Florești la tine acasă</span></header>
   <main>
     <section class="intro">
-      <div class="eyebrow">Simplu și rapid</div>
-      <h1>Ce dorești să comanzi?</h1>
+      <img class="hero-image" src="assets/IMG_0260.jpeg" alt="Intrarea în Florești">
+      <div class="eyebrow">Simplu și rapid</div><h1>Ce dorești să comanzi?</h1>
       <p>Alege magazinele și produsele dorite, apoi selectează localitatea pentru a vedea prețul livrării.</p>
     </section>
     <form id="order-form">
@@ -101,84 +62,35 @@
           <button class="store-card" type="button" data-store="Samurai Sushi" aria-pressed="false"><img src="assets/samurai-sushi.svg" alt=""><strong>Samurai Sushi</strong><small>Sushi și role</small><span class="store-status"></span></button>
           <button class="store-card" type="button" data-store="Davidan" aria-pressed="false"><img src="assets/davidan.svg" alt=""><strong>Davidan</strong><small>Cafenea și produse de patiserie</small><span class="store-status"></span></button>
         </div>
-        <p class="hint">Apasă pe un magazin ca să scrii produsele dorite. Lista fiecărui magazin se salvează separat.</p>
-        <div class="summary" id="order-summary" aria-live="polite"></div>
+        <p class="hint">Apasă pe un magazin ca să scrii produsele dorite. Lista fiecărui magazin se salvează separat.</p><div class="summary" id="order-summary" aria-live="polite"></div>
       </section>
       <section class="panel glass">
         <h2 class="step-title"><span class="step">2</span> Date pentru livrare</h2>
         <div class="fields">
-          <label class="field">Nume și prenume<input type="text" name="name" autocomplete="name" placeholder="Numele tău" maxlength="120" required></label>
-          <label class="field">Număr de telefon<input type="tel" name="phone" autocomplete="tel" placeholder="+373 ..." maxlength="40" required></label>
-          <label class="field wide">Satul sau orașul
-            <select id="locality" name="locality" required>
-              <option value="" data-fee="">Alege localitatea</option>
-              <option value="Florești" data-fee="55">Florești — 55 lei</option>
-              <option value="Vărvăreuca" data-fee="60">Vărvăreuca — 60 lei</option>
-              <option value="Bubulești" data-fee="80">Bubulești — 80 lei</option>
-              <option value="Alexeevca" data-fee="90">Alexeevca — 90 lei</option>
-              <option value="Gura Camencii" data-fee="90">Gura Camencii — 90 lei</option>
-              <option value="Mărculești" data-fee="100">Mărculești — 100 lei</option>
-              <option value="Lunga" data-fee="110">Lunga — 110 lei</option>
-              <option value="Gura Căinarului" data-fee="120">Gura Căinarului — 120 lei</option>
-              <option value="Cenușa" data-fee="130">Cenușa — 130 lei</option>
-              <option value="Roșietici" data-fee="130">Roșietici — 130 lei</option>
-              <option value="Ghindești" data-fee="140">Ghindești — 140 lei</option>
-              <option value="Prajila" data-fee="140">Prajila — 140 lei</option>
-              <option value="Răduleni Vechi" data-fee="140">Răduleni Vechi — 140 lei</option>
-              <option value="Rogojeni" data-fee="140">Rogojeni — 140 lei</option>
-              <option value="Sevirova" data-fee="150">Sevirova — 150 lei</option>
-              <option value="Cașunca" data-fee="160">Cașunca — 160 lei</option>
-              <option value="Vadeni" data-fee="160">Vadeni — 160 lei</option>
-              <option value="Putinești" data-fee="180">Putinești — 180 lei</option>
-              <option value="Ciripcău" data-fee="190">Ciripcău — 190 lei</option>
-              <option value="Trifănești" data-fee="190">Trifănești — 190 lei</option>
-              <option value="Ciutulești" data-fee="200">Ciutulești — 200 lei</option>
-              <option value="Nicolaevca" data-fee="210">Nicolaevca — 210 lei</option>
-              <option value="Izvoare" data-fee="230">Izvoare — 230 lei</option>
-              <option value="Domulgeni" data-fee="250">Domulgeni — 250 lei</option>
-              <option value="Temeleuți" data-fee="330">Temeleuți — 330 lei</option>
-              <option value="Ștefănești" data-fee="350">Ștefănești — 350 lei</option>
-            </select>
-          </label>
-          <div class="delivery-price" id="delivery-price" aria-live="polite">Alege localitatea pentru a vedea costul livrării.</div>
-          <label class="field wide">Strada și numărul<input type="text" name="street" autocomplete="street-address" placeholder="Strada, numărul casei" maxlength="200" required></label>
-          <label class="field wide">Detalii suplimentare (opțional)<input type="text" name="details" placeholder="Scara, apartamentul sau indicații pentru curier" maxlength="300"></label>
+          <label class="field">Nume și prenume<input type="text" name="name" autocomplete="name" maxlength="120" required></label>
+          <label class="field">Număr de telefon<input type="tel" name="phone" autocomplete="tel" maxlength="40" required></label>
+          <label class="field wide">Satul sau orașul<select id="locality" name="locality" required><option value="" data-fee="">Alege localitatea</option><option value="Florești" data-fee="55">Florești — 55 lei</option><option value="Vărvăreuca" data-fee="60">Vărvăreuca — 60 lei</option><option value="Bubulești" data-fee="80">Bubulești — 80 lei</option><option value="Alexeevca" data-fee="90">Alexeevca — 90 lei</option><option value="Gura Camencii" data-fee="90">Gura Camencii — 90 lei</option><option value="Mărculești" data-fee="100">Mărculești — 100 lei</option><option value="Lunga" data-fee="110">Lunga — 110 lei</option><option value="Gura Căinarului" data-fee="120">Gura Căinarului — 120 lei</option><option value="Cenușa" data-fee="130">Cenușa — 130 lei</option><option value="Roșietici" data-fee="130">Roșietici — 130 lei</option><option value="Ghindești" data-fee="140">Ghindești — 140 lei</option><option value="Prajila" data-fee="140">Prajila — 140 lei</option><option value="Răduleni Vechi" data-fee="140">Răduleni Vechi — 140 lei</option><option value="Rogojeni" data-fee="140">Rogojeni — 140 lei</option><option value="Sevirova" data-fee="150">Sevirova — 150 lei</option><option value="Cașunca" data-fee="160">Cașunca — 160 lei</option><option value="Vadeni" data-fee="160">Vadeni — 160 lei</option><option value="Putinești" data-fee="180">Putinești — 180 lei</option><option value="Ciripcău" data-fee="190">Ciripcău — 190 lei</option><option value="Trifănești" data-fee="190">Trifănești — 190 lei</option><option value="Ciutulești" data-fee="200">Ciutulești — 200 lei</option><option value="Nicolaevca" data-fee="210">Nicolaevca — 210 lei</option><option value="Izvoare" data-fee="230">Izvoare — 230 lei</option><option value="Domulgeni" data-fee="250">Domulgeni — 250 lei</option><option value="Temeleuți" data-fee="330">Temeleuți — 330 lei</option><option value="Ștefănești" data-fee="350">Ștefănești — 350 lei</option></select></label>
+          <div class="delivery-price" id="delivery-price">Alege localitatea pentru a vedea costul livrării.</div>
+          <label class="field wide">Strada și numărul<input type="text" name="street" autocomplete="street-address" maxlength="200" required></label>
+          <label class="field wide">Detalii suplimentare (opțional)<input type="text" name="details" maxlength="300"></label>
         </div>
       </section>
-      <div id="notice" class="notice" role="status" aria-live="polite"></div>
-      <button class="submit" id="submit-button" type="submit">Trimite comanda&nbsp; →</button>
+      <div id="notice" class="notice" role="status"></div><button class="submit" id="submit-button" type="submit">Trimite comanda&nbsp; →</button>
       <p class="privacy">Numele, telefonul, adresa, produsele și prețul livrării vor fi trimise către administrator prin Telegram.</p>
     </form>
   </main>
   <footer>Comanda este confirmată după ce primești un răspuns de la magazin.</footer>
-  <dialog id="product-dialog" aria-labelledby="dialog-store-name">
-    <div class="store-dialog-banner">
-      <img id="dialog-store-logo" src="" alt="">
-      <div class="store-dialog-copy"><small>Comandă de la</small><h2 id="dialog-store-name">Magazin</h2></div>
-    </div>
-    <div class="dialog-content">
-      <p>Scrie produsele și cantitățile dorite de la acest magazin.</p>
-      <label class="field" for="store-items">Produsele dorite</label>
-      <textarea id="store-items" maxlength="3000" placeholder="Exemplu: 2 pizza Margherita și 1 suc"></textarea>
-      <div class="dialog-actions"><button class="secondary" id="cancel-products" type="button">Anulează</button><button class="save-products" id="save-products" type="button">Salvează produsele</button></div>
-    </div>
-  </dialog>
+  <dialog id="product-dialog" aria-labelledby="dialog-store-name"><div class="store-dialog-banner"><img id="dialog-store-logo" src="" alt=""><div class="store-dialog-copy"><small>Comandă de la</small><h2 id="dialog-store-name">Magazin</h2></div></div><div class="dialog-content"><p>Scrie produsele și cantitățile dorite de la acest magazin.</p><label class="field" for="store-items">Produsele dorite</label><textarea id="store-items" maxlength="3000"></textarea><div class="dialog-actions"><button class="secondary" id="cancel-products" type="button">Anulează</button><button class="save-products" id="save-products" type="button">Salvează produsele</button></div></div></dialog>
   <script>
     const ORDER_API_URL='https://comenzitelegram.andriangajona.workers.dev/';
     const STORE_ASSETS={Bravo:'assets/bravo.svg','Amore Sushi':'assets/IMG_0261.jpeg',Panda:'assets/panda.svg',Farmacie:'assets/farmacie.svg','Samurai Sushi':'assets/samurai-sushi.svg',Davidan:'assets/davidan.svg'};
-    const form=document.getElementById('order-form'),notice=document.getElementById('notice'),submitButton=document.getElementById('submit-button');
-    const dialog=document.getElementById('product-dialog'),itemsInput=document.getElementById('store-items'),summary=document.getElementById('order-summary');
-    const localitySelect=document.getElementById('locality'),deliveryPrice=document.getElementById('delivery-price');
-    const orderByStore=new Map();let activeStore='';
+    const form=document.getElementById('order-form'),notice=document.getElementById('notice'),submitButton=document.getElementById('submit-button'),dialog=document.getElementById('product-dialog'),itemsInput=document.getElementById('store-items'),summary=document.getElementById('order-summary'),localitySelect=document.getElementById('locality'),deliveryPrice=document.getElementById('delivery-price'),orderByStore=new Map();let activeStore='';
     function updateStoreCards(){document.querySelectorAll('.store-card').forEach(card=>{const has=orderByStore.has(card.dataset.store);card.setAttribute('aria-pressed',String(has));card.querySelector('.store-status').textContent=has?'Produse salvate ✓':'Apasă pentru a adăuga';});}
     function renderSummary(){summary.replaceChildren();for(const[store,items]of orderByStore){const row=document.createElement('div');row.className='summary-item';const title=document.createElement('strong');title.textContent=store;const products=document.createElement('p');products.textContent=items;row.append(title,products);summary.append(row);}updateStoreCards();}
-    function updateDeliveryPrice(){const option=localitySelect.selectedOptions[0];deliveryPrice.textContent=option&&option.dataset.fee?`Costul livrării la ${option.value}: ${option.dataset.fee} lei.`:'Alege localitatea pentru a vedea costul livrării.';}
-    localitySelect.addEventListener('change',updateDeliveryPrice);
+    function updateDeliveryPrice(){const option=localitySelect.selectedOptions[0];deliveryPrice.textContent=option&&option.dataset.fee?`Costul livrării la ${option.value}: ${option.dataset.fee} lei.`:'Alege localitatea pentru a vedea costul livrării.';}localitySelect.addEventListener('change',updateDeliveryPrice);
     document.getElementById('stores').addEventListener('click',event=>{const card=event.target.closest('.store-card');if(!card)return;activeStore=card.dataset.store;dialog.dataset.store=activeStore;document.getElementById('dialog-store-name').textContent=activeStore;const logo=document.getElementById('dialog-store-logo');logo.src=STORE_ASSETS[activeStore];logo.alt=`Imagine ${activeStore}`;itemsInput.value=orderByStore.get(activeStore)||'';dialog.showModal();document.body.classList.add('dialog-open');itemsInput.focus();});
-    function closeDialog(){dialog.close();document.body.classList.remove('dialog-open');}
-    document.getElementById('cancel-products').addEventListener('click',closeDialog);dialog.addEventListener('close',()=>document.body.classList.remove('dialog-open'));
-    document.getElementById('save-products').addEventListener('click',()=>{const items=itemsInput.value.trim();if(!items)orderByStore.delete(activeStore);else orderByStore.set(activeStore,items);renderSummary();closeDialog();});
-    form.addEventListener('submit',async event=>{event.preventDefault();if(orderByStore.size===0){notice.className='notice error';notice.textContent='Alege cel puțin un magazin și salvează produsele dorite.';notice.style.display='block';document.getElementById('stores').scrollIntoView({behavior:'smooth',block:'center'});return;}if(!form.reportValidity())return;const option=localitySelect.selectedOptions[0],fee=Number(option.dataset.fee);if(!Number.isFinite(fee))return;const payload=Object.fromEntries(new FormData(form).entries());payload.deliveryFee=fee;payload.orders=Array.from(orderByStore,([store,items])=>({store,items}));submitButton.disabled=true;submitButton.textContent='Se trimite comanda…';notice.style.display='none';try{const response=await fetch(ORDER_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await response.json().catch(()=>({}));if(!response.ok||!result.ok)throw new Error(result.error||'Nu s-a putut trimite comanda.');form.reset();orderByStore.clear();renderSummary();updateDeliveryPrice();notice.className='notice success';notice.textContent='Comanda a fost trimisă cu succes. Te vom contacta pentru confirmare.';notice.style.display='block';notice.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(error){notice.className='notice error';notice.textContent=error.message||'Eroare la trimitere. Încearcă din nou mai târziu.';notice.style.display='block';}finally{submitButton.disabled=false;submitButton.innerHTML='Trimite comanda&nbsp; →';}});
+    function closeDialog(){dialog.close();document.body.classList.remove('dialog-open');}document.getElementById('cancel-products').addEventListener('click',closeDialog);dialog.addEventListener('close',()=>document.body.classList.remove('dialog-open'));document.getElementById('save-products').addEventListener('click',()=>{const items=itemsInput.value.trim();if(!items)orderByStore.delete(activeStore);else orderByStore.set(activeStore,items);renderSummary();closeDialog();});
+    form.addEventListener('submit',async event=>{event.preventEvent();if(orderByStore.size===0){notice.className='notice error';notice.textContent='Alege cel puțin un magazin și salvează produsele dorite.';notice.style.display='block';document.getElementById('stores').scrollIntoView({behavior:'smooth',block:'center'});return;}if(!form.reportValidity())return;const option=localitySelect.selectedOptions[0],fee=Number(option.dataset.fee);if(!Number.isFinite(fee))return;const payload=Object.fromEntries(new FormData(form).entries());payload.deliveryFee=fee;payload.orders=Array.from(orderByStore,([store,items])=>({store,items}));submitButton.disabled=true;submitButton.textContent='Se trimite comanda…';notice.style.display='none';try{const response=await fetch(ORDER_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await response.json().catch(()=>({}));if(!response.ok||!result.ok)throw new Error(result.error||'Nu s-a putut trimite comanda.');form.reset();orderByStore.clear();renderSummary();updateDeliveryPrice();notice.className='notice success';notice.textContent='Comanda a fost trimisă cu succes. Te vom contacta pentru confirmare.';notice.style.display='block';}catch(error){notice.className='notice error';notice.textContent=error.message||'Eroare la trimitere.';notice.style.display='block';}finally{submitButton.disabled=false;submitButton.innerHTML='Trimite comanda&nbsp; →';}});
   </script>
 </body>
 </html>
