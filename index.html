@@ -113,7 +113,7 @@
               <option value="Rogojeni" data-fee="140">Rogojeni — 140 lei</option>
               <option value="Sevirova" data-fee="150">Sevirova — 150 lei</option>
               <option value="Cașunca" data-fee="160">Cașunca — 160 lei</option>
-              <option value="Vadeni" data-fee="170">Vadeni — 170 lei</option>
+              <option value="Vadeni" data-fee="160">Vadeni — 160 lei</option>
               <option value="Putinești" data-fee="180">Putinești — 180 lei</option>
               <option value="Ciripcău" data-fee="190">Ciripcău — 190 lei</option>
               <option value="Trifănești" data-fee="190">Trifănești — 190 lei</option>
@@ -121,7 +121,7 @@
               <option value="Nicolaevca" data-fee="210">Nicolaevca — 210 lei</option>
               <option value="Izvoare" data-fee="230">Izvoare — 230 lei</option>
               <option value="Domulgeni" data-fee="250">Domulgeni — 250 lei</option>
-              <option value="Temeleuți" data-fee="340">Temeleuți — 340 lei</option>
+              <option value="Temeleuți" data-fee="330">Temeleuți — 330 lei</option>
               <option value="Ștefănești" data-fee="350">Ștefănești — 350 lei</option>
             </select>
           </label>
@@ -205,10 +205,7 @@
       itemsInput.focus();
     });
 
-    function closeDialog() {
-      dialog.close();
-      document.body.classList.remove('dialog-open');
-    }
+    function closeDialog() { dialog.close(); document.body.classList.remove('dialog-open'); }
     document.getElementById('cancel-products').addEventListener('click', closeDialog);
     dialog.addEventListener('close', () => document.body.classList.remove('dialog-open'));
     document.getElementById('save-products').addEventListener('click', () => {
@@ -239,11 +236,7 @@
       submitButton.textContent = 'Se trimite comanda…';
       notice.style.display = 'none';
       try {
-        const response = await fetch(ORDER_API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
+        const response = await fetch(ORDER_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         const result = await response.json().catch(() => ({}));
         if (!response.ok || !result.ok) throw new Error(result.error || 'Nu s-a putut trimite comanda.');
         form.reset();

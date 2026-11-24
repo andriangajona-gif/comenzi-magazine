@@ -17,7 +17,7 @@ const DELIVERY_FEES = {
   'Rogojeni': 140,
   'Sevirova': 150,
   'Cașunca': 160,
-  'Vadeni': 170,
+  'Vadeni': 160,
   'Putinești': 180,
   'Ciripcău': 190,
   'Trifănești': 190,
@@ -25,7 +25,7 @@ const DELIVERY_FEES = {
   'Nicolaevca': 210,
   'Izvoare': 230,
   'Domulgeni': 250,
-  'Temeleuți': 340,
+  'Temeleuți': 330,
   'Ștefănești': 350,
 };
 
