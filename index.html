@@ -9,28 +9,12 @@
   <style>
     :root { --ink:#153128; --muted:#64756d; --green:#247b56; --line:rgba(255,255,255,.72); --glass:rgba(255,255,255,.68); }
     * { box-sizing:border-box; }
-    body {
-      margin:0; min-height:100vh; color:var(--ink);
-      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
-      background:
-        radial-gradient(circle at 12% 8%, rgba(164,211,184,.62), transparent 28%),
-        radial-gradient(circle at 92% 18%, rgba(210,229,196,.72), transparent 30%),
-        radial-gradient(circle at 70% 92%, rgba(176,211,198,.48), transparent 32%),
-        #edf2ed;
-      background-attachment:fixed;
-    }
-    body::before, body::after { content:""; position:fixed; z-index:-1; border-radius:50%; filter:blur(8px); }
+    body { margin:0; min-height:100vh; color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif; background:radial-gradient(circle at 12% 8%,rgba(164,211,184,.62),transparent 28%),radial-gradient(circle at 92% 18%,rgba(210,229,196,.72),transparent 30%),radial-gradient(circle at 70% 92%,rgba(176,211,198,.48),transparent 32%),#edf2ed; background-attachment:fixed; }
+    body::before,body::after { content:""; position:fixed; z-index:-1; border-radius:50%; filter:blur(8px); }
     body::before { width:260px; height:260px; left:-90px; top:35%; background:rgba(255,255,255,.48); }
     body::after { width:220px; height:220px; right:-70px; bottom:8%; background:rgba(140,196,164,.28); }
     body.dialog-open { overflow:hidden; }
-    .top {
-      position:sticky; top:0; z-index:20; height:64px; display:flex; align-items:center;
-      padding:0 max(22px,calc((100% - 1080px)/2));
-      border-bottom:1px solid rgba(255,255,255,.72);
-      background:rgba(247,250,247,.72); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%);
-      font-size:20px; font-weight:800; letter-spacing:-.04em;
-      box-shadow:0 1px 18px rgba(38,71,54,.04);
-    }
+    .top { position:sticky; top:0; z-index:20; height:64px; display:flex; align-items:center; padding:0 max(22px,calc((100% - 1080px)/2)); border-bottom:1px solid rgba(255,255,255,.72); background:rgba(247,250,247,.72); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); font-size:20px; font-weight:800; letter-spacing:-.04em; box-shadow:0 1px 18px rgba(38,71,54,.04); }
     .top span { color:var(--green); }
     main { width:min(920px,calc(100% - 28px)); margin:38px auto 64px; }
     .intro { max-width:660px; margin:0 0 26px; }
@@ -38,25 +22,15 @@
     h1 { margin:8px 0 10px; font-size:clamp(38px,7vw,60px); line-height:1.02; letter-spacing:-.065em; }
     .intro p { max-width:620px; margin:0; color:var(--muted); line-height:1.65; }
     form#order-form { display:grid; gap:16px; }
-    .glass {
-      border:1px solid var(--line); border-radius:24px;
-      background:var(--glass); backdrop-filter:blur(24px) saturate(170%); -webkit-backdrop-filter:blur(24px) saturate(170%);
-      box-shadow:0 18px 45px rgba(39,70,52,.10), inset 0 1px 0 rgba(255,255,255,.85);
-    }
+    .glass { border:1px solid var(--line); border-radius:24px; background:var(--glass); backdrop-filter:blur(24px) saturate(170%); -webkit-backdrop-filter:blur(24px) saturate(170%); box-shadow:0 18px 45px rgba(39,70,52,.10),inset 0 1px 0 rgba(255,255,255,.85); }
     .panel { padding:22px; }
     .step-title { display:flex; align-items:center; gap:11px; margin:0 0 18px; font-size:19px; letter-spacing:-.025em; }
     .step { width:31px; height:31px; display:grid; place-items:center; border-radius:50%; background:rgba(36,123,86,.12); color:var(--green); font-size:14px; box-shadow:inset 0 1px 0 rgba(255,255,255,.9); }
     .stores { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
-    .store-card {
-      position:relative; min-height:150px; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px;
-      border:1px solid rgba(255,255,255,.78); border-radius:18px; background:rgba(255,255,255,.46); color:var(--ink); cursor:pointer;
-      text-align:center; padding:11px; font:inherit; overflow:hidden;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.92), 0 7px 18px rgba(43,77,59,.05);
-      transition:transform .18s, background .18s, border-color .18s, box-shadow .18s;
-    }
+    .store-card { position:relative; min-height:150px; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; border:1px solid rgba(255,255,255,.78); border-radius:18px; background:rgba(255,255,255,.46); color:var(--ink); cursor:pointer; text-align:center; padding:11px; font:inherit; overflow:hidden; box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 7px 18px rgba(43,77,59,.05); transition:transform .18s,background .18s,border-color .18s,box-shadow .18s; }
     .store-card::before { content:""; position:absolute; inset:0; background:linear-gradient(145deg,rgba(255,255,255,.42),transparent 55%); pointer-events:none; }
     .store-card:hover { transform:translateY(-2px); background:rgba(255,255,255,.68); }
-    .store-card[aria-pressed="true"] { border-color:rgba(36,123,86,.72); background:rgba(220,241,228,.66); box-shadow:0 0 0 3px rgba(36,123,86,.09), inset 0 1px 0 rgba(255,255,255,.95); }
+    .store-card[aria-pressed="true"] { border-color:rgba(36,123,86,.72); background:rgba(220,241,228,.66); box-shadow:0 0 0 3px rgba(36,123,86,.09),inset 0 1px 0 rgba(255,255,255,.95); }
     .store-card img { display:block; width:100%; max-width:145px; height:66px; object-fit:contain; border-radius:8px; }
     .store-card strong { font-size:15px; }
     .store-card small { color:var(--muted); font-size:12px; }
@@ -69,15 +43,12 @@
     .summary-item p { margin:0; color:#405047; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.45; }
     .fields { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
     label.field { display:grid; gap:7px; color:#35443b; font-size:14px; font-weight:750; }
-    input[type="text"],input[type="tel"],select,textarea {
-      width:100%; border:1px solid rgba(188,205,195,.8); border-radius:13px; background:rgba(255,255,255,.72); color:var(--ink); padding:13px 14px;
-      font:400 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; outline:none; box-shadow:inset 0 1px 2px rgba(42,63,51,.03), 0 1px 0 rgba(255,255,255,.8);
-    }
-    input:focus,select:focus,textarea:focus { border-color:rgba(36,123,86,.72); box-shadow:0 0 0 4px rgba(36,123,86,.10), inset 0 1px 2px rgba(42,63,51,.03); }
+    input[type="text"],input[type="tel"],select,textarea { width:100%; border:1px solid rgba(188,205,195,.8); border-radius:13px; background:rgba(255,255,255,.72); color:var(--ink); padding:13px 14px; font:400 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; outline:none; box-shadow:inset 0 1px 2px rgba(42,63,51,.03),0 1px 0 rgba(255,255,255,.8); }
+    input:focus,select:focus,textarea:focus { border-color:rgba(36,123,86,.72); box-shadow:0 0 0 4px rgba(36,123,86,.10),inset 0 1px 2px rgba(42,63,51,.03); }
     textarea { min-height:145px; resize:vertical; line-height:1.5; }
     .wide { grid-column:1/-1; }
     .delivery-price { grid-column:1/-1; border:1px solid rgba(255,255,255,.82); border-radius:14px; background:rgba(219,239,226,.72); color:#185b38; padding:13px 15px; font-weight:800; }
-    .submit { border:1px solid rgba(255,255,255,.3); border-radius:15px; background:linear-gradient(180deg,rgba(43,145,96,.96),rgba(30,112,77,.96)); color:#fff; padding:16px 22px; font:800 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; cursor:pointer; box-shadow:0 12px 24px rgba(36,123,86,.24), inset 0 1px 0 rgba(255,255,255,.32); transition:.18s; }
+    .submit { border:1px solid rgba(255,255,255,.3); border-radius:15px; background:linear-gradient(180deg,rgba(43,145,96,.96),rgba(30,112,77,.96)); color:#fff; padding:16px 22px; font:800 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; cursor:pointer; box-shadow:0 12px 24px rgba(36,123,86,.24),inset 0 1px 0 rgba(255,255,255,.32); transition:.18s; }
     .submit:hover { transform:translateY(-1px); filter:saturate(1.05); }
     .submit:disabled { opacity:.62; cursor:wait; transform:none; }
     .privacy { margin:-7px 10px 0; color:var(--muted); text-align:center; font-size:12px; line-height:1.5; }
@@ -100,7 +71,7 @@
   </style>
 </head>
 <body>
-  <header class="top">Comandă<span>Local</span></header>
+  <header class="top"><span>Curier cu livrare din Florești la tine acasă</span></header>
   <main>
     <section class="intro">
       <div class="eyebrow">Simplu și rapid</div>
@@ -186,18 +157,15 @@
     const dialog=document.getElementById('product-dialog'),itemsInput=document.getElementById('store-items'),summary=document.getElementById('order-summary');
     const localitySelect=document.getElementById('locality'),deliveryPrice=document.getElementById('delivery-price');
     const orderByStore=new Map(); let activeStore='';
-
     function updateStoreCards(){document.querySelectorAll('.store-card').forEach(card=>{const has=orderByStore.has(card.dataset.store);card.setAttribute('aria-pressed',String(has));card.querySelector('.store-status').textContent=has?'Produse salvate ✓':'Apasă pentru a adăuga';});}
     function renderSummary(){summary.replaceChildren();for(const[store,items]of orderByStore){const row=document.createElement('div');row.className='summary-item';const title=document.createElement('strong');title.textContent=store;const products=document.createElement('p');products.textContent=items;row.append(title,products);summary.append(row);}updateStoreCards();}
     function updateDeliveryPrice(){const option=localitySelect.selectedOptions[0];deliveryPrice.textContent=option&&option.dataset.fee?`Costul livrării la ${option.value}: ${option.dataset.fee} lei.`:'Alege localitatea pentru a vedea costul livrării.';}
     localitySelect.addEventListener('change',updateDeliveryPrice);
-
     document.getElementById('stores').addEventListener('click',event=>{const card=event.target.closest('.store-card');if(!card)return;activeStore=card.dataset.store;document.getElementById('dialog-title').textContent=`Ce dorești de la ${activeStore}?`;itemsInput.value=orderByStore.get(activeStore)||'';dialog.showModal();document.body.classList.add('dialog-open');itemsInput.focus();});
     function closeDialog(){dialog.close();document.body.classList.remove('dialog-open');}
     document.getElementById('cancel-products').addEventListener('click',closeDialog);
     dialog.addEventListener('close',()=>document.body.classList.remove('dialog-open'));
     document.getElementById('save-products').addEventListener('click',()=>{const items=itemsInput.value.trim();if(!items)orderByStore.delete(activeStore);else orderByStore.set(activeStore,items);renderSummary();closeDialog();});
-
     form.addEventListener('submit',async event=>{event.preventDefault();if(orderByStore.size===0){notice.className='notice error';notice.textContent='Alege cel puțin un magazin și salvează produsele dorite.';notice.style.display='block';document.getElementById('stores').scrollIntoView({behavior:'smooth',block:'center'});return;}if(!form.reportValidity())return;const option=localitySelect.selectedOptions[0],fee=Number(option.dataset.fee);if(!Number.isFinite(fee))return;const payload=Object.fromEntries(new FormData(form).entries());payload.deliveryFee=fee;payload.orders=Array.from(orderByStore,([store,items])=>({store,items}));submitButton.disabled=true;submitButton.textContent='Se trimite comanda…';notice.style.display='none';try{const response=await fetch(ORDER_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await response.json().catch(()=>({}));if(!response.ok||!result.ok)throw new Error(result.error||'Nu s-a putut trimite comanda.');form.reset();orderByStore.clear();renderSummary();updateDeliveryPrice();notice.className='notice success';notice.textContent='Comanda a fost trimisă cu succes. Te vom contacta pentru confirmare.';notice.style.display='block';notice.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(error){notice.className='notice error';notice.textContent=error.message||'Eroare la trimitere. Încearcă din nou mai târziu.';notice.style.display='block';}finally{submitButton.disabled=false;submitButton.innerHTML='Trimite comanda&nbsp; →';}});
   </script>
 </body>
