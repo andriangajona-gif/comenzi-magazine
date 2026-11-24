@@ -29,6 +29,7 @@
     .store-card:hover { transform:translateY(-2px); background:rgba(255,255,255,.68); }
     .store-card[aria-pressed="true"] { border-color:rgba(36,123,86,.72); background:rgba(220,241,228,.66); box-shadow:0 0 0 3px rgba(36,123,86,.09),inset 0 1px 0 rgba(255,255,255,.95); }
     .store-card img { display:block; width:100%; max-width:145px; height:66px; object-fit:contain; border-radius:8px; }
+    .store-card[data-store="Amore Sushi"] img { object-fit:cover; max-width:150px; height:76px; border-radius:12px; box-shadow:0 5px 14px rgba(26,33,28,.16); }
     .store-card strong { font-size:15px; }
     .store-card small { color:var(--muted); font-size:12px; }
     .store-status { min-height:18px; color:var(--green); font-size:12px; font-weight:750; }
@@ -52,18 +53,18 @@
     .notice { display:none; border-radius:14px; padding:13px 15px; font-size:14px; line-height:1.5; backdrop-filter:blur(16px); }
     .notice.success { background:rgba(220,244,228,.82); color:#185b38; }
     .notice.error { background:rgba(255,235,230,.88); color:#8d2b1d; }
-
     dialog { width:min(620px,calc(100% - 28px)); max-height:min(88dvh,760px); padding:0; border:1px solid rgba(255,255,255,.82); border-radius:26px; color:var(--ink); background:rgba(247,250,247,.92); backdrop-filter:blur(30px) saturate(180%); -webkit-backdrop-filter:blur(30px) saturate(180%); box-shadow:0 30px 100px rgba(24,50,36,.32); overflow:hidden; }
     dialog::backdrop { background:rgba(27,48,38,.38); backdrop-filter:blur(11px); -webkit-backdrop-filter:blur(11px); }
     .store-dialog-banner { min-height:158px; display:flex; align-items:center; gap:18px; padding:18px 22px; color:#fff; position:relative; overflow:hidden; background:linear-gradient(135deg,#207853,#4dbb82); }
     .store-dialog-banner::before { content:""; position:absolute; width:230px; height:230px; right:-90px; top:-115px; border-radius:50%; background:rgba(255,255,255,.18); }
     .store-dialog-banner::after { content:""; position:absolute; width:140px; height:140px; left:-70px; bottom:-100px; border-radius:50%; background:rgba(255,255,255,.12); }
     .store-dialog-banner img { width:118px; height:118px; object-fit:contain; padding:10px; border-radius:22px; background:rgba(255,255,255,.94); box-shadow:0 12px 28px rgba(0,0,0,.18); z-index:1; }
+    dialog[data-store="Amore Sushi"] .store-dialog-banner img { object-fit:cover; padding:0; background:#fff; }
     .store-dialog-copy { z-index:1; }
     .store-dialog-copy small { display:block; margin-bottom:5px; text-transform:uppercase; letter-spacing:.12em; opacity:.82; font-size:11px; }
     .store-dialog-copy h2 { margin:0; font-size:clamp(24px,7vw,36px); line-height:1.05; letter-spacing:-.045em; text-shadow:0 2px 12px rgba(0,0,0,.16); }
     dialog[data-store="Bravo"] .store-dialog-banner { background:linear-gradient(135deg,#9e1518,#ef3b21 58%,#ffb400); }
-    dialog[data-store="Amore Sushi"] .store-dialog-banner { background:linear-gradient(135deg,#650b27,#b20f45 58%,#ff4a79); }
+    dialog[data-store="Amore Sushi"] .store-dialog-banner { background:linear-gradient(135deg,#160f18,#43212e 58%,#a63e5b); }
     dialog[data-store="Panda"] .store-dialog-banner { background:linear-gradient(135deg,#f0c400,#d91f26 48%,#8e1017); }
     dialog[data-store="Panda"] .store-dialog-copy h2 { color:#fff5b0; }
     dialog[data-store="Farmacie"] .store-dialog-banner { background:linear-gradient(135deg,#167d4b,#34a865 58%,#93cf5b); }
@@ -94,7 +95,7 @@
         <h2 class="step-title" id="store-heading"><span class="step">1</span> Alege magazinele și produsele</h2>
         <div class="stores" id="stores">
           <button class="store-card" type="button" data-store="Bravo" aria-pressed="false"><img src="assets/bravo.svg" alt=""><strong>Bravo</strong><small>Pizza și băuturi</small><span class="store-status"></span></button>
-          <button class="store-card" type="button" data-store="Amore Sushi" aria-pressed="false"><img src="assets/amore-sushi.svg" alt=""><strong>Amore Sushi</strong><small>Sushi și role</small><span class="store-status"></span></button>
+          <button class="store-card" type="button" data-store="Amore Sushi" aria-pressed="false"><img src="assets/IMG_0261.jpeg" alt="Amore Sushi"><strong>Amore Sushi</strong><small>Sushi și role</small><span class="store-status"></span></button>
           <button class="store-card" type="button" data-store="Panda" aria-pressed="false"><img src="assets/panda.svg" alt=""><strong>Panda</strong><small>Shaorma și kebab</small><span class="store-status"></span></button>
           <button class="store-card" type="button" data-store="Farmacie" aria-pressed="false"><img src="assets/farmacie.svg" alt=""><strong>Farmacie</strong><small>Produse farmaceutice</small><span class="store-status"></span></button>
           <button class="store-card" type="button" data-store="Samurai Sushi" aria-pressed="false"><img src="assets/samurai-sushi.svg" alt=""><strong>Samurai Sushi</strong><small>Sushi și role</small><span class="store-status"></span></button>
@@ -150,39 +151,32 @@
     </form>
   </main>
   <footer>Comanda este confirmată după ce primești un răspuns de la magazin.</footer>
-  <dialog id="product-dialog" aria-labelledby="dialog-title">
+  <dialog id="product-dialog" aria-labelledby="dialog-store-name">
     <div class="store-dialog-banner">
       <img id="dialog-store-logo" src="" alt="">
-      <div class="store-dialog-copy">
-        <small>Comandă de la</small>
-        <h2 id="dialog-store-name">Magazin</h2>
-      </div>
+      <div class="store-dialog-copy"><small>Comandă de la</small><h2 id="dialog-store-name">Magazin</h2></div>
     </div>
     <div class="dialog-content">
       <p>Scrie produsele și cantitățile dorite de la acest magazin.</p>
       <label class="field" for="store-items">Produsele dorite</label>
       <textarea id="store-items" maxlength="3000" placeholder="Exemplu: 2 pizza Margherita și 1 suc"></textarea>
-      <div class="dialog-actions">
-        <button class="secondary" id="cancel-products" type="button">Anulează</button>
-        <button class="save-products" id="save-products" type="button">Salvează produsele</button>
-      </div>
+      <div class="dialog-actions"><button class="secondary" id="cancel-products" type="button">Anulează</button><button class="save-products" id="save-products" type="button">Salvează produsele</button></div>
     </div>
   </dialog>
   <script>
     const ORDER_API_URL='https://comenzitelegram.andriangajona.workers.dev/';
-    const STORE_ASSETS={Bravo:'assets/bravo.svg','Amore Sushi':'assets/amore-sushi.svg',Panda:'assets/panda.svg',Farmacie:'assets/farmacie.svg','Samurai Sushi':'assets/samurai-sushi.svg',Davidan:'assets/davidan.svg'};
+    const STORE_ASSETS={Bravo:'assets/bravo.svg','Amore Sushi':'assets/IMG_0261.jpeg',Panda:'assets/panda.svg',Farmacie:'assets/farmacie.svg','Samurai Sushi':'assets/samurai-sushi.svg',Davidan:'assets/davidan.svg'};
     const form=document.getElementById('order-form'),notice=document.getElementById('notice'),submitButton=document.getElementById('submit-button');
     const dialog=document.getElementById('product-dialog'),itemsInput=document.getElementById('store-items'),summary=document.getElementById('order-summary');
     const localitySelect=document.getElementById('locality'),deliveryPrice=document.getElementById('delivery-price');
-    const orderByStore=new Map(); let activeStore='';
+    const orderByStore=new Map();let activeStore='';
     function updateStoreCards(){document.querySelectorAll('.store-card').forEach(card=>{const has=orderByStore.has(card.dataset.store);card.setAttribute('aria-pressed',String(has));card.querySelector('.store-status').textContent=has?'Produse salvate ✓':'Apasă pentru a adăuga';});}
     function renderSummary(){summary.replaceChildren();for(const[store,items]of orderByStore){const row=document.createElement('div');row.className='summary-item';const title=document.createElement('strong');title.textContent=store;const products=document.createElement('p');products.textContent=items;row.append(title,products);summary.append(row);}updateStoreCards();}
     function updateDeliveryPrice(){const option=localitySelect.selectedOptions[0];deliveryPrice.textContent=option&&option.dataset.fee?`Costul livrării la ${option.value}: ${option.dataset.fee} lei.`:'Alege localitatea pentru a vedea costul livrării.';}
     localitySelect.addEventListener('change',updateDeliveryPrice);
-    document.getElementById('stores').addEventListener('click',event=>{const card=event.target.closest('.store-card');if(!card)return;activeStore=card.dataset.store;dialog.dataset.store=activeStore;document.getElementById('dialog-store-name').textContent=activeStore;const logo=document.getElementById('dialog-store-logo');logo.src=STORE_ASSETS[activeStore];logo.alt=`Logo ${activeStore}`;itemsInput.value=orderByStore.get(activeStore)||'';dialog.showModal();document.body.classList.add('dialog-open');itemsInput.focus();});
+    document.getElementById('stores').addEventListener('click',event=>{const card=event.target.closest('.store-card');if(!card)return;activeStore=card.dataset.store;dialog.dataset.store=activeStore;document.getElementById('dialog-store-name').textContent=activeStore;const logo=document.getElementById('dialog-store-logo');logo.src=STORE_ASSETS[activeStore];logo.alt=`Imagine ${activeStore}`;itemsInput.value=orderByStore.get(activeStore)||'';dialog.showModal();document.body.classList.add('dialog-open');itemsInput.focus();});
     function closeDialog(){dialog.close();document.body.classList.remove('dialog-open');}
-    document.getElementById('cancel-products').addEventListener('click',closeDialog);
-    dialog.addEventListener('close',()=>document.body.classList.remove('dialog-open'));
+    document.getElementById('cancel-products').addEventListener('click',closeDialog);dialog.addEventListener('close',()=>document.body.classList.remove('dialog-open'));
     document.getElementById('save-products').addEventListener('click',()=>{const items=itemsInput.value.trim();if(!items)orderByStore.delete(activeStore);else orderByStore.set(activeStore,items);renderSummary();closeDialog();});
     form.addEventListener('submit',async event=>{event.preventDefault();if(orderByStore.size===0){notice.className='notice error';notice.textContent='Alege cel puțin un magazin și salvează produsele dorite.';notice.style.display='block';document.getElementById('stores').scrollIntoView({behavior:'smooth',block:'center'});return;}if(!form.reportValidity())return;const option=localitySelect.selectedOptions[0],fee=Number(option.dataset.fee);if(!Number.isFinite(fee))return;const payload=Object.fromEntries(new FormData(form).entries());payload.deliveryFee=fee;payload.orders=Array.from(orderByStore,([store,items])=>({store,items}));submitButton.disabled=true;submitButton.textContent='Se trimite comanda…';notice.style.display='none';try{const response=await fetch(ORDER_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await response.json().catch(()=>({}));if(!response.ok||!result.ok)throw new Error(result.error||'Nu s-a putut trimite comanda.');form.reset();orderByStore.clear();renderSummary();updateDeliveryPrice();notice.className='notice success';notice.textContent='Comanda a fost trimisă cu succes. Te vom contacta pentru confirmare.';notice.style.display='block';notice.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(error){notice.className='notice error';notice.textContent=error.message||'Eroare la trimitere. Încearcă din nou mai târziu.';notice.style.display='block';}finally{submitButton.disabled=false;submitButton.innerHTML='Trimite comanda&nbsp; →';}});
   </script>
