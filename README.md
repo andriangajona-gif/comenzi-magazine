@@ -1,6 +1,6 @@
 # ComandăLocal
 
-Site simplu în limba română pentru comenzi de la Bravo, Amore Sushi, Samurai Sushi, Panda și Farmacie.
+Site simplu în limba română pentru comenzi de la Bravo, Amore Sushi, Panda, Farmacie, Samurai Sushi și Davidan. Cardurile magazinelor includ logo-uri SVG locale.
 
 ## Publicare pe GitHub Pages
 
