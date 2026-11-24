@@ -18,7 +18,7 @@ Worker-ul acceptă cereri doar de la originea GitHub Pages a acestui repository 
 
 Primul magazin comandat este inclus în taxa de livrare, iar fiecare magazin suplimentar adaugă 10 lei. După modificarea `worker.js`, publică din nou codul în Cloudflare pentru ca validarea prețului și notificările comenzilor să rămână sincronizate cu site-ul.
 
-Catalogul Amore Sushi este construit din meniul PDF: include cele 39 de produse și imaginile lor, grupate momentan în Rolluri și Sushi. Produsele selectate și totalul lor sunt atașate comenzii către curier.
+Catalogul Amore Sushi este construit din meniurile PDF: include 42 de produse și imaginile lor în categoriile Rolluri, Sushi, Sushi Fastfood și Pizza. Sunt afișate toate cele 8 categorii din meniu; categoriile fără produse în PDF indică momentan că produsele nu sunt disponibile. Produsele selectate și totalul lor sunt atașate comenzii către curier.
 
 ## Publicare GitHub Pages
 
