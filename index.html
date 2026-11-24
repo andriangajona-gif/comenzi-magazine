@@ -31,6 +31,10 @@
     .store-card img { display:block; width:100%; max-width:145px; height:66px; object-fit:contain; border-radius:8px; }
     .store-card[data-store="Amore Sushi"] img { object-fit:cover; max-width:150px; height:76px; border-radius:12px; }
     .store-card[data-store="Samurai Sushi"] img { object-fit:cover; max-width:170px; height:76px; border-radius:12px; }
+    .store-card[data-store="Bravo"] img,.store-card[data-store="Farmacie"] img,.store-card[data-store="Panda"] img,.store-card[data-store="Davidan"] img { max-width:170px; height:76px; border-radius:12px; }
+    .store-card[data-store="Bravo"] img,.store-card[data-store="Farmacie"] img { object-fit:cover; }
+    .store-card[data-store="Panda"] img { background:#fff; }
+    .store-card[data-store="Davidan"] img { object-fit:cover; object-position:center top; }
     .store-card strong { font-size:15px; }.store-card small { color:var(--muted); font-size:12px; }.store-status { min-height:18px; color:var(--green); font-size:12px; font-weight:750; }
     .hint { margin:12px 2px 0; color:var(--muted); font-size:13px; line-height:1.5; }.summary { display:grid; gap:8px; margin-top:15px; }.summary:empty { display:none; }.summary-item { border:1px solid rgba(255,255,255,.8); border-radius:14px; background:rgba(255,255,255,.48); padding:12px 14px; }.summary-item strong { display:block; margin-bottom:4px; }.summary-item p { margin:0; color:#405047; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.45; }
     .fields { display:grid; grid-template-columns:1fr 1fr; gap:13px; }label.field { display:grid; gap:7px; color:#35443b; font-size:14px; font-weight:750; }
@@ -56,12 +60,12 @@
       <section class="panel glass" aria-labelledby="store-heading">
         <h2 class="step-title" id="store-heading"><span class="step">1</span> Alege magazinele și produsele</h2>
         <div class="stores" id="stores">
-          <button class="store-card" type="button" data-store="Bravo" aria-pressed="false"><img src="assets/bravo.svg" alt=""><strong>Bravo</strong><small>Pizza și băuturi</small><span class="store-status"></span></button>
+          <button class="store-card" type="button" data-store="Bravo" aria-pressed="false"><img src="assets/bravo-logo.png" alt="Bravo"><strong>Bravo</strong><small>Pizza și băuturi</small><span class="store-status"></span></button>
           <button class="store-card" type="button" data-store="Amore Sushi" aria-pressed="false"><img src="assets/IMG_0261.jpeg" alt="Amore Sushi"><strong>Amore Sushi</strong><small>Sushi și role</small><span class="store-status"></span></button>
-          <button class="store-card" type="button" data-store="Panda" aria-pressed="false"><img src="assets/panda.svg" alt=""><strong>Panda</strong><small>Shaorma și kebab</small><span class="store-status"></span></button>
-          <button class="store-card" type="button" data-store="Farmacie" aria-pressed="false"><img src="assets/farmacie.svg" alt=""><strong>Farmacie</strong><small>Produse farmaceutice</small><span class="store-status"></span></button>
+          <button class="store-card" type="button" data-store="Panda" aria-pressed="false"><img src="assets/panda-logo.jpeg" alt="Panda Central Point"><strong>Panda</strong><small>Shaorma și kebab</small><span class="store-status"></span></button>
+          <button class="store-card" type="button" data-store="Farmacie" aria-pressed="false"><img src="assets/farmacie-logo.png" alt="Farmacia Familiei"><strong>Farmacie</strong><small>Produse farmaceutice</small><span class="store-status"></span></button>
           <button class="store-card" type="button" data-store="Samurai Sushi" aria-pressed="false"><img src="assets/samurai-sushi.jpeg" alt="Samurai Sushi"><strong>Samurai Sushi</strong><small>Sushi și role</small><span class="store-status"></span></button>
-          <button class="store-card" type="button" data-store="Davidan" aria-pressed="false"><img src="assets/davidan.svg" alt=""><strong>Davidan</strong><small>Cafenea și produse de patiserie</small><span class="store-status"></span></button>
+          <button class="store-card" type="button" data-store="Davidan" aria-pressed="false"><img src="assets/davidan-store.jpeg" alt="Magazin Davidan"><strong>Davidan</strong><small>Cafenea și produse de patiserie</small><span class="store-status"></span></button>
         </div>
         <p class="hint">Apasă pe un magazin ca să scrii produsele dorite. Lista fiecărui magazin se salvează separat.</p><div class="summary" id="order-summary" aria-live="polite"></div>
       </section>
@@ -84,7 +88,7 @@
   <dialog id="product-dialog" aria-labelledby="dialog-store-name"><div class="store-dialog-banner"><img id="dialog-store-logo" src="" alt=""><div class="store-dialog-copy"><small>Comandă de la</small><h2 id="dialog-store-name">Magazin</h2></div></div><div class="dialog-content"><p>Scrie produsele și cantitățile dorite de la acest magazin.</p><label class="field" for="store-items">Produsele dorite</label><textarea id="store-items" maxlength="3000"></textarea><div class="dialog-actions"><button class="secondary" id="cancel-products" type="button">Anulează</button><button class="save-products" id="save-products" type="button">Salvează produsele</button></div></div></dialog>
   <script>
     const ORDER_API_URL='https://comenzitelegram.andriangajona.workers.dev/';
-    const STORE_ASSETS={Bravo:'assets/bravo.svg','Amore Sushi':'assets/IMG_0261.jpeg',Panda:'assets/panda.svg',Farmacie:'assets/farmacie.svg','Samurai Sushi':'assets/samurai-sushi.jpeg',Davidan:'assets/davidan.svg'};
+    const STORE_ASSETS={Bravo:'assets/bravo-logo.png','Amore Sushi':'assets/IMG_0261.jpeg',Panda:'assets/panda-logo.jpeg',Farmacie:'assets/farmacie-logo.png','Samurai Sushi':'assets/samurai-sushi.jpeg',Davidan:'assets/davidan-store.jpeg'};
     const form=document.getElementById('order-form'),notice=document.getElementById('notice'),submitButton=document.getElementById('submit-button'),dialog=document.getElementById('product-dialog'),itemsInput=document.getElementById('store-items'),summary=document.getElementById('order-summary'),localitySelect=document.getElementById('locality'),deliveryPrice=document.getElementById('delivery-price'),orderByStore=new Map();let activeStore='';
     function updateStoreCards(){document.querySelectorAll('.store-card').forEach(card=>{const has=orderByStore.has(card.dataset.store);card.setAttribute('aria-pressed',String(has));card.querySelector('.store-status').textContent=has?'Produse salvate ✓':'Apasă pentru a adăuga';});}
     function renderSummary(){summary.replaceChildren();for(const[store,items]of orderByStore){const row=document.createElement('div');row.className='summary-item';const title=document.createElement('strong');title.textContent=store;const products=document.createElement('p');products.textContent=items;row.append(title,products);summary.append(row);}updateStoreCards();}
