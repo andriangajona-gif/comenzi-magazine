@@ -1,5 +1,32 @@
 const ALLOWED_ORIGIN = 'https://andriangajona-gif.github.io';
 const ALLOWED_STORES = ['Bravo', 'Amore Sushi', 'Panda', 'Farmacie', 'Samurai Sushi', 'Davidan'];
+const DELIVERY_FEES = {
+  'Vărvăreuca': 60,
+  'Bubulești': 80,
+  'Alexeevca': 90,
+  'Gura Camencii': 90,
+  'Mărculești': 100,
+  'Lunga': 110,
+  'Gura Căinarului': 120,
+  'Cenușa': 130,
+  'Roșietici': 130,
+  'Ghindești': 140,
+  'Prajila': 140,
+  'Răduleni Vechi': 140,
+  'Rogojeni': 140,
+  'Sevirova': 150,
+  'Cașunca': 160,
+  'Vadeni': 170,
+  'Putinești': 180,
+  'Ciripcău': 190,
+  'Trifănești': 190,
+  'Ciutulești': 200,
+  'Nicolaevca': 210,
+  'Izvoare': 230,
+  'Domulgeni': 250,
+  'Temeleuți': 340,
+  'Ștefănești': 350,
+};
 
 function json(body, status = 200, origin = '') {
   const headers = {
@@ -17,7 +44,6 @@ export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin') || '';
     if (origin !== ALLOWED_ORIGIN) return json({ ok: false, error: 'Origine nepermisă.' }, 403);
-
     if (request.method === 'OPTIONS') {
       return new Response(null, {
         status: 204,
@@ -42,9 +68,9 @@ export default {
       return json({ ok: false, error: 'Datele comenzii nu sunt valide.' }, 400, origin);
     }
 
-    const limits = { name: 120, phone: 40, locality: 120, street: 200, details: 300 };
+    const limits = { name: 120, phone: 40, locality: 100, street: 200, details: 300 };
     for (const [field, max] of Object.entries(limits)) {
-      if (typeof order[field] !== 'string' || !order[field].trim() || order[field].length > max) {
+      if (typeof order[field] !== 'string' || (field !== 'details' && !order[field].trim()) || order[field].length > max) {
         return json({ ok: false, error: 'Verifică datele formularului și încearcă din nou.' }, 400, origin);
       }
     }
@@ -52,7 +78,11 @@ export default {
       return json({ ok: false, error: 'Verifică datele formularului și încearcă din nou.' }, 400, origin);
     }
 
-    // Accept the previous single-store payload too, so older versions of the page still work.
+    const expectedFee = DELIVERY_FEES[order.locality];
+    if (expectedFee === undefined || order.deliveryFee !== expectedFee) {
+      return json({ ok: false, error: 'Localitatea sau prețul livrării nu este valid.' }, 400, origin);
+    }
+
     let orders = order.orders;
     if (!Array.isArray(orders) && typeof order.store === 'string' && typeof order.items === 'string') {
       orders = [{ store: order.store, items: order.items }];
@@ -60,7 +90,6 @@ export default {
     if (!Array.isArray(orders) || orders.length < 1 || orders.length > ALLOWED_STORES.length) {
       return json({ ok: false, error: 'Adaugă produse pentru cel puțin un magazin.' }, 400, origin);
     }
-
     const seenStores = new Set();
     for (const entry of orders) {
       if (!entry || typeof entry.store !== 'string' || !ALLOWED_STORES.includes(entry.store) || seenStores.has(entry.store) || typeof entry.items !== 'string' || !entry.items.trim() || entry.items.length > 3000) {
@@ -75,7 +104,8 @@ export default {
       '',
       `Client: ${order.name.trim()}`,
       `Telefon: ${order.phone.trim()}`,
-      `Localitate: ${order.locality.trim()}`,
+      `Localitate: ${order.locality}`,
+      `Livrare: ${expectedFee} lei`,
       `Adresă: ${order.street.trim()}`,
       order.details.trim() ? `Detalii: ${order.details.trim()}` : '',
     ].filter(Boolean).join('\n');
@@ -90,12 +120,10 @@ export default {
     } catch {
       return json({ ok: false, error: 'Nu am putut contacta Telegram. Încearcă din nou.' }, 502, origin);
     }
-
     const telegramResult = await telegramResponse.json().catch(() => ({}));
     if (!telegramResponse.ok || !telegramResult.ok) {
       return json({ ok: false, error: 'Telegram nu a acceptat mesajul. Verifică configurarea botului.' }, 502, origin);
     }
-
     return json({ ok: true }, 200, origin);
   },
 };

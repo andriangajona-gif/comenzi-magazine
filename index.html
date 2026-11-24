@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f6f7f2">
-  <meta name="description" content="Alege unul sau mai multe magazine, notează produsele dorite și trimite comanda prin Telegram.">
+  <meta name="description" content="Alege magazinele, produsele și localitatea pentru a vedea prețul livrării.">
   <title>Comandă de la magazinele locale</title>
   <style>
     :root { color-scheme:light; --ink:#19251f; --muted:#66736c; --green:#237553; --green-dark:#175c40; --cream:#f6f7f2; --line:#e4e9e3; }
@@ -38,10 +38,13 @@
     .summary-item p { margin:0; color:#405047; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.45; }
     .fields { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
     label.field { display:grid; gap:7px; color:#35443b; font-size:14px; font-weight:700; }
-    input[type="text"],input[type="tel"],textarea { width:100%; border:1px solid #dce3dc; border-radius:11px; background:#fff; padding:13px 14px; color:var(--ink); font:inherit; font-weight:400; outline:none; }
-    input:focus,textarea:focus { border-color:var(--green); box-shadow:0 0 0 3px #23755318; }
+    input[type="text"],input[type="tel"],select,textarea { width:100%; border:1px solid #dce3dc; border-radius:11px; background:#fff; padding:13px 14px; color:var(--ink); font:inherit; font-weight:400; outline:none; }
+    input:focus,select:focus,textarea:focus { border-color:var(--green); box-shadow:0 0 0 3px #23755318; }
+    select:invalid { color:#737d76; }
     textarea { min-height:145px; resize:vertical; line-height:1.5; }
     .wide { grid-column:1/-1; }
+    .delivery-price { grid-column:1/-1; padding:14px 16px; border-radius:12px; background:#e9f4ed; color:#185b38; font-weight:800; }
+    .delivery-price small { display:block; margin-top:4px; color:#476657; font-weight:500; }
     .submit { border:0; border-radius:13px; background:var(--green); color:#fff; font:inherit; font-weight:800; font-size:16px; padding:16px 22px; cursor:pointer; box-shadow:0 8px 18px #2375532b; transition:background .15s,transform .15s; }
     .submit:hover { background:var(--green-dark); transform:translateY(-1px); }
     .submit:disabled { opacity:.65; cursor:wait; transform:none; }
@@ -61,7 +64,7 @@
     .save-products { background:var(--green); color:#fff; border-color:var(--green); }
     footer { color:var(--muted); text-align:center; font-size:12px; padding:0 16px 28px; }
     @media(max-width:650px) { main { margin-top:32px; } .stores { grid-template-columns:repeat(2,minmax(0,1fr)); } .panel { padding:19px; } }
-    @media(max-width:460px) { .fields { grid-template-columns:1fr; } .wide { grid-column:auto; } .store-card { min-height:136px; } .dialog-content { padding:20px; } }
+    @media(max-width:460px) { .fields { grid-template-columns:1fr; } .wide,.delivery-price { grid-column:auto; } .store-card { min-height:136px; } .dialog-content { padding:20px; } }
   </style>
 </head>
 <body>
@@ -70,7 +73,7 @@
     <section class="intro">
       <div class="eyebrow">Simplu și rapid</div>
       <h1>Ce dorești să comanzi?</h1>
-      <p>Alege un magazin, scrie produsele dorite, apoi continuă cu alte magazine. Produsele fiecărui magazin se păstrează separat în comandă.</p>
+      <p>Alege magazinele și produsele dorite, apoi selectează localitatea pentru a vedea prețul livrării.</p>
     </section>
     <form id="order-form">
       <section class="panel" aria-labelledby="store-heading">
@@ -83,7 +86,7 @@
           <button class="store-card" type="button" data-store="Samurai Sushi" aria-pressed="false"><img src="assets/samurai-sushi.svg" alt=""><strong>Samurai Sushi</strong><small>Sushi și role</small><span class="store-status"></span></button>
           <button class="store-card" type="button" data-store="Davidan" aria-pressed="false"><img src="assets/davidan.svg" alt=""><strong>Davidan</strong><small>Cafenea și produse de patiserie</small><span class="store-status"></span></button>
         </div>
-        <p class="hint">Apasă pe un magazin și se va deschide câmpul pentru produsele de acolo. Poți reveni la orice magazin și modifica lista.</p>
+        <p class="hint">Apasă pe un magazin ca să scrii produsele dorite. Lista fiecărui magazin se salvează separat.</p>
         <div class="summary" id="order-summary" aria-live="polite"></div>
       </section>
       <section class="panel">
@@ -91,14 +94,44 @@
         <div class="fields">
           <label class="field">Nume și prenume<input type="text" name="name" autocomplete="name" placeholder="Numele tău" maxlength="120" required></label>
           <label class="field">Număr de telefon<input type="tel" name="phone" autocomplete="tel" placeholder="+373 ..." maxlength="40" required></label>
-          <label class="field">Satul sau orașul<input type="text" name="locality" autocomplete="address-level2" placeholder="Localitatea" maxlength="120" required></label>
-          <label class="field">Strada și numărul<input type="text" name="street" autocomplete="street-address" placeholder="Strada, numărul casei" maxlength="200" required></label>
+          <label class="field wide">Satul sau orașul
+            <select id="locality" name="locality" required>
+              <option value="" data-fee="">Alege localitatea</option>
+              <option value="Vărvăreuca" data-fee="60">Vărvăreuca — 60 lei</option>
+              <option value="Bubulești" data-fee="80">Bubulești — 80 lei</option>
+              <option value="Alexeevca" data-fee="90">Alexeevca — 90 lei</option>
+              <option value="Gura Camencii" data-fee="90">Gura Camencii — 90 lei</option>
+              <option value="Mărculești" data-fee="100">Mărculești — 100 lei</option>
+              <option value="Lunga" data-fee="110">Lunga — 110 lei</option>
+              <option value="Gura Căinarului" data-fee="120">Gura Căinarului — 120 lei</option>
+              <option value="Cenușa" data-fee="130">Cenușa — 130 lei</option>
+              <option value="Roșietici" data-fee="130">Roșietici — 130 lei</option>
+              <option value="Ghindești" data-fee="140">Ghindești — 140 lei</option>
+              <option value="Prajila" data-fee="140">Prajila — 140 lei</option>
+              <option value="Răduleni Vechi" data-fee="140">Răduleni Vechi — 140 lei</option>
+              <option value="Rogojeni" data-fee="140">Rogojeni — 140 lei</option>
+              <option value="Sevirova" data-fee="150">Sevirova — 150 lei</option>
+              <option value="Cașunca" data-fee="160">Cașunca — 160 lei</option>
+              <option value="Vadeni" data-fee="170">Vadeni — 170 lei</option>
+              <option value="Putinești" data-fee="180">Putinești — 180 lei</option>
+              <option value="Ciripcău" data-fee="190">Ciripcău — 190 lei</option>
+              <option value="Trifănești" data-fee="190">Trifănești — 190 lei</option>
+              <option value="Ciutulești" data-fee="200">Ciutulești — 200 lei</option>
+              <option value="Nicolaevca" data-fee="210">Nicolaevca — 210 lei</option>
+              <option value="Izvoare" data-fee="230">Izvoare — 230 lei</option>
+              <option value="Domulgeni" data-fee="250">Domulgeni — 250 lei</option>
+              <option value="Temeleuți" data-fee="340">Temeleuți — 340 lei</option>
+              <option value="Ștefănești" data-fee="350">Ștefănești — 350 lei</option>
+            </select>
+          </label>
+          <div class="delivery-price" id="delivery-price" aria-live="polite">Alege localitatea pentru a vedea costul livrării.<small>Tariful afișat include adaosul de 10 lei.</small></div>
+          <label class="field wide">Strada și numărul<input type="text" name="street" autocomplete="street-address" placeholder="Strada, numărul casei" maxlength="200" required></label>
           <label class="field wide">Detalii suplimentare (opțional)<input type="text" name="details" placeholder="Scara, apartamentul sau indicații pentru curier" maxlength="300"></label>
         </div>
       </section>
       <div id="notice" class="notice" role="status" aria-live="polite"></div>
       <button class="submit" id="submit-button" type="submit">Trimite comanda&nbsp; →</button>
-      <p class="privacy">Numele, telefonul, adresa și produsele selectate vor fi trimise prin Telegram bot către administrator, pentru procesarea livrării.</p>
+      <p class="privacy">Numele, telefonul, adresa, produsele și prețul livrării vor fi trimise prin Telegram bot către administrator, pentru procesarea livrării.</p>
     </form>
   </main>
   <footer>Comanda este confirmată după ce primești un răspuns de la magazin.</footer>
@@ -124,13 +157,14 @@
     const dialog = document.getElementById('product-dialog');
     const itemsInput = document.getElementById('store-items');
     const summary = document.getElementById('order-summary');
+    const localitySelect = document.getElementById('locality');
+    const deliveryPrice = document.getElementById('delivery-price');
     const orderByStore = new Map();
     let activeStore = '';
 
     function updateStoreCards() {
       document.querySelectorAll('.store-card').forEach((card) => {
-        const store = card.dataset.store;
-        const hasItems = orderByStore.has(store);
+        const hasItems = orderByStore.has(card.dataset.store);
         card.setAttribute('aria-pressed', String(hasItems));
         card.querySelector('.store-status').textContent = hasItems ? 'Produse salvate ✓' : 'Apasă pentru a adăuga';
       });
@@ -151,6 +185,16 @@
       updateStoreCards();
     }
 
+    function updateDeliveryPrice() {
+      const option = localitySelect.selectedOptions[0];
+      if (!option || !option.dataset.fee) {
+        deliveryPrice.firstChild.textContent = 'Alege localitatea pentru a vedea costul livrării.';
+        return;
+      }
+      deliveryPrice.firstChild.textContent = `Costul livrării la ${option.value}: ${option.dataset.fee} lei.`;
+    }
+    localitySelect.addEventListener('change', updateDeliveryPrice);
+
     document.getElementById('stores').addEventListener('click', (event) => {
       const card = event.target.closest('.store-card');
       if (!card) return;
@@ -166,16 +210,12 @@
       dialog.close();
       document.body.classList.remove('dialog-open');
     }
-
     document.getElementById('cancel-products').addEventListener('click', closeDialog);
     dialog.addEventListener('close', () => document.body.classList.remove('dialog-open'));
     document.getElementById('save-products').addEventListener('click', () => {
       const items = itemsInput.value.trim();
-      if (!items) {
-        orderByStore.delete(activeStore);
-      } else {
-        orderByStore.set(activeStore, items);
-      }
+      if (!items) orderByStore.delete(activeStore);
+      else orderByStore.set(activeStore, items);
       renderSummary();
       closeDialog();
     });
@@ -190,14 +230,16 @@
         return;
       }
       if (!form.reportValidity()) return;
+      const selectedOption = localitySelect.selectedOptions[0];
+      const fee = Number(selectedOption.dataset.fee);
+      if (!Number.isFinite(fee)) return;
 
-      const data = new FormData(form);
-      const payload = Object.fromEntries(data.entries());
+      const payload = Object.fromEntries(new FormData(form).entries());
+      payload.deliveryFee = fee;
       payload.orders = Array.from(orderByStore, ([store, items]) => ({ store, items }));
       submitButton.disabled = true;
       submitButton.textContent = 'Se trimite comanda…';
       notice.style.display = 'none';
-
       try {
         const response = await fetch(ORDER_API_URL, {
           method: 'POST',
@@ -209,6 +251,7 @@
         form.reset();
         orderByStore.clear();
         renderSummary();
+        updateDeliveryPrice();
         notice.className = 'notice success';
         notice.textContent = 'Comanda a fost trimisă cu succes. Te vom contacta pentru confirmare.';
         notice.style.display = 'block';
