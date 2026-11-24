@@ -44,7 +44,6 @@
     textarea { min-height:145px; resize:vertical; line-height:1.5; }
     .wide { grid-column:1/-1; }
     .delivery-price { grid-column:1/-1; padding:14px 16px; border-radius:12px; background:#e9f4ed; color:#185b38; font-weight:800; }
-    .delivery-price small { display:block; margin-top:4px; color:#476657; font-weight:500; }
     .submit { border:0; border-radius:13px; background:var(--green); color:#fff; font:inherit; font-weight:800; font-size:16px; padding:16px 22px; cursor:pointer; box-shadow:0 8px 18px #2375532b; transition:background .15s,transform .15s; }
     .submit:hover { background:var(--green-dark); transform:translateY(-1px); }
     .submit:disabled { opacity:.65; cursor:wait; transform:none; }
@@ -125,7 +124,7 @@
               <option value="Ștefănești" data-fee="350">Ștefănești — 350 lei</option>
             </select>
           </label>
-          <div class="delivery-price" id="delivery-price" aria-live="polite">Alege localitatea pentru a vedea costul livrării.<small>Tariful afișat include adaosul de 10 lei.</small></div>
+          <div class="delivery-price" id="delivery-price" aria-live="polite">Alege localitatea pentru a vedea costul livrării.</div>
           <label class="field wide">Strada și numărul<input type="text" name="street" autocomplete="street-address" placeholder="Strada, numărul casei" maxlength="200" required></label>
           <label class="field wide">Detalii suplimentare (opțional)<input type="text" name="details" placeholder="Scara, apartamentul sau indicații pentru curier" maxlength="300"></label>
         </div>
@@ -186,11 +185,9 @@
 
     function updateDeliveryPrice() {
       const option = localitySelect.selectedOptions[0];
-      if (!option || !option.dataset.fee) {
-        deliveryPrice.firstChild.textContent = 'Alege localitatea pentru a vedea costul livrării.';
-        return;
-      }
-      deliveryPrice.firstChild.textContent = `Costul livrării la ${option.value}: ${option.dataset.fee} lei.`;
+      deliveryPrice.textContent = option && option.dataset.fee
+        ? `Costul livrării la ${option.value}: ${option.dataset.fee} lei.`
+        : 'Alege localitatea pentru a vedea costul livrării.';
     }
     localitySelect.addEventListener('change', updateDeliveryPrice);
 
