@@ -328,6 +328,27 @@
       ['Unagi tempura',65,'4 buc 150g','8 buc 300g'],
       ['Yakuza',65,'4 buc 123g','8 buc 265g']
     ].map(([name,price,...sizes],index)=>({id:index+1,name,price,sizes}));
+    const SAMURAI_PORTION_PRICES={
+      'Alaska':[55,100], 'Arigato':[40,75], 'Banzai':[55,105], 'Bonito':[60,110],
+      'Bushido':[65,120], 'Caesar':[45,85], 'Canada ebi tempura':[75,145],
+      'Canada Elite':[80,150], 'Canada Kani':[65,125], 'Canada Light':[70,135],
+      'Ebi spicy':[55,100], 'Ebi tempura':[60,115], 'Flamingo':[65,120],
+      'Fujiyama':[55,105], 'Geisha':[55,105], 'Harakiri':[60,110],
+      'Hokkaido':[50,90], 'Imperator':[75,145], 'Kani tempura':[55,105],
+      'Kanikama':[35,65], 'Kasan spicy':[55,105], 'Katana':[75,140],
+      'Kimono':[55,100], 'Kokoro':[50,90], 'Kumamoto':[35,65],
+      'Kunsei Tempura':[60,110], 'Kyoto':[45,80], 'Maguro spicy':[55,100],
+      'Maguro spicy tempura':[55,105], 'Maguro tempura':[60,110], 'Ninja':[65,120],
+      'Okinawa':[45,80], 'Osaka':[50,90], 'Philadelphia Avo':[55,105],
+      'Philadelphia Ebi Tempura':[60,110], 'Philadelphia gurman':[65,120],
+      'Philadelphia Kani':[55,100], 'Philadelphia Kappa':[50,95],
+      'Philadelphia Perfect':[65,125], 'Philadelphia unagi':[65,125],
+      'Ronin':[65,115], 'Sagano':[45,80], 'Sake spicy':[55,100],
+      'Sake tempura':[60,110], 'Sakura':[65,120], 'Samurai':[75,145],
+      'Sensei':[50,90], 'Tanuki':[50,95], 'Thailand':[55,100],
+      'Tokusen':[65,120], 'Tokyo':[75,145], 'Unagi spicy':[55,105],
+      'Unagi spicy tempura':[65,120], 'Unagi tempura':[65,125], 'Yakuza':[65,120]
+    };
     const SAMURAI_TEMPURA=new Set(['Creveți Tempura','Ebi tempura','Kani tempura','Kunsei Tempura','Maguro spicy tempura','Maguro tempura','Sake tempura','Samurai tempura','Unagi spicy tempura','Unagi tempura']);
     const samuraiSizes=new Map();
     const form=document.getElementById('order-form'),notice=document.getElementById('notice'),submitButton=document.getElementById('submit-button'),dialog=document.getElementById('product-dialog'),itemsInput=document.getElementById('store-items'),storeInput=document.getElementById('store-input'),dialogHelp=document.getElementById('dialog-help'),amoreCatalog=document.getElementById('amore-catalog'),amoreSearch=document.getElementById('amore-search'),amoreCategories=document.getElementById('amore-categories'),amoreProducts=document.getElementById('amore-products'),amoreCategoryTitle=document.getElementById('amore-category-title'),amoreProductCount=document.getElementById('amore-product-count'),amoreSelectionTotal=document.getElementById('amore-selection-total'),summary=document.getElementById('order-summary'),localitySelect=document.getElementById('locality'),deliveryPrice=document.getElementById('delivery-price'),orderByStore=new Map(),catalogQuantities=new Map();let activeStore='',activeAmoreCategory='Toate produsele',amoreDraft=new Map();
@@ -348,13 +369,14 @@
       const lines=[];let total=0,count=0,unconfirmed=false;
       for(const product of SAMURAI_PRODUCTS)for(let size=0;size<product.sizes.length;size++){
         const quantity=quantities.get(`${product.id}:${size}`)||0;if(!quantity)continue;
-        count+=quantity;
-        if(product.sizes.length>1){unconfirmed=true;lines.push(`${product.name} (${product.sizes[size]}) × ${quantity} — preț de confirmat (în PDF: ${formatPrice(product.price)})`);}
-        else{total+=product.price*quantity;lines.push(`${product.name} (${product.sizes[size]}) × ${quantity} — ${formatPrice(product.price*quantity)}`);}
+        count+=quantity;const price=samuraiPortionPrice(product,size);
+        if(price===undefined){unconfirmed=true;lines.push(`${product.name} (${product.sizes[size]}) × ${quantity} — preț de confirmat (în PDF: ${formatPrice(product.price)})`);}
+        else{total+=price*quantity;lines.push(`${product.name} (${product.sizes[size]}) × ${quantity} — ${formatPrice(price*quantity)}`);}
       }
       const totalText=unconfirmed?`Total parțial: ${formatPrice(total)}; prețurile celorlalte produse se confirmă.`:`Total produse: ${formatPrice(total)}`;
       return {lines,count,totalText};
     }
+    function samuraiPortionPrice(product,size){return product.sizes.length===1?product.price:SAMURAI_PORTION_PRICES[product.name]?.[size];}
     function renderSamuraiProducts(){
       const query=amoreSearch.value.trim().toLocaleLowerCase('ro');
       const products=SAMURAI_PRODUCTS.filter(product=>(query||activeAmoreCategory!=='Tempura'||SAMURAI_TEMPURA.has(product.name))&&product.name.toLocaleLowerCase('ro').includes(query));
@@ -365,15 +387,16 @@
         const card=document.createElement('article');card.className='amore-product';
         const info=document.createElement('div');info.className='amore-product-info';
         const name=document.createElement('strong');name.className='amore-product-name';name.textContent=product.name;
-        const price=document.createElement('div');price.className='amore-product-price';price.textContent=product.sizes.length>1?`În PDF: ${formatPrice(product.price)}`:formatPrice(product.price);
+        const selected=samuraiSizes.get(product.id)||0,selectedPrice=samuraiPortionPrice(product,selected);
+        const price=document.createElement('div');price.className='amore-product-price';price.textContent=selectedPrice===undefined?`În PDF: ${formatPrice(product.price)}`:formatPrice(selectedPrice);
         info.append(name,price);
-        if(product.sizes.length>1){const note=document.createElement('small');note.textContent='Prețul pentru fiecare porție se confirmă.';info.append(note);}
+        if(selectedPrice===undefined){const note=document.createElement('small');note.textContent='Prețul pentru fiecare porție se confirmă.';info.append(note);}
         const options=document.createElement('div');options.className='samurai-options';
-        const selected=samuraiSizes.get(product.id)||0;
         product.sizes.forEach((size,index)=>{
           const label=document.createElement('label');
           if(product.sizes.length>1){const radio=document.createElement('input');radio.type='radio';radio.name=`samurai-size-${product.id}`;radio.value=String(index);radio.dataset.samuraiSize=product.id;radio.checked=index===selected;label.append(radio);}
-          label.append(document.createTextNode(size));options.append(label);
+          const optionPrice=samuraiPortionPrice(product,index);
+          label.append(document.createTextNode(optionPrice===undefined?size:`${size} — ${formatPrice(optionPrice)}`));options.append(label);
         });
         const quantity=document.createElement('div');quantity.className='amore-quantity';
         for(const change of [-1,0,1]){
