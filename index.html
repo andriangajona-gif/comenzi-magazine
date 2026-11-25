@@ -153,11 +153,23 @@
       {name:'Maki pui',price:75,category:'Sushi'},
       {name:'Pizza Sushi Somon',price:150,category:'Pizza'},
       {name:'Sushi Burger Crevete',price:200,category:'Sushi Fastfood'},
-      {name:'Sushi Burger Somon',price:170,category:'Sushi Fastfood'}
-    ].map((product,index)=>({...product,id:index+1,image:`assets/amore-menu/product-${String(index+1).padStart(2,'0')}.jpg`}));
+      {name:'Sushi Burger Somon',price:170,category:'Sushi Fastfood'},
+      {name:'Pepperoni',price:130,category:'Pizza',image:'assets/amore-menu/pizza-01.png'},
+      {name:'Pentru Amir',price:130,category:'Pizza',image:'assets/amore-menu/pizza-02.png'},
+      {name:'Crazy',price:125,category:'Pizza',image:'assets/amore-menu/pizza-03.png'},
+      {name:'5 Cașcavaluri',price:125,category:'Pizza',image:'assets/amore-menu/pizza-04.png'},
+      {name:'Rancho',price:130,category:'Pizza',image:'assets/amore-menu/pizza-05.png'},
+      {name:'Cu sos BBQ',price:140,category:'Pizza',image:'assets/amore-menu/pizza-06.png'},
+      {name:'Margherita',price:100,category:'Pizza',image:'assets/amore-menu/pizza-07.png'},
+      {name:'Prosciutto Crudo',price:135,category:'Pizza',image:'assets/amore-menu/pizza-08.png'},
+      {name:'Neapolitana',price:130,category:'Pizza',image:'assets/amore-menu/pizza-09.png'},
+      {name:'De post',price:130,category:'Pizza',image:'assets/amore-menu/pizza-10.png'},
+      {name:'Pizza Tonno',price:130,category:'Pizza',image:'assets/amore-menu/pizza-11.png'},
+      {name:'Pollo e Funghi',price:140,category:'Pizza',image:'assets/amore-menu/pizza-12.png'}
+    ].map((product,index)=>({...product,id:index+1,image:product.image||`assets/amore-menu/product-${String(index+1).padStart(2,'0')}.jpg`}));
     const form=document.getElementById('order-form'),notice=document.getElementById('notice'),submitButton=document.getElementById('submit-button'),dialog=document.getElementById('product-dialog'),itemsInput=document.getElementById('store-items'),storeInput=document.getElementById('store-input'),dialogHelp=document.getElementById('dialog-help'),amoreCatalog=document.getElementById('amore-catalog'),amoreSearch=document.getElementById('amore-search'),amoreCategories=document.getElementById('amore-categories'),amoreProducts=document.getElementById('amore-products'),amoreCategoryTitle=document.getElementById('amore-category-title'),amoreProductCount=document.getElementById('amore-product-count'),amoreSelectionTotal=document.getElementById('amore-selection-total'),summary=document.getElementById('order-summary'),localitySelect=document.getElementById('locality'),deliveryPrice=document.getElementById('delivery-price'),orderByStore=new Map();let activeStore='',activeAmoreCategory='Toate produsele',amoreQuantities=new Map(),amoreDraft=new Map();
-    const AMORE_CATEGORIES=['Rolluri','Sushi Fastfood','Sushi','Seturi','Pizza'];
-    const amoreCategoryImages={'Rolluri':'assets/amore-menu/category-rolluri.jpg','Sushi Fastfood':'assets/amore-menu/category-sushi-fastfood.jpg','Sushi':'assets/amore-menu/category-sushi.jpg','Seturi':'assets/amore-menu/category-seturi.jpg','Pizza':'assets/amore-menu/category-pizza.jpg'};
+    const AMORE_CATEGORIES=['Rolluri','Sushi Fastfood','Sushi','Seturi','Pizza','Feluri osebite','Fastfood','La bere'];
+    const amoreCategoryImages={'Rolluri':'assets/amore-menu/category-rolluri.jpg','Sushi Fastfood':'assets/amore-menu/category-sushi-fastfood.jpg','Sushi':'assets/amore-menu/category-sushi.jpg','Seturi':'assets/amore-menu/category-seturi.jpg','Pizza':'assets/amore-menu/category-pizza.jpg','Feluri osebite':'assets/amore-menu/category-feluri-osebite.png','Fastfood':'assets/amore-menu/category-fastfood.png','La bere':'assets/amore-menu/category-la-bere.png'};
     function updateStoreCards(){const firstStore=orderByStore.keys().next().value;document.querySelectorAll('.store-card').forEach(card=>{const has=orderByStore.has(card.dataset.store);card.setAttribute('aria-pressed',String(has));card.querySelector('.store-status').textContent=has?(card.dataset.store===firstStore?'Produse salvate ✓ · Inclus în livrare':'Produse salvate ✓ · +10 lei la livrare'):(orderByStore.size?'+10 lei la livrare':'Inclus în livrare');});}
     function renderSummary(){summary.replaceChildren();for(const[store,items]of orderByStore){const row=document.createElement('div');row.className='summary-item';const title=document.createElement('strong');title.textContent=store;const products=document.createElement('p');products.textContent=items;row.append(title,products);summary.append(row);}updateStoreCards();updateDeliveryPrice();}
     function updateDeliveryPrice(){const option=localitySelect.selectedOptions[0];if(!option||!option.dataset.fee){deliveryPrice.textContent='Alege localitatea pentru a vedea costul livrării.';return;}const baseFee=Number(option.dataset.fee),extraStoreCount=Math.max(0,orderByStore.size-1),extraFee=extraStoreCount*10,totalFee=baseFee+extraFee;deliveryPrice.textContent=extraStoreCount?`Costul livrării la ${option.value}: ${baseFee} lei + ${extraFee} lei pentru ${extraStoreCount===1?'un magazin suplimentar':`${extraStoreCount} magazine suplimentare`} = ${totalFee} lei.`:`Costul livrării la ${option.value}: ${totalFee} lei (primul magazin inclus; fiecare magazin suplimentar +10 lei).`;}localitySelect.addEventListener('change',updateDeliveryPrice);
