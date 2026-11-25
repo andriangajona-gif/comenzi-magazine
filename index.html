@@ -165,7 +165,25 @@
       {name:'Neapolitana',price:130,category:'Pizza',image:'assets/amore-menu/pizza-09.png'},
       {name:'De post',price:130,category:'Pizza',image:'assets/amore-menu/pizza-10.png'},
       {name:'Pizza Tonno',price:130,category:'Pizza',image:'assets/amore-menu/pizza-11.png'},
-      {name:'Pollo e Funghi',price:140,category:'Pizza',image:'assets/amore-menu/pizza-12.png'}
+      {name:'Pollo e Funghi',price:140,category:'Pizza',image:'assets/amore-menu/pizza-12.png'},
+      {name:'Set love',price:275,category:'Seturi',image:'assets/amore-menu/set-01.png'},
+      {name:'Set grill',price:235,category:'Seturi',image:'assets/amore-menu/set-02.png'},
+      {name:'Set philadelphia',price:505,category:'Seturi',image:'assets/amore-menu/set-03.png'},
+      {name:'Set tempura',price:390,category:'Seturi',image:'assets/amore-menu/set-04.png'},
+      {name:'Set Tokio',price:160,oldPrice:235,category:'Seturi',image:'assets/amore-menu/set-05.png'},
+      {name:'Set x3',price:345,category:'Seturi',image:'assets/amore-menu/set-06.png'},
+      {name:'Set family',price:375,category:'Seturi',image:'assets/amore-menu/set-07.png'},
+      {name:'Set California',price:428,oldPrice:475,category:'Seturi',image:'assets/amore-menu/set-08.png'},
+      {name:'Set Domino',price:235,category:'Seturi',image:'assets/amore-menu/set-09.png'},
+      {name:'Set Maki',price:355,category:'Seturi',image:'assets/amore-menu/set-10.png'},
+      {name:'Set Amore',price:455,category:'Seturi',image:'assets/amore-menu/set-11.png'},
+      {name:'Set Mix',price:485,category:'Seturi',image:'assets/amore-menu/set-12.png'},
+      {name:'Set Amore Mare',price:1105,category:'Seturi',image:'assets/amore-menu/set-13.png'},
+      {name:'Set 3 Floreștiul',price:305,category:'Seturi',image:'assets/amore-menu/set-14.png'},
+      {name:'Set Pentru Iubita',price:335,category:'Seturi',image:'assets/amore-menu/set-15.png'},
+      {name:'Set Tempura x5',price:605,category:'Seturi',image:'assets/amore-menu/set-16.png'},
+      {name:'Set Exclusiv',price:325,category:'Seturi',image:'assets/amore-menu/set-17.png'},
+      {name:'Set big Love',price:600,category:'Seturi',image:'assets/amore-menu/set-18.png'}
     ].map((product,index)=>({...product,id:index+1,image:product.image||`assets/amore-menu/product-${String(index+1).padStart(2,'0')}.jpg`}));
     const form=document.getElementById('order-form'),notice=document.getElementById('notice'),submitButton=document.getElementById('submit-button'),dialog=document.getElementById('product-dialog'),itemsInput=document.getElementById('store-items'),storeInput=document.getElementById('store-input'),dialogHelp=document.getElementById('dialog-help'),amoreCatalog=document.getElementById('amore-catalog'),amoreSearch=document.getElementById('amore-search'),amoreCategories=document.getElementById('amore-categories'),amoreProducts=document.getElementById('amore-products'),amoreCategoryTitle=document.getElementById('amore-category-title'),amoreProductCount=document.getElementById('amore-product-count'),amoreSelectionTotal=document.getElementById('amore-selection-total'),summary=document.getElementById('order-summary'),localitySelect=document.getElementById('locality'),deliveryPrice=document.getElementById('delivery-price'),orderByStore=new Map();let activeStore='',activeAmoreCategory='Toate produsele',amoreQuantities=new Map(),amoreDraft=new Map();
     const AMORE_CATEGORIES=['Rolluri','Sushi Fastfood','Sushi','Seturi','Pizza','Feluri osebite','Fastfood','La bere'];
