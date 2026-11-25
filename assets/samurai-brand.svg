@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 180" role="img" aria-labelledby="title">
+  <title id="title">Samurai Sushi</title>
+  <circle cx="92" cy="90" r="72" fill="#163943"/>
+  <circle cx="92" cy="90" r="54" fill="#f8f2e7"/>
+  <circle cx="92" cy="90" r="39" fill="#182f35"/>
+  <circle cx="92" cy="90" r="28" fill="#f08b53"/>
+  <circle cx="92" cy="90" r="15" fill="#f8f2e7"/>
+  <path d="M66 54l5 8m16-13 3 9m18-6-1 9m18 2-4 8M58 91l9 1m59 0 8 1M63 121l8-5m44-59 8 6m-57 71 8-7m43 0 8 8" fill="none" stroke="#668f78" stroke-linecap="round" stroke-width="5"/>
+  <text x="188" y="91" fill="#163943" font-family="Arial,sans-serif" font-size="56" font-weight="800" letter-spacing="2">SAMURAI</text>
+  <text x="192" y="132" fill="#d26d3f" font-family="Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="5">SUSHI &amp; ROLLS</text>
+</svg>

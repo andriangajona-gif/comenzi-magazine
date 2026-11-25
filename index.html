@@ -30,7 +30,7 @@
     .store-card[aria-pressed="true"] { border-color:rgba(36,123,86,.72); background:rgba(220,241,228,.66); box-shadow:0 0 0 3px rgba(36,123,86,.09); }
     .store-card img { display:block; width:100%; max-width:145px; height:66px; object-fit:contain; border-radius:8px; }
     .store-card[data-store="Amore Sushi"] img { object-fit:fill; max-width:150px; height:118px; border-radius:12px; }
-    .store-card[data-store="Samurai Sushi"] img { object-fit:cover; max-width:170px; height:76px; border-radius:12px; }
+    .store-card[data-store="Samurai Sushi"] img { object-fit:contain; max-width:170px; height:76px; border-radius:12px; }
     .store-card[data-store="Bravo"] img,.store-card[data-store="Farmacie"] img,.store-card[data-store="Panda"] img,.store-card[data-store="Davidan"] img { max-width:170px; height:76px; border-radius:12px; }
     .store-card[data-store="Bravo"] img,.store-card[data-store="Farmacie"] img { object-fit:cover; }
     .store-card[data-store="Panda"] img { background:#fff; }
@@ -89,7 +89,7 @@
           <button class="store-card" type="button" data-store="Amore Sushi" aria-pressed="false"><img src="assets/amore-sushi.jpeg" alt="Amore Sushi"><strong>Amore Sushi</strong><small>Sushi și role</small><span class="store-status"></span></button>
           <button class="store-card" type="button" data-store="Panda" aria-pressed="false"><img src="assets/panda-logo.jpeg" alt="Panda Central Point"><strong>Panda</strong><small>Shaorma și kebab</small><span class="store-status"></span></button>
           <button class="store-card" type="button" data-store="Farmacie" aria-pressed="false"><img src="assets/farmacie-logo.png" alt="Farmacia Familiei"><strong>Farmacie</strong><small>Produse farmaceutice</small><span class="store-status"></span></button>
-          <button class="store-card" type="button" data-store="Samurai Sushi" aria-pressed="false"><img src="assets/samurai-sushi.jpeg" alt="Samurai Sushi"><strong>Samurai Sushi</strong><small>Sushi și role</small><span class="store-status"></span></button>
+          <button class="store-card" type="button" data-store="Samurai Sushi" aria-pressed="false"><img src="assets/samurai-brand.svg" alt="Logo Samurai Sushi"><strong>Samurai Sushi</strong><small>Sushi și role</small><span class="store-status"></span></button>
           <button class="store-card" type="button" data-store="Davidan" aria-pressed="false"><img src="assets/davidan-store.jpeg" alt="Magazin Davidan"><strong>Davidan</strong><small>Cafenea și produse de patiserie</small><span class="store-status"></span></button>
         </div>
         <p class="hint">Apasă pe un magazin ca să alegi sau să scrii produsele dorite. Lista fiecărui magazin se salvează separat. Primul magazin este inclus în livrare; fiecare magazin suplimentar adaugă 10 lei.</p><div class="summary" id="order-summary" aria-live="polite"></div>
@@ -113,7 +113,7 @@
   <dialog id="product-dialog" aria-labelledby="dialog-store-name"><div class="store-dialog-banner"><img id="dialog-store-logo" src="" alt=""><div class="store-dialog-copy"><small>Comandă de la</small><h2 id="dialog-store-name">Magazin</h2></div></div><div class="dialog-content"><p id="dialog-help">Scrie produsele și cantitățile dorite de la acest magazin.</p><div class="amore-catalog" id="amore-catalog" hidden><label class="amore-search" for="amore-search"><input id="amore-search" type="search" placeholder="Caută produse..." autocomplete="off"></label><div class="amore-category-grid" id="amore-categories"></div><div class="amore-menu-heading"><h3 id="amore-category-title"></h3><small id="amore-product-count"></small></div><div class="amore-products" id="amore-products"></div><div class="amore-selection-total" id="amore-selection-total"></div></div><div class="store-input" id="store-input"><label class="field" for="store-items">Produsele dorite</label><textarea id="store-items" maxlength="3000"></textarea></div></div><div class="dialog-actions"><button class="secondary" id="cancel-products" type="button">Anulează</button><button class="save-products" id="save-products" type="button">Salvează produsele</button></div></dialog>
   <script>
     const ORDER_API_URL='https://comenzitelegram.andriangajona.workers.dev/';
-    const STORE_ASSETS={Bravo:'assets/bravo-logo.png','Amore Sushi':'assets/amore-sushi.jpeg',Panda:'assets/panda-logo.jpeg',Farmacie:'assets/farmacie-logo.png','Samurai Sushi':'assets/samurai-sushi.jpeg',Davidan:'assets/davidan-store.jpeg'};
+    const STORE_ASSETS={Bravo:'assets/bravo-logo.png','Amore Sushi':'assets/amore-sushi.jpeg',Panda:'assets/panda-logo.jpeg',Farmacie:'assets/farmacie-logo.png','Samurai Sushi':'assets/samurai-brand.svg',Davidan:'assets/davidan-store.jpeg'};
     const AMORE_PRODUCTS=[
       {name:'Philadelphia classic',price:135,category:'Rolluri'},
       {name:'Philadelphia avocado',price:135,category:'Rolluri'},
@@ -335,38 +335,6 @@
       ['Unagi tempura',65,'4 buc 150g','8 buc 300g'],
       ['Yakuza',65,'4 buc 123g','8 buc 265g']
     ].map(([name,price,...sizes],index)=>({id:index+1,name,price,sizes}));
-    const SAMURAI_PRODUCT_IMAGES={
-      'Alaska':'uramaki-pdf-01.png','Arigato':'uramaki-pdf-02.png','Banzai':'uramaki-pdf-03.png',
-      'Bonito':'uramaki-pdf-04.png','Bushido':'uramaki-pdf-05.png','Caesar':'uramaki-pdf-06.png',
-      'California ebi':'uramaki-pdf-07.png','California kani':'uramaki-pdf-08.png',
-      'California sake':'uramaki-pdf-09.png','California salmon grill':'uramaki-pdf-10.png',
-      'Canada ebi tempura':'canada-ebi-tempura.jpg','Canada Elite':'canada-elite.jpg',
-      'Canada Kani':'canada-kani.jpg','Canada Light':'canada-light.jpg',
-      'Donatello':'donatello.jpg','Ebi spicy':'ebi-spicy.jpg','Finlanda':'finlanda.jpg',
-      'Flamingo':'flamingo.jpg','Fujiyama':'fujiyama.jpg',
-      'Geisha':'geisha.jpg','Harakiri':'harakiri.jpg','Hokkaido':'hokkaido.jpg',
-      'Imperator':'imperator.jpg','Kanikama':'kanikama.jpg','Kasan spicy':'kasan-spicy.jpg',
-      'Katana':'katana.jpg','Kimono':'kimono.jpg','Kokoro':'kokoro.jpg',
-      'Kyoto':'kyoto.jpg','Leonardo':'leonardo.jpg','Maguro spicy':'maguro-spicy.jpg',
-      'Michelangelo':'michelangelo.jpg','Ninja':'ninja.jpg','Norvegia':'norvegia.jpg',
-      'Okinawa':'okinawa.jpg','Osaka':'osaka.jpg','Philadelphia Avo':'philadelphia-avo.jpg',
-      'Philadelphia Ebi Tempura':'philadelphia-ebi-tempura.jpg',
-      'Philadelphia gurman':'philadelphia-gurman.jpg','Philadelphia Kani':'philadelphia-kani.jpg',
-      'Philadelphia Kappa':'philadelphia-kappa.jpg','Philadelphia Perfect':'philadelphia-perfect.jpg',
-      'Philadelphia unagi':'philadelphia-unagi.jpg','Raphael':'raphael.jpg','Redo':'redo.jpg',
-      'Roll Moldova':'roll-moldova.jpg','Sake spicy':'sake-spicy.jpg','Sakura':'sakura.jpg',
-      'Samurai':'samurai.jpg',
-      'Suedia':'suedia.jpg','Tanuki':'tanuki.jpg','Thailand':'thailand.jpg',
-      'Tokusen':'tokusen.jpg','Tokyo':'tokyo.jpg','Unagi spicy':'unagi-spicy.jpg',
-      'Yakuza':'yakuza.jpg','Kumamoto':'kumamoto.jpg','Sensei':'sensei.jpg',
-      'Shredder':'shredder.jpg','Splinter':'splinter.jpg',
-      'Creveți Tempura':'tempura-01.jpg','Ebi tempura':'tempura-02.jpg',
-      'Kani tempura':'tempura-03.jpg','Kunsei Tempura':'tempura-04.jpg',
-      'Maguro spicy tempura':'tempura-05.jpg','Maguro tempura':'tempura-06.jpg',
-      'Sake tempura':'tempura-07.jpg','Samurai tempura':'tempura-08.jpg',
-      'Unagi spicy tempura':'tempura-09.jpg','Unagi tempura':'tempura-10.jpg'
-    };
-    SAMURAI_PRODUCTS.forEach(product=>{if(SAMURAI_PRODUCT_IMAGES[product.name])product.image=`assets/samurai-menu/${SAMURAI_PRODUCT_IMAGES[product.name]}`;});
     const SAMURAI_PORTION_PRICES={
       'Alaska':[55,100], 'Arigato':[40,75], 'Banzai':[55,105], 'Bonito':[60,110],
       'Bushido':[65,120], 'Caesar':[45,85], 'California ebi':[50,95],
@@ -394,8 +362,19 @@
       'Kunsei maki':[40,75], 'Kyoto Maki':[40,70], 'Sake maki':[40,70],
       'Tekka maki':[40,70], 'Unagi maki':[45,80]
     };
+    const SAMURAI_ILLUSTRATIONS={
+      Uramaki:'assets/samurai-art/uramaki.svg',
+      Tempura:'assets/samurai-art/tempura.svg',
+      Gunkan:'assets/samurai-art/gunkan.svg',
+      Hossomaki:'assets/samurai-art/hossomaki.svg',
+      Nigiri:'assets/samurai-art/nigiri.svg',
+      'Poke Bowl':'assets/samurai-art/poke-bowl.svg',
+      'Roll Dog':'assets/samurai-art/roll-dog.svg',
+      'Sushi Burger':'assets/samurai-art/sushi-burger.svg',
+      Seturi:'assets/samurai-art/seturi.svg'
+    };
     const SAMURAI_TEMPURA=new Set(['Creveți Tempura','Ebi tempura','Kani tempura','Kunsei Tempura','Maguro spicy tempura','Maguro tempura','Sake tempura','Samurai tempura','Unagi spicy tempura','Unagi tempura']);
-    SAMURAI_PRODUCTS.forEach(product=>{product.category=SAMURAI_TEMPURA.has(product.name)?'Tempura':'Uramaki';});
+    SAMURAI_PRODUCTS.forEach(product=>{product.category=SAMURAI_TEMPURA.has(product.name)?'Tempura':'Uramaki';product.image=SAMURAI_ILLUSTRATIONS[product.category];});
     const SAMURAI_ADDITIONAL_PRODUCTS=[
       ['Gunkan Chukka',25,'Gunkan'],
       ['Gunkan Hot ebi',35,'Gunkan'],
@@ -482,94 +461,94 @@
       ['Set 9-10 Samurai',2155,'Seturi']
     ];
     const SAMURAI_PRODUCT_DETAILS={
-      'Gunkan Chukka':{sizes:['1 buc 40 g'],image:'gunkan-01.png'},
-      'Gunkan Hot ebi':{sizes:['1 buc 40 g'],image:'gunkan-02.png'},
-      'Gunkan Hot kani':{sizes:['1 buc 40 g'],image:'gunkan-03.png'},
-      'Gunkan Hot maguro':{sizes:['1 buc 40 g'],image:'gunkan-04.png'},
-      'Gunkan Hot sake':{sizes:['1 buc 40 g'],image:'gunkan-05.png'},
-      'Gunkan Hot unagi':{sizes:['1 buc 40 g'],image:'gunkan-06.png'},
-      'Gunkan Ikura':{sizes:['1 buc 45 g'],image:'gunkan-07.png'},
-      'Gunkan Kani':{sizes:['1 buc 35 g'],image:'gunkan-08.png'},
-      'Gunkan Spicy ebi':{sizes:['1 buc 40 g'],image:'gunkan-09.png'},
-      'Gunkan Spicy kani':{sizes:['1 buc 40 g'],image:'gunkan-10.png'},
+      'Gunkan Chukka':{sizes:['1 buc 40 g']},
+      'Gunkan Hot ebi':{sizes:['1 buc 40 g']},
+      'Gunkan Hot kani':{sizes:['1 buc 40 g']},
+      'Gunkan Hot maguro':{sizes:['1 buc 40 g']},
+      'Gunkan Hot sake':{sizes:['1 buc 40 g']},
+      'Gunkan Hot unagi':{sizes:['1 buc 40 g']},
+      'Gunkan Ikura':{sizes:['1 buc 45 g']},
+      'Gunkan Kani':{sizes:['1 buc 35 g']},
+      'Gunkan Spicy ebi':{sizes:['1 buc 40 g']},
+      'Gunkan Spicy kani':{sizes:['1 buc 40 g']},
       'Gunkan Spicy Maguro':{sizes:['1 buc 40 g']},
       'Gunkan Spicy Sake':{sizes:['1 buc 40 g']},
       'Gunkan Spicy unagi':{sizes:['1 buc 40 g']},
       'Gunkan Masago Black':{sizes:['1 buc 35 g']},
       'Gunkan Masago Orange':{sizes:['1 buc 35 g']},
-      'Avocado maki':{sizes:['4 buc 65 g','8 buc 130 g'],image:'hossomaki-01.png'},
-      'Chukka maki':{sizes:['4 buc 68 g','8 buc 135 g'],image:'hossomaki-02.png'},
-      'Ebi maki':{sizes:['4 buc 65 g','8 buc 130 g'],image:'hossomaki-03.png'},
-      'Futomaki Yasai':{sizes:['4 buc 100 g','8 buc 200 g'],image:'hossomaki-04.png'},
-      'Ikura maki':{sizes:['4 buc 85 g','8 buc 170 g'],image:'hossomaki-05.png'},
-      'Kappa maki':{sizes:['4 buc 65 g','8 buc 130 g'],image:'hossomaki-06.png'},
-      'Kunsei maki':{sizes:['4 buc 65 g','8 buc 130 g'],image:'hossomaki-07.png'},
-      'Kyoto Maki':{sizes:['4 buc 70 g','8 buc 140 g'],image:'hossomaki-08.png'},
-      'Sake maki':{sizes:['4 buc 68 g','8 buc 135 g'],image:'hossomaki-09.png'},
-      'Tekka maki':{sizes:['4 buc 65 g','8 buc 130 g'],image:'hossomaki-10.png'},
-      'Unagi maki':{sizes:['4 buc 70 g','8 buc 140 g'],image:'hossomaki-11.jpg'},
-      'Chukka sarada':{sizes:['150/30 g'],image:'nigiri-01.png'},
-      'Nigiri Ebi':{sizes:['1 buc 35 g'],image:'nigiri-02.png'},
-      'Nigiri Kunsei':{sizes:['1 buc 35 g'],image:'nigiri-03.png'},
-      'Nigiri Maguro':{sizes:['1 buc 35 g'],image:'nigiri-04.png'},
-      'Nigiri Sake':{sizes:['1 buc 35 g'],image:'nigiri-05.png'},
-      'Nigiri Sake aburi':{sizes:['1 buc 35 g'],image:'nigiri-06.png'},
-      'Nigiri Unagi':{sizes:['1 buc 35 g'],image:'nigiri-07.png'},
-      'Poke Afrodita (Midii)':{sizes:['415 g'],image:'poke-bowl-01.png'},
-      'Poke Apollo (Somon Afumat)':{sizes:['380 g'],image:'poke-bowl-02.png'},
-      'Poke Ares (Ton)':{sizes:['390 g'],image:'poke-bowl-03.png'},
-      'Poke Artemis (Pui Afumat)':{sizes:['370 g'],image:'poke-bowl-04.png'},
-      'Poke Atena (Surimi)':{sizes:['385 g'],image:'poke-bowl-05.png'},
-      'Poke Demetra (Vegan)':{sizes:['350 g'],image:'poke-bowl-06.png'},
-      'Poke Hera (Creveți Tempura)':{sizes:['450 g'],image:'poke-bowl-07.png'},
-      'Poke Hermes (Țipar)':{sizes:['405 g'],image:'poke-bowl-08.png'},
-      'Poke Poseidon (Creveți)':{sizes:['385 g'],image:'poke-bowl-09.png'},
-      'Poke Zeus (Somon)':{sizes:['430 g'],image:'poke-bowl-10.png'},
-      'Roll Dog Alfa':{sizes:['310 g'],image:'roll-dog-01.png'},
-      'Roll Dog Beta':{sizes:['310 g'],image:'roll-dog-02.png'},
-      'Roll Dog Gamma':{sizes:['330 g'],image:'roll-dog-03.png'},
-      'Roll Dog Omega':{sizes:['310 g'],image:'roll-dog-04.png'},
-      'Sushi Burger Aprilia':{sizes:['340 g'],image:'sushi-burger-01.png'},
-      'Sushi Burger Ducati':{sizes:['330 g'],image:'sushi-burger-02.png'},
-      'Sushi Burger Harley Davidson':{sizes:['350 g'],image:'sushi-burger-03.png'},
-      'Sushi Burger Honda':{sizes:['360 g'],image:'sushi-burger-04.png'},
-      'Sushi Burger Kawasaki':{sizes:['360 g'],image:'sushi-burger-05.png'},
-      'Sushi Burger KAYO':{sizes:['355 g'],image:'sushi-burger-06.png'},
-      'Sushi Burger KTM':{sizes:['325 g'],image:'sushi-burger-07.png'},
-      'Sushi Burger Suzuki':{sizes:['330 g'],image:'sushi-burger-08.png'},
-      'Sushi Burger Triumph':{sizes:['360 g'],image:'sushi-burger-09.png'},
-      'Sushi Burger Yamaha':{sizes:['340 g'],image:'sushi-burger-10.png'},
+      'Avocado maki':{sizes:['4 buc 65 g','8 buc 130 g']},
+      'Chukka maki':{sizes:['4 buc 68 g','8 buc 135 g']},
+      'Ebi maki':{sizes:['4 buc 65 g','8 buc 130 g']},
+      'Futomaki Yasai':{sizes:['4 buc 100 g','8 buc 200 g']},
+      'Ikura maki':{sizes:['4 buc 85 g','8 buc 170 g']},
+      'Kappa maki':{sizes:['4 buc 65 g','8 buc 130 g']},
+      'Kunsei maki':{sizes:['4 buc 65 g','8 buc 130 g']},
+      'Kyoto Maki':{sizes:['4 buc 70 g','8 buc 140 g']},
+      'Sake maki':{sizes:['4 buc 68 g','8 buc 135 g']},
+      'Tekka maki':{sizes:['4 buc 65 g','8 buc 130 g']},
+      'Unagi maki':{sizes:['4 buc 70 g','8 buc 140 g']},
+      'Chukka sarada':{sizes:['150/30 g']},
+      'Nigiri Ebi':{sizes:['1 buc 35 g']},
+      'Nigiri Kunsei':{sizes:['1 buc 35 g']},
+      'Nigiri Maguro':{sizes:['1 buc 35 g']},
+      'Nigiri Sake':{sizes:['1 buc 35 g']},
+      'Nigiri Sake aburi':{sizes:['1 buc 35 g']},
+      'Nigiri Unagi':{sizes:['1 buc 35 g']},
+      'Poke Afrodita (Midii)':{sizes:['415 g']},
+      'Poke Apollo (Somon Afumat)':{sizes:['380 g']},
+      'Poke Ares (Ton)':{sizes:['390 g']},
+      'Poke Artemis (Pui Afumat)':{sizes:['370 g']},
+      'Poke Atena (Surimi)':{sizes:['385 g']},
+      'Poke Demetra (Vegan)':{sizes:['350 g']},
+      'Poke Hera (Creveți Tempura)':{sizes:['450 g']},
+      'Poke Hermes (Țipar)':{sizes:['405 g']},
+      'Poke Poseidon (Creveți)':{sizes:['385 g']},
+      'Poke Zeus (Somon)':{sizes:['430 g']},
+      'Roll Dog Alfa':{sizes:['310 g']},
+      'Roll Dog Beta':{sizes:['310 g']},
+      'Roll Dog Gamma':{sizes:['330 g']},
+      'Roll Dog Omega':{sizes:['310 g']},
+      'Sushi Burger Aprilia':{sizes:['340 g']},
+      'Sushi Burger Ducati':{sizes:['330 g']},
+      'Sushi Burger Harley Davidson':{sizes:['350 g']},
+      'Sushi Burger Honda':{sizes:['360 g']},
+      'Sushi Burger Kawasaki':{sizes:['360 g']},
+      'Sushi Burger KAYO':{sizes:['355 g']},
+      'Sushi Burger KTM':{sizes:['325 g']},
+      'Sushi Burger Suzuki':{sizes:['330 g']},
+      'Sushi Burger Triumph':{sizes:['360 g']},
+      'Sushi Burger Yamaha':{sizes:['340 g']},
       'Roll Dog Inari':{sizes:['310 g']},
-      'Set Budo':{sizes:['26 buc · 765 g'],image:'set-budo.png'},
-      'Set California':{sizes:['32 buc · 1120 g'],image:'set-california.png'},
-      'Set Fuji':{sizes:['24 buc · 730 g'],image:'set-fuji.png'},
-      'Set Fierbinte':{sizes:['24 buc · 900 g'],image:'set-fierbinte.png'},
-      'Set Philadelphia':{sizes:['24 buc · 825 g'],image:'set-philadelphia.png'},
-      'Set Canada':{sizes:['24 buc · 840 g'],image:'set-canada.png'},
-      'Set Sumo':{sizes:['24 buc + 1 porție salată · 945 g'],image:'set-sumo.png'},
-      'Set Art':{sizes:['27 buc · 765 g'],image:'set-art.png'},
-      'Set Canada Luxury':{sizes:['32 buc · 1170 g'],image:'set-canada-luxury.png'},
-      'Set Tateyama':{sizes:['24 buc · 705 g'],image:'set-tateyama.png'},
-      'Set Zen':{sizes:['16 buc · 575 g'],image:'set-zen.png'},
-      'Duhul Samuraiului':{sizes:['32 buc · 1055 g'],image:'set-duhul-samuraiului.png'},
-      'Set Omedeto':{sizes:['32 buc · 795 g'],image:'set-omedeto.png'},
-      'Set Philadelphia Nobil':{sizes:['32 buc · 1060 g'],image:'set-philadelphia-nobil.png'},
-      'Set Primavera':{sizes:['32 buc · 1100 g'],image:'set-primavera.png'},
-      'Set Big Love':{sizes:['30 buc · 1100 g'],image:'set-big-love.png'},
-      'Set Happy':{sizes:['40 buc · 1250 g'],image:'set-happy.png'},
-      'Set Aiko':{sizes:['12 buc · 430 g'],image:'seturi-08.png'},
-      'Sabia Samuraiului':{sizes:['32 buc · 930 g'],image:'set-sabia-samuraiului.png'},
-      'Lovitura Samuraiului':{sizes:['20 buc · 515 g'],image:'set-lovitura-samuraiului.png'},
-      'Set Milo':{sizes:['80 buc · 2425 g'],image:'set-milo.png'},
-      'Calea Samuraiului':{sizes:['88 buc · 2580 g'],image:'set-calea-samuraiului.png'},
-      'Set 4-5 Samurai':{sizes:['100 buc · 2530 g'],image:'set-4-5-samurai.png'},
-      'Set 6-8 Samurai':{sizes:['150 buc · 3895 g'],image:'set-6-8-samurai.png'},
-      'Set 9-10 Samurai':{sizes:['200 buc · 5315 g'],image:'set-9-10-samurai.png'}
+      'Set Budo':{sizes:['26 buc · 765 g']},
+      'Set California':{sizes:['32 buc · 1120 g']},
+      'Set Fuji':{sizes:['24 buc · 730 g']},
+      'Set Fierbinte':{sizes:['24 buc · 900 g']},
+      'Set Philadelphia':{sizes:['24 buc · 825 g']},
+      'Set Canada':{sizes:['24 buc · 840 g']},
+      'Set Sumo':{sizes:['24 buc + 1 porție salată · 945 g']},
+      'Set Art':{sizes:['27 buc · 765 g']},
+      'Set Canada Luxury':{sizes:['32 buc · 1170 g']},
+      'Set Tateyama':{sizes:['24 buc · 705 g']},
+      'Set Zen':{sizes:['16 buc · 575 g']},
+      'Duhul Samuraiului':{sizes:['32 buc · 1055 g']},
+      'Set Omedeto':{sizes:['32 buc · 795 g']},
+      'Set Philadelphia Nobil':{sizes:['32 buc · 1060 g']},
+      'Set Primavera':{sizes:['32 buc · 1100 g']},
+      'Set Big Love':{sizes:['30 buc · 1100 g']},
+      'Set Happy':{sizes:['40 buc · 1250 g']},
+      'Set Aiko':{sizes:['12 buc · 430 g']},
+      'Sabia Samuraiului':{sizes:['32 buc · 930 g']},
+      'Lovitura Samuraiului':{sizes:['20 buc · 515 g']},
+      'Set Milo':{sizes:['80 buc · 2425 g']},
+      'Calea Samuraiului':{sizes:['88 buc · 2580 g']},
+      'Set 4-5 Samurai':{sizes:['100 buc · 2530 g']},
+      'Set 6-8 Samurai':{sizes:['150 buc · 3895 g']},
+      'Set 9-10 Samurai':{sizes:['200 buc · 5315 g']}
     };
     const firstAdditionalProductId=SAMURAI_PRODUCTS.length+1;
     SAMURAI_ADDITIONAL_PRODUCTS.forEach(([name,price,category],index)=>{
       const details=SAMURAI_PRODUCT_DETAILS[name];
-      SAMURAI_PRODUCTS.push({...details,id:firstAdditionalProductId+index,name,price,category,image:details.image?`assets/samurai-menu/${details.image}`:undefined});
+      SAMURAI_PRODUCTS.push({...details,id:firstAdditionalProductId+index,name,price,category,image:SAMURAI_ILLUSTRATIONS[category]});
     });
     const samuraiSizes=new Map();
     const form=document.getElementById('order-form'),notice=document.getElementById('notice'),submitButton=document.getElementById('submit-button'),dialog=document.getElementById('product-dialog'),itemsInput=document.getElementById('store-items'),storeInput=document.getElementById('store-input'),dialogHelp=document.getElementById('dialog-help'),amoreCatalog=document.getElementById('amore-catalog'),amoreSearch=document.getElementById('amore-search'),amoreCategories=document.getElementById('amore-categories'),amoreProducts=document.getElementById('amore-products'),amoreCategoryTitle=document.getElementById('amore-category-title'),amoreProductCount=document.getElementById('amore-product-count'),amoreSelectionTotal=document.getElementById('amore-selection-total'),summary=document.getElementById('order-summary'),localitySelect=document.getElementById('locality'),deliveryPrice=document.getElementById('delivery-price'),orderByStore=new Map(),catalogQuantities=new Map();let activeStore='',activeAmoreCategory='Toate produsele',amoreDraft=new Map();const bravoSelections=new Map();
@@ -584,7 +563,7 @@
     function updateStoreCards(){const firstStore=orderByStore.keys().next().value;document.querySelectorAll('.store-card').forEach(card=>{const has=orderByStore.has(card.dataset.store);card.setAttribute('aria-pressed',String(has));card.querySelector('.store-status').textContent=has?(card.dataset.store===firstStore?'Produse salvate ✓ · Inclus în livrare':'Produse salvate ✓ · +10 lei la livrare'):(orderByStore.size?'+10 lei la livrare':'Inclus în livrare');});}
     function renderSummary(){summary.replaceChildren();for(const[store,items]of orderByStore){const row=document.createElement('div');row.className='summary-item';const title=document.createElement('strong');title.textContent=store;const products=document.createElement('p');products.textContent=items;row.append(title,products);summary.append(row);}updateStoreCards();updateDeliveryPrice();}
     function updateDeliveryPrice(){const option=localitySelect.selectedOptions[0];if(!option||!option.dataset.fee){deliveryPrice.textContent='Alege localitatea pentru a vedea costul livrării.';return;}const baseFee=Number(option.dataset.fee),extraStoreCount=Math.max(0,orderByStore.size-1),extraFee=extraStoreCount*10,totalFee=baseFee+extraFee;deliveryPrice.textContent=extraStoreCount?`Costul livrării la ${option.value}: ${baseFee} lei + ${extraFee} lei pentru ${extraStoreCount===1?'un magazin suplimentar':`${extraStoreCount} magazine suplimentare`} = ${totalFee} lei.`:`Costul livrării la ${option.value}: ${totalFee} lei (primul magazin inclus; fiecare magazin suplimentar +10 lei).`;}localitySelect.addEventListener('change',updateDeliveryPrice);
-    function renderAmoreCategories(){amoreCategories.replaceChildren();for(const category of activeCatalogCategories()){const button=document.createElement('button');button.type='button';button.className='amore-category';button.setAttribute('aria-pressed',String(category===activeAmoreCategory));button.dataset.category=category;const image=document.createElement('img');image.src=activeStore==='Samurai Sushi'?STORE_ASSETS[activeStore]:(activeStore==='Bravo'?bravoCategoryImages:amoreCategoryImages)[category];image.alt='';const label=document.createElement('span');label.textContent=category;button.append(image,label);amoreCategories.append(button);}}
+    function renderAmoreCategories(){amoreCategories.replaceChildren();for(const category of activeCatalogCategories()){const button=document.createElement('button');button.type='button';button.className='amore-category';button.setAttribute('aria-pressed',String(category===activeAmoreCategory));button.dataset.category=category;const image=document.createElement('img');image.src=activeStore==='Samurai Sushi'?SAMURAI_ILLUSTRATIONS[category]:(activeStore==='Bravo'?bravoCategoryImages:amoreCategoryImages)[category];image.alt='';const label=document.createElement('span');label.textContent=category;button.append(image,label);amoreCategories.append(button);}}
     function renderAmoreProducts(){if(activeStore==='Samurai Sushi'){renderSamuraiProducts();return;}if(activeStore==='Bravo'){renderBravoProducts();return;}const query=amoreSearch.value.trim().toLocaleLowerCase('ro'),products=activeCatalogProducts().filter(product=>(query||activeAmoreCategory==='Toate produsele'||product.category===activeAmoreCategory)&&product.name.toLocaleLowerCase('ro').includes(query));amoreCategoryTitle.textContent=query?'Rezultatele căutării':activeAmoreCategory;amoreProductCount.textContent=`${products.length} produse`;amoreProducts.replaceChildren();if(!products.length){const empty=document.createElement('p');empty.textContent=query?'Nu am găsit produse.':'Produsele din această categorie nu sunt disponibile încă.';amoreProducts.append(empty);}for(const product of products)renderStandardProduct(product);updateAmoreTotal();}
     function renderStandardProduct(product){const card=document.createElement('article');card.className='amore-product';const image=document.createElement('img');image.src=product.image;image.alt=product.name;image.loading='lazy';const info=document.createElement('div');info.className='amore-product-info';const name=document.createElement('strong');name.className='amore-product-name';name.textContent=product.name;const price=document.createElement('div');price.className='amore-product-price';price.textContent=formatPrice(product.price);if(product.oldPrice){const oldPrice=document.createElement('del');oldPrice.textContent=formatPrice(product.oldPrice);price.append(oldPrice);}const priceNote=product.priceNote?document.createElement('small'):null;if(priceNote){priceNote.textContent=product.priceNote;priceNote.style.color='var(--muted)';}const quantity=document.createElement('div');quantity.className='amore-quantity';const decrement=document.createElement('button');decrement.type='button';decrement.textContent='−';decrement.setAttribute('aria-label',`Scade ${product.name}`);decrement.dataset.quantityChange='-1';decrement.dataset.productId=product.id;const count=document.createElement('span');count.textContent=amoreDraft.get(product.id)||0;const increment=document.createElement('button');increment.type='button';increment.textContent='+';increment.setAttribute('aria-label',`Adaugă ${product.name}`);increment.dataset.quantityChange='1';increment.dataset.productId=product.id;quantity.append(decrement,count,increment);info.append(name,price);if(priceNote)info.append(priceNote);info.append(quantity);card.append(image,info);amoreProducts.append(card);}
     function renderBravoProducts(){const query=amoreSearch.value.trim().toLocaleLowerCase('ro'),matches=product=>product.name.toLocaleLowerCase('ro').includes(query),showCategory=product=>query||activeAmoreCategory==='Toate produsele'||product.category===activeAmoreCategory,pizzas=BRAVO_PIZZAS.filter(group=>(query||activeAmoreCategory==='Toate produsele'||activeAmoreCategory==='Pizza')&&group.name.toLocaleLowerCase('ro').includes(query)),products=BRAVO_PRODUCTS.filter(product=>product.category!=='Pizza'&&showCategory(product)&&matches(product));amoreCategoryTitle.textContent=query?'Rezultatele căutării':activeAmoreCategory;amoreProductCount.textContent=`${pizzas.length+products.length} produse`;amoreProducts.replaceChildren();if(!pizzas.length&&!products.length){const empty=document.createElement('p');empty.textContent=query?'Nu am găsit produse.':'Produsele din această categorie nu sunt disponibile încă.';amoreProducts.append(empty);}for(const group of pizzas)renderBravoPizza(group);for(const product of products)renderStandardProduct(product);updateAmoreTotal();}

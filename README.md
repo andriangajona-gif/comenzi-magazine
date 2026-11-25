@@ -24,7 +24,7 @@ Catalogul Davidan permite căutarea și selectarea produselor de patiserie, cu p
 
 Catalogul Bravo este organizat în categoriile Pizza, Plăcinte și Băuturi. Pentru fiecare pizza, alege prin buton radio felia de 130 g (26 MDL) sau pizza întreagă de 520 g (105 MDL). Coca-Cola și Sprite de 0,5 l au prețul afișat per unitate.
 
-Catalogul Samurai Sushi include Uramaki, Tempura, Gunkan, Hossomaki, Nigiri, Poke Bowl, Roll Dog, Sushi Burger și Seturi, cu produse selectabile, fotografiile disponibile și prețurile din meniurile furnizate. Cele 25 de seturi vizibile în capturile de meniu au fotografii asociate individual; produsele adăugate sunt Lovitura Samuraiului, Set Aiko și Set California. PDF-ul Uramaki include fotografii pentru primele 10 produse; celelalte produse nu au fotografii în fișier. Uramaki și Tempura permit alegerea porției de 4 sau 8 bucăți folosind prețurile din fotografiile meniului. Hossomaki oferă aceleași opțiuni, iar până la primirea unui preț separat pentru fiecare porție folosește prețul listat în PDF.
+Catalogul Samurai Sushi include Uramaki, Tempura, Gunkan, Hossomaki, Nigiri, Poke Bowl, Roll Dog, Sushi Burger și Seturi, cu produse selectabile și ilustrații vectoriale originale create pentru acest site. Uramaki, Tempura și Hossomaki permit alegerea porției de 4 sau 8 bucăți; prețurile sunt afișate pentru fiecare porție.
 
 ## Publicare GitHub Pages
 
