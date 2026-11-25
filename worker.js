@@ -1,4 +1,4 @@
-const ALLOWED_ORIGIN = 'https://andriangajona-gif.github.io';
+const ALLOWED_ORIGIN = 'https://curierfloresti.github.io';
 const ALLOWED_STORES = ['Bravo', 'Amore Sushi', 'Panda', 'Farmacie', 'Samurai Sushi', 'Davidan'];
 const DELIVERY_FEES = {
   'Florești':55,'Vărvăreuca':60,'Bubulești':80,'Alexeevca':90,'Gura Camencii':90,'Mărculești':100,'Lunga':110,'Gura Căinarului':120,'Cenușa':130,'Roșietici':130,'Ghindești':140,'Prajila':140,'Răduleni Vechi':140,'Rogojeni':140,'Sevirova':150,'Cașunca':160,'Vadeni':160,'Putinești':180,'Ciripcău':190,'Trifănești':190,'Ciutulești':200,'Nicolaevca':210,'Izvoare':230,'Domulgeni':250,'Temeleuți':330,'Ștefănești':350,
