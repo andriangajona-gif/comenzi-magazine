@@ -127,7 +127,11 @@ export default {
 
     const text = [
       '🛍 COMANDĂ NOUĂ',
-      ...orders.flatMap(entry => [`\n🏬 ${entry.store}`, entry.items.trim()]),
+      ...orders.flatMap(entry => [
+        `\n🏬 ${entry.store}`,
+        entry.items.trim(),
+        ...(entry.store === 'Panda' ? ['Prețurile produselor vor fi comunicate curierului la magazin.'] : []),
+      ]),
       '',
       `Client: ${order.name.trim()}`,
       `Telefon: ${order.phone.trim()}`,
