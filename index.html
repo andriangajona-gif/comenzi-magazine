@@ -389,10 +389,10 @@
       'Sensei':[50,90], 'Tanuki':[50,95], 'Thailand':[55,100],
       'Tokusen':[65,120], 'Tokyo':[75,145], 'Unagi spicy':[55,105],
       'Unagi spicy tempura':[65,120], 'Unagi tempura':[65,125], 'Yakuza':[65,120],
-      'Avocado maki':[35,35], 'Chukka maki':[35,35], 'Ebi maki':[40,40],
-      'Futomaki Yasai':[35,35], 'Ikura maki':[55,55], 'Kappa maki':[30,30],
-      'Kunsei maki':[40,40], 'Kyoto Maki':[40,40], 'Sake maki':[40,40],
-      'Tekka maki':[40,40], 'Unagi maki':[45,80]
+      'Avocado maki':[35,60], 'Chukka maki':[35,60], 'Ebi maki':[40,70],
+      'Futomaki Yasai':[35,65], 'Ikura maki':[35,100], 'Kappa maki':[30,50],
+      'Kunsei maki':[40,75], 'Kyoto Maki':[40,70], 'Sake maki':[40,70],
+      'Tekka maki':[40,70], 'Unagi maki':[45,80]
     };
     const SAMURAI_TEMPURA=new Set(['Creveți Tempura','Ebi tempura','Kani tempura','Kunsei Tempura','Maguro spicy tempura','Maguro tempura','Sake tempura','Samurai tempura','Unagi spicy tempura','Unagi tempura']);
     SAMURAI_PRODUCTS.forEach(product=>{product.category=SAMURAI_TEMPURA.has(product.name)?'Tempura':'Uramaki';});
@@ -410,13 +410,13 @@
       ['Gunkan Spicy Maguro',30,'Gunkan'],
       ['Gunkan Spicy Sake',35,'Gunkan'],
       ['Gunkan Spicy unagi',40,'Gunkan'],
-      ['Gunkan tobiko black',30,'Gunkan'],
-      ['Gunkan tobiko orange',30,'Gunkan'],
+      ['Gunkan Masago Black',25,'Gunkan'],
+      ['Gunkan Masago Orange',25,'Gunkan'],
       ['Avocado maki',35,'Hossomaki'],
       ['Chukka maki',35,'Hossomaki'],
       ['Ebi maki',40,'Hossomaki'],
       ['Futomaki Yasai',35,'Hossomaki'],
-      ['Ikura maki',55,'Hossomaki'],
+      ['Ikura maki',35,'Hossomaki'],
       ['Kappa maki',30,'Hossomaki'],
       ['Kunsei maki',40,'Hossomaki'],
       ['Kyoto Maki',40,'Hossomaki'],
@@ -487,8 +487,8 @@
       'Gunkan Spicy Maguro':{sizes:['1 buc 40 g']},
       'Gunkan Spicy Sake':{sizes:['1 buc 40 g']},
       'Gunkan Spicy unagi':{sizes:['1 buc 40 g']},
-      'Gunkan tobiko black':{sizes:['1 buc 35 g']},
-      'Gunkan tobiko orange':{sizes:['1 buc 35 g']},
+      'Gunkan Masago Black':{sizes:['1 buc 35 g']},
+      'Gunkan Masago Orange':{sizes:['1 buc 35 g']},
       'Avocado maki':{sizes:['4 buc 65 g','8 buc 130 g'],image:'hossomaki-01.png'},
       'Chukka maki':{sizes:['4 buc 68 g','8 buc 135 g'],image:'hossomaki-02.png'},
       'Ebi maki':{sizes:['4 buc 65 g','8 buc 130 g'],image:'hossomaki-03.png'},
