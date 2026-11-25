@@ -20,6 +20,8 @@ Primul magazin comandat este inclus în taxa de livrare, iar fiecare magazin sup
 
 Catalogul Amore Sushi include 84 de produse și imaginile lor în categoriile Rolluri, Sushi, Sushi Fastfood, Pizza, Seturi și Fastfood. Categoriile afișate sunt Rolluri, Sushi Fastfood, Sushi, Seturi, Pizza, Feluri osebite, Fastfood și La bere; Feluri osebite și La bere momentan nu au produse disponibile în catalog. Produsele selectate și totalul lor sunt atașate comenzii către curier.
 
+Catalogul Davidan permite căutarea și selectarea produselor de patiserie, cu prețurile afișate separat de fotografii. Produsele și totalul lor sunt atașate comenzii către curier.
+
 ## Publicare GitHub Pages
 
 În repository mergi la **Settings → Pages**, alege **Deploy from a branch**, ramura `main` și folderul `/ (root)`. Site-ul este la `https://andriangajona-gif.github.io/comenzi-magazine/` după publicare.
