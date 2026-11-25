@@ -229,9 +229,9 @@
       {name:'Kurtos Dubai',price:59,image:357}
     ].map((product,index)=>({...product,id:index+1,image:`assets/davidan-menu/${product.image}.jpg`}));
     const BRAVO_PRODUCTS=[
-      {name:'Saralie cu dovleac',price:10.5,category:'Plăcinte',image:'saralie-dovleac'},
-      {name:'Saralie cu brânză de vaci',price:15.5,category:'Plăcinte',image:'saralie-branza'},
-      {name:'Saralie cu cartofi',price:10.5,category:'Plăcinte',image:'saralie-cartofi'},
+      {name:'Saralie cu dovleac',price:10.5,category:'Plăcinte',image:'placinte'},
+      {name:'Saralie cu brânză de vaci',price:15.5,category:'Plăcinte',image:'placinte'},
+      {name:'Saralie cu cartofi',price:10.5,category:'Plăcinte',image:'placinte'},
       {name:'Pizza Junior — felie (130 g)',price:26,category:'Pizza',image:'pizza-1'},
       {name:'Pizza Junior — întreagă (520 g)',price:105,category:'Pizza',image:'pizza-1'},
       {name:'Pizza Blanco — felie (130 g)',price:26,category:'Pizza',image:'pizza-2'},
@@ -256,7 +256,7 @@
     const AMORE_CATEGORIES=['Rolluri','Sushi Fastfood','Sushi','Seturi','Pizza','Fastfood'];
     const BRAVO_CATEGORIES=['Pizza','Plăcinte','Băuturi'];
     const amoreCategoryImages={'Rolluri':'assets/amore-menu/category-rolluri.jpg','Sushi Fastfood':'assets/amore-menu/category-sushi-fastfood.jpg','Sushi':'assets/amore-menu/category-sushi.jpg','Seturi':'assets/amore-menu/category-seturi.jpg','Pizza':'assets/amore-menu/category-pizza.jpg','Fastfood':'assets/amore-menu/category-fastfood.png'};
-    const bravoCategoryImages={'Pizza':'assets/bravo-menu/pizza-1.jpg','Plăcinte':'assets/bravo-menu/saralie-dovleac.jpg','Băuturi':'assets/bravo-menu/coca-cola-05.jpg'};
+    const bravoCategoryImages={'Pizza':'assets/bravo-menu/pizza-1.jpg','Plăcinte':'assets/bravo-menu/placinte.jpg','Băuturi':'assets/bravo-menu/coca-cola-05.jpg'};
     const activeCatalogCategories=()=>activeStore==='Bravo'?BRAVO_CATEGORIES:AMORE_CATEGORIES;
     const formatPrice=price=>`${new Intl.NumberFormat('ro-MD',{minimumFractionDigits:Number.isInteger(price)?0:2,maximumFractionDigits:2}).format(price)} MDL`;
     const productTotal=(product,quantity)=>quantity>=product.bulkQuantity?product.bulkPrice*quantity:product.price*quantity;
