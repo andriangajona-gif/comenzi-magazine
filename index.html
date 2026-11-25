@@ -56,6 +56,7 @@
     .amore-product-price del { color:var(--muted); font-size:12px; font-weight:500; }
     .samurai-options { display:grid; gap:4px; font-size:13px; }
     .samurai-options label { display:flex; align-items:center; gap:6px; }
+    .samurai-product-image { object-fit:contain !important; background:#fff; }
     .amore-quantity { display:flex; align-items:center; justify-content:space-between; gap:8px; }
     .amore-quantity button { width:32px; height:32px; border:0; border-radius:9px; background:var(--green); color:#fff; font-size:19px; cursor:pointer; }
     .amore-quantity button:disabled { background:#aebbb3; cursor:default; }
@@ -328,6 +329,18 @@
       ['Unagi tempura',65,'4 buc 150g','8 buc 300g'],
       ['Yakuza',65,'4 buc 123g','8 buc 265g']
     ].map(([name,price,...sizes],index)=>({id:index+1,name,price,sizes}));
+    const SAMURAI_PRODUCT_IMAGES={
+      'Alaska':'uramaki-01.jpg','Arigato':'uramaki-02.jpg','Banzai':'uramaki-03.jpg',
+      'Bonito':'uramaki-04.jpg','Bushido':'uramaki-05.jpg','Caesar':'uramaki-06.jpg',
+      'California cheese ebi':'uramaki-07.jpg','California cheese kani':'uramaki-08.jpg',
+      'California cheese sake':'uramaki-09.jpg','California salmon grill':'uramaki-10.jpg',
+      'Creveți Tempura':'tempura-01.jpg','Ebi tempura':'tempura-02.jpg',
+      'Kani tempura':'tempura-03.jpg','Kunsei Tempura':'tempura-04.jpg',
+      'Maguro spicy tempura':'tempura-05.jpg','Maguro tempura':'tempura-06.jpg',
+      'Sake tempura':'tempura-07.jpg','Samurai tempura':'tempura-08.jpg',
+      'Unagi spicy tempura':'tempura-09.jpg','Unagi tempura':'tempura-10.jpg'
+    };
+    SAMURAI_PRODUCTS.forEach(product=>{if(SAMURAI_PRODUCT_IMAGES[product.name])product.image=`assets/samurai-menu/${SAMURAI_PRODUCT_IMAGES[product.name]}`;});
     const SAMURAI_PORTION_PRICES={
       'Alaska':[55,100], 'Arigato':[40,75], 'Banzai':[55,105], 'Bonito':[60,110],
       'Bushido':[65,120], 'Caesar':[45,85], 'California cheese ebi':[50,95],
@@ -381,13 +394,14 @@
     function samuraiPortionPrice(product,size){return product.sizes.length===1?product.price:SAMURAI_PORTION_PRICES[product.name]?.[size];}
     function renderSamuraiProducts(){
       const query=amoreSearch.value.trim().toLocaleLowerCase('ro');
-      const products=SAMURAI_PRODUCTS.filter(product=>(query||activeAmoreCategory!=='Tempura'||SAMURAI_TEMPURA.has(product.name))&&product.name.toLocaleLowerCase('ro').includes(query));
+      const products=SAMURAI_PRODUCTS.filter(product=>(query||(activeAmoreCategory==='Tempura'?SAMURAI_TEMPURA.has(product.name):!SAMURAI_TEMPURA.has(product.name)))&&product.name.toLocaleLowerCase('ro').includes(query));
       amoreCategoryTitle.textContent=query?'Rezultatele căutării':activeAmoreCategory;
       amoreProductCount.textContent=`${products.length} produse`;amoreProducts.replaceChildren();
       if(!products.length){const empty=document.createElement('p');empty.textContent='Nu am găsit produse.';amoreProducts.append(empty);}
       for(const product of products){
         const card=document.createElement('article');card.className='amore-product';
         const info=document.createElement('div');info.className='amore-product-info';
+        if(product.image){const image=document.createElement('img');image.className='samurai-product-image';image.src=product.image;image.alt=product.name;image.loading='lazy';card.append(image);}
         const name=document.createElement('strong');name.className='amore-product-name';name.textContent=product.name;
         const selected=samuraiSizes.get(product.id)||0,selectedPrice=samuraiPortionPrice(product,selected);
         const price=document.createElement('div');price.className='amore-product-price';price.textContent=selectedPrice===undefined?`În PDF: ${formatPrice(product.price)}`:formatPrice(selectedPrice);

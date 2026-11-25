@@ -24,7 +24,7 @@ Catalogul Davidan permite căutarea și selectarea produselor de patiserie, cu p
 
 Catalogul Bravo este organizat în categoriile Pizza, Plăcinte și Băuturi. Pizza se poate comanda felie de 130 g (26 MDL) sau întreagă de 520 g (105 MDL). Coca-Cola și Sprite de 0,5 l au prețul afișat per unitate.
 
-Catalogul Samurai Sushi include Uramaki și Tempura, cu prețurile porțiilor disponibile din meniurile primite. Unde prețul porției nu este cunoscut, prețul din PDF este afișat ca referință, iar prețul porției alese trebuie confirmat; totalul include doar produsele cu preț cunoscut.
+Catalogul Samurai Sushi include Uramaki și Tempura, cu fotografiile încorporate în PDF-uri afișate pe fundal alb. PDF-urile furnizate conțin fotografii pentru primele 10 produse din fiecare categorie; produsele fără fotografie în fișierele primite rămân doar cu numele și prețurile porțiilor disponibile. Unde prețul porției nu este cunoscut, prețul din PDF este afișat ca referință, iar prețul porției alese trebuie confirmat; totalul include doar produsele cu preț cunoscut.
 
 ## Publicare GitHub Pages
 
