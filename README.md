@@ -28,4 +28,4 @@ Catalogul Samurai Sushi include Uramaki, Tempura, Gunkan, Hossomaki, Nigiri, Pok
 
 ## Publicare GitHub Pages
 
-În repository mergi la **Settings → Pages**, alege **Deploy from a branch**, ramura `main` și folderul `/ (root)`. Site-ul este la `https://andriangajona-gif.github.io/comenzi-magazine/` după publicare.
+În repository mergi la **Settings → Pages**, alege **Deploy from a branch**, ramura `main` și folderul `/ (root)`. Site-ul este la `https://curierfloresti.github.io/comenzi-magazine/` după publicare.
