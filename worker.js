@@ -124,32 +124,42 @@ export default {
       : productsCents
         ? `Suma produselor cu preț indicat: ${formatAmount(productsCents)} lei (prețuri lipsă la unele produse)`
         : 'Suma produselor: de confirmat (prețurile nu sunt scrise pentru toate produsele)';
+    const paymentTotalLine = productsComplete
+      ? `TOTAL DE PLATĂ: ${formatAmount(totalCents)} lei`
+      : `TOTAL PARȚIAL: ${formatAmount(totalCents)} lei (nu include produsele fără preț indicat)`;
 
     const text = [
       '🛍 COMANDĂ NOUĂ',
-      ...orders.flatMap(entry => [`\n🏬 ${entry.store}`, entry.items.trim()]),
+      ...orders.flatMap(entry => [
+        `\n🏬 ${entry.store}`,
+        entry.items.trim(),
+        ...(entry.store === 'Panda' ? ['Prețurile produselor vor fi comunicate curierului la magazin.'] : []),
+      ]),
       '',
       `Client: ${order.name.trim()}`,
       `Telefon: ${order.phone.trim()}`,
       `Localitate: ${order.locality}`,
       productAmountLine,
       `Livrare: ${expectedFee} lei`,
-      productsComplete
-        ? `TOTAL DE PLATĂ: ${formatAmount(totalCents)} lei`
-        : `TOTAL PARȚIAL: ${formatAmount(totalCents)} lei (nu include produsele fără preț indicat)`,
       storeSurcharge
         ? `Adaos pentru ${orders.length - 1} ${orders.length === 2 ? 'magazin suplimentar' : 'magazine suplimentare'}: ${storeSurcharge} lei`
         : '',
       `Adresă: ${order.street.trim()}`,
       order.details.trim() ? `Detalii: ${order.details.trim()}` : '',
+      paymentTotalLine,
     ].filter(Boolean).join('\n');
+    const paymentTotalOffset = text.length - paymentTotalLine.length;
 
     let telegramResponse;
     try {
       telegramResponse = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text }),
+        body: JSON.stringify({
+          chat_id: env.TELEGRAM_CHAT_ID,
+          text,
+          entities: [{ type: 'bold', offset: paymentTotalOffset, length: paymentTotalLine.length }],
+        }),
       });
     } catch {
       return json({ ok: false, error: 'Nu am putut contacta Telegram. Încearcă din nou.' }, 502, origin);
