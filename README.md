@@ -18,7 +18,7 @@ Worker-ul acceptă cereri doar de la originea GitHub Pages a acestui repository 
 
 Primul magazin comandat este inclus în taxa de livrare, iar fiecare magazin suplimentar adaugă 10 lei. După modificarea `worker.js`, publică din nou codul în Cloudflare pentru ca validarea prețului și notificările comenzilor să rămână sincronizate cu site-ul.
 
-Catalogul Amore Sushi include 84 de produse și imaginile lor în categoriile Rolluri, Sushi, Sushi Fastfood, Pizza, Seturi și Fastfood. Categoriile afișate sunt Rolluri, Sushi Fastfood, Sushi, Seturi, Pizza, Feluri osebite, Fastfood și La bere; Feluri osebite și La bere momentan nu au produse disponibile în catalog. Produsele selectate și totalul lor sunt atașate comenzii către curier.
+Catalogul Amore Sushi include 84 de produse și imaginile lor în categoriile Rolluri, Sushi Fastfood, Sushi, Pizza, Seturi și Fastfood. Produsele selectate și totalul lor sunt atașate comenzii către curier.
 
 Catalogul Davidan permite căutarea și selectarea produselor de patiserie, cu prețurile afișate separat de fotografii. Produsele și totalul lor sunt atașate comenzii către curier.
 
