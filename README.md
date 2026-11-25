@@ -22,7 +22,7 @@ Catalogul Amore Sushi include 84 de produse și imaginile lor în categoriile Ro
 
 Catalogul Davidan permite căutarea și selectarea produselor de patiserie, cu prețurile afișate separat de fotografii. Produsele și totalul lor sunt atașate comenzii către curier.
 
-Catalogul Bravo este organizat în categoriile Pizza, Plăcinte și Băuturi. Pizza se poate comanda felie de 130 g (26 MDL) sau întreagă de 520 g (105 MDL). Pentru Coca-Cola și Sprite de 0,5 l se aplică prețul redus de 13,20 MDL/bucată la selectarea a cel puțin patru bucăți.
+Catalogul Bravo este organizat în categoriile Pizza, Plăcinte și Băuturi. Pizza se poate comanda felie de 130 g (26 MDL) sau întreagă de 520 g (105 MDL). Coca-Cola și Sprite de 0,5 l au prețul afișat per unitate.
 
 ## Publicare GitHub Pages
 
