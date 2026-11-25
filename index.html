@@ -54,6 +54,8 @@
     .amore-product-name { min-height:36px; font-size:13px; line-height:1.35; }
     .amore-product-price { display:flex; align-items:center; gap:6px; color:var(--green); font-size:14px; font-weight:800; }
     .amore-product-price del { color:var(--muted); font-size:12px; font-weight:500; }
+    .samurai-options { display:grid; gap:4px; font-size:13px; }
+    .samurai-options label { display:flex; align-items:center; gap:6px; }
     .amore-quantity { display:flex; align-items:center; justify-content:space-between; gap:8px; }
     .amore-quantity button { width:32px; height:32px; border:0; border-radius:9px; background:var(--green); color:#fff; font-size:19px; cursor:pointer; }
     .amore-quantity button:disabled { background:#aebbb3; cursor:default; }
@@ -251,28 +253,146 @@
       {name:'Coca-Cola 0,5 l',price:13.9,category:'Băuturi',image:'coca-cola-05'},
       {name:'Sprite 0,5 l',price:13.9,category:'Băuturi',image:'sprite-05'}
     ].map((product,index)=>({...product,id:index+1,image:`assets/bravo-menu/${product.image}.jpg`}));
+    const SAMURAI_PRODUCTS=[
+      ['Alaska',55,'4 buc 145g','8 buc 290g'],
+      ['Arigato',40,'4 buc 120g','8 buc 240g'],
+      ['Banzai',55,'4 buc 135g','8 buc 270g'],
+      ['Bonito',60,'4 buc 118g','8 buc 235g'],
+      ['Bushido',65,'4 buc 150g','8 buc 300g'],
+      ['Caesar',45,'4 buc 113g','8 buc 225g'],
+      ['California ebi',55,'4 buc 145g','8 buc 290g'],
+      ['California kani',50,'4 buc 145g','8 buc 290g'],
+      ['California sake',55,'4 buc 135g','8 buc 270g'],
+      ['California salmon grill',55,'4 buc 135g','8 buc 270g'],
+      ['California unagi',60,'4 buc 150g','8 buc 300g'],
+      ['Canada ebi tempura',75,'4 buc 168g','8 buc 335g'],
+      ['Canada Elite',80,'4 buc 158g','8 buc 315g'],
+      ['Canada Kani',65,'4 buc 125g','8 buc 250g'],
+      ['Canada Light',70,'4 buc 138g','8 buc 275g'],
+      ['Creveți Tempura',120,'6 buc.'],
+      ['Donatello',90,'8 buc 245g'],
+      ['Ebi spicy',55,'4 buc 105g','8 buc 210g'],
+      ['Ebi tempura',60,'4 buc 150g','8 buc 300g'],
+      ['Finlanda',135,'8 buc 310g'],
+      ['Flamingo',65,'4 buc 140g','8 buc 280g'],
+      ['Fujiyama',55,'4 buc 118g','8 buc 235g'],
+      ['Geisha',55,'4 buc 130g','8 buc 260g'],
+      ['Harakiri',60,'4 buc 118g','8 buc 235g'],
+      ['Hokkaido',50,'4 buc 113g','8 buc 225g'],
+      ['Imperator',75,'4 buc 125g','8 buc 250g'],
+      ['Kani tempura',55,'4 buc 150g','8 buc 300g'],
+      ['Kanikama',35,'4 buc 130g','8 buc 260g'],
+      ['Kasan spicy',55,'4 buc 118g','8 buc 235g'],
+      ['Katana',75,'4 buc 133g','8 buc 265g'],
+      ['Kimono',55,'4 buc 130g','8 buc 260g'],
+      ['Kokoro',50,'4 buc 125g','8 buc 250g'],
+      ['Kumamoto',35,'4 buc 110g','8 buc 220g'],
+      ['Kunsei Tempura',60,'4 buc 150g','8 buc 300g'],
+      ['Kyoto',45,'4 buc 113g','8 buc 225g'],
+      ['Leonardo',75,'8 buc 245g'],
+      ['Maguro spicy',55,'4 buc 113g','8 buc 225g'],
+      ['Maguro spicy tempura',55,'4 buc 140g','8 buc 280g'],
+      ['Maguro tempura',60,'4 buc 150g','8 buc 300g'],
+      ['Michelangelo',100,'8 buc 245g'],
+      ['Ninja',65,'4 buc 120g','8 buc 260g'],
+      ['Norvegia',130,'8 buc 320g'],
+      ['Okinawa',45,'4 buc 120g','8 buc 240g'],
+      ['Osaka',50,'4 buc 115g','8 buc 230g'],
+      ['Philadelphia Avo',55,'4 buc 130g','8 buc 260g'],
+      ['Philadelphia Ebi Tempura',60,'4 buc 130g','8 buc 260g'],
+      ['Philadelphia gurman',65,'4 buc 150g','8 buc 300g'],
+      ['Philadelphia Kani',55,'4 buc 123g','8 buc 245g'],
+      ['Philadelphia Kappa',50,'4 buc 128g','8 buc 255g'],
+      ['Philadelphia Perfect',65,'4 buc 163g','8 buc 325g'],
+      ['Philadelphia unagi',65,'4 buc 133g','8 buc 265g'],
+      ['Raphael',100,'8 buc 245g'],
+      ['Redo',95,'8 buc 255g'],
+      ['Roll Moldova',145,'8 buc 330g'],
+      ['Ronin',65,'4 buc 123g','8 buc 265g'],
+      ['Sagano',45,'4 buc 135g','8 buc 270g'],
+      ['Sake spicy',55,'4 buc 113g','8 buc 225g'],
+      ['Sake tempura',60,'4 buc 150g','8 buc 300g'],
+      ['Sakura',65,'4 buc 130g','8 buc 260g'],
+      ['Samurai',75,'4 buc 133g','8 buc 265g'],
+      ['Samurai tempura',125,'6 buc 250g'],
+      ['Sensei',50,'4 buc 123g','8 buc 245g'],
+      ['Shredder',85,'8 buc 220g'],
+      ['Splinter',95,'8 buc 210g'],
+      ['Suedia',95,'8 buc 310g'],
+      ['Tanuki',50,'4 buc 120g','8 buc 240g'],
+      ['Thailand',55,'4 buc 115g','8 buc 230g'],
+      ['Tokusen',65,'4 buc 133g','8 buc 265g'],
+      ['Tokyo',75,'4 buc 150g','8 buc 300g'],
+      ['Unagi spicy',55,'4 buc 113g','8 buc 225g'],
+      ['Unagi spicy tempura',65,'4 buc 145g','8 buc 290g'],
+      ['Unagi tempura',65,'4 buc 150g','8 buc 300g'],
+      ['Yakuza',65,'4 buc 123g','8 buc 265g']
+    ].map(([name,price,...sizes],index)=>({id:index+1,name,price,sizes}));
+    const SAMURAI_TEMPURA=new Set(['Creveți Tempura','Ebi tempura','Kani tempura','Kunsei Tempura','Maguro spicy tempura','Maguro tempura','Sake tempura','Samurai tempura','Unagi spicy tempura','Unagi tempura']);
+    const samuraiSizes=new Map();
     const form=document.getElementById('order-form'),notice=document.getElementById('notice'),submitButton=document.getElementById('submit-button'),dialog=document.getElementById('product-dialog'),itemsInput=document.getElementById('store-items'),storeInput=document.getElementById('store-input'),dialogHelp=document.getElementById('dialog-help'),amoreCatalog=document.getElementById('amore-catalog'),amoreSearch=document.getElementById('amore-search'),amoreCategories=document.getElementById('amore-categories'),amoreProducts=document.getElementById('amore-products'),amoreCategoryTitle=document.getElementById('amore-category-title'),amoreProductCount=document.getElementById('amore-product-count'),amoreSelectionTotal=document.getElementById('amore-selection-total'),summary=document.getElementById('order-summary'),localitySelect=document.getElementById('locality'),deliveryPrice=document.getElementById('delivery-price'),orderByStore=new Map(),catalogQuantities=new Map();let activeStore='',activeAmoreCategory='Toate produsele',amoreDraft=new Map();
-    function activeCatalogProducts(){return activeStore==='Davidan'?DAVIDAN_PRODUCTS:activeStore==='Bravo'?BRAVO_PRODUCTS:AMORE_PRODUCTS;}
+    function activeCatalogProducts(){return activeStore==='Samurai Sushi'?SAMURAI_PRODUCTS:activeStore==='Davidan'?DAVIDAN_PRODUCTS:activeStore==='Bravo'?BRAVO_PRODUCTS:AMORE_PRODUCTS;}
     const AMORE_CATEGORIES=['Rolluri','Sushi Fastfood','Sushi','Seturi','Pizza','Fastfood'];
     const BRAVO_CATEGORIES=['Pizza','Plăcinte','Băuturi'];
     const amoreCategoryImages={'Rolluri':'assets/amore-menu/category-rolluri.jpg','Sushi Fastfood':'assets/amore-menu/category-sushi-fastfood.jpg','Sushi':'assets/amore-menu/category-sushi.jpg','Seturi':'assets/amore-menu/category-seturi.jpg','Pizza':'assets/amore-menu/category-pizza.jpg','Fastfood':'assets/amore-menu/category-fastfood.png'};
     const bravoCategoryImages={'Pizza':'assets/bravo-menu/pizza-1.jpg','Plăcinte':'assets/bravo-menu/placinte.jpg','Băuturi':'assets/bravo-menu/coca-cola-05.jpg'};
-    const activeCatalogCategories=()=>activeStore==='Bravo'?BRAVO_CATEGORIES:AMORE_CATEGORIES;
+    const activeCatalogCategories=()=>activeStore==='Samurai Sushi'?['Uramaki','Tempura']:activeStore==='Bravo'?BRAVO_CATEGORIES:AMORE_CATEGORIES;
     const formatPrice=price=>`${new Intl.NumberFormat('ro-MD',{minimumFractionDigits:Number.isInteger(price)?0:2,maximumFractionDigits:2}).format(price)} MDL`;
     const productTotal=(product,quantity)=>quantity>=product.bulkQuantity?product.bulkPrice*quantity:product.price*quantity;
     function updateStoreCards(){const firstStore=orderByStore.keys().next().value;document.querySelectorAll('.store-card').forEach(card=>{const has=orderByStore.has(card.dataset.store);card.setAttribute('aria-pressed',String(has));card.querySelector('.store-status').textContent=has?(card.dataset.store===firstStore?'Produse salvate ✓ · Inclus în livrare':'Produse salvate ✓ · +10 lei la livrare'):(orderByStore.size?'+10 lei la livrare':'Inclus în livrare');});}
     function renderSummary(){summary.replaceChildren();for(const[store,items]of orderByStore){const row=document.createElement('div');row.className='summary-item';const title=document.createElement('strong');title.textContent=store;const products=document.createElement('p');products.textContent=items;row.append(title,products);summary.append(row);}updateStoreCards();updateDeliveryPrice();}
     function updateDeliveryPrice(){const option=localitySelect.selectedOptions[0];if(!option||!option.dataset.fee){deliveryPrice.textContent='Alege localitatea pentru a vedea costul livrării.';return;}const baseFee=Number(option.dataset.fee),extraStoreCount=Math.max(0,orderByStore.size-1),extraFee=extraStoreCount*10,totalFee=baseFee+extraFee;deliveryPrice.textContent=extraStoreCount?`Costul livrării la ${option.value}: ${baseFee} lei + ${extraFee} lei pentru ${extraStoreCount===1?'un magazin suplimentar':`${extraStoreCount} magazine suplimentare`} = ${totalFee} lei.`:`Costul livrării la ${option.value}: ${totalFee} lei (primul magazin inclus; fiecare magazin suplimentar +10 lei).`;}localitySelect.addEventListener('change',updateDeliveryPrice);
-    function renderAmoreCategories(){amoreCategories.replaceChildren();for(const category of activeCatalogCategories()){const button=document.createElement('button');button.type='button';button.className='amore-category';button.setAttribute('aria-pressed',String(category===activeAmoreCategory));button.dataset.category=category;const image=document.createElement('img');image.src=(activeStore==='Bravo'?bravoCategoryImages:amoreCategoryImages)[category];image.alt='';const label=document.createElement('span');label.textContent=category;button.append(image,label);amoreCategories.append(button);}}
-    function renderAmoreProducts(){const query=amoreSearch.value.trim().toLocaleLowerCase('ro'),products=activeCatalogProducts().filter(product=>(query||activeAmoreCategory==='Toate produsele'||product.category===activeAmoreCategory)&&product.name.toLocaleLowerCase('ro').includes(query));amoreCategoryTitle.textContent=query?'Rezultatele căutării':activeAmoreCategory;amoreProductCount.textContent=`${products.length} produse`;amoreProducts.replaceChildren();if(!products.length){const empty=document.createElement('p');empty.textContent=query?'Nu am găsit produse.':'Produsele din această categorie nu sunt disponibile încă.';amoreProducts.append(empty);}for(const product of products){const card=document.createElement('article');card.className='amore-product';const image=document.createElement('img');image.src=product.image;image.alt=product.name;image.loading='lazy';const info=document.createElement('div');info.className='amore-product-info';const name=document.createElement('strong');name.className='amore-product-name';name.textContent=product.name;const price=document.createElement('div');price.className='amore-product-price';price.textContent=formatPrice(product.price);if(product.oldPrice){const oldPrice=document.createElement('del');oldPrice.textContent=formatPrice(product.oldPrice);price.append(oldPrice);}const priceNote=product.priceNote?document.createElement('small'):null;if(priceNote){priceNote.textContent=product.priceNote;priceNote.style.color='var(--muted)';}const quantity=document.createElement('div');quantity.className='amore-quantity';const decrement=document.createElement('button');decrement.type='button';decrement.textContent='−';decrement.setAttribute('aria-label',`Scade ${product.name}`);decrement.dataset.quantityChange='-1';decrement.dataset.productId=product.id;const count=document.createElement('span');count.textContent=amoreDraft.get(product.id)||0;const increment=document.createElement('button');increment.type='button';increment.textContent='+';increment.setAttribute('aria-label',`Adaugă ${product.name}`);increment.dataset.quantityChange='1';increment.dataset.productId=product.id;quantity.append(decrement,count,increment);info.append(name,price);if(priceNote)info.append(priceNote);info.append(quantity);card.append(image,info);amoreProducts.append(card);}updateAmoreTotal();}
+    function renderAmoreCategories(){amoreCategories.replaceChildren();for(const category of activeCatalogCategories()){const button=document.createElement('button');button.type='button';button.className='amore-category';button.setAttribute('aria-pressed',String(category===activeAmoreCategory));button.dataset.category=category;const image=document.createElement('img');image.src=activeStore==='Samurai Sushi'?STORE_ASSETS[activeStore]:(activeStore==='Bravo'?bravoCategoryImages:amoreCategoryImages)[category];image.alt='';const label=document.createElement('span');label.textContent=category;button.append(image,label);amoreCategories.append(button);}}
+    function renderAmoreProducts(){if(activeStore==='Samurai Sushi'){renderSamuraiProducts();return;}const query=amoreSearch.value.trim().toLocaleLowerCase('ro'),products=activeCatalogProducts().filter(product=>(query||activeAmoreCategory==='Toate produsele'||product.category===activeAmoreCategory)&&product.name.toLocaleLowerCase('ro').includes(query));amoreCategoryTitle.textContent=query?'Rezultatele căutării':activeAmoreCategory;amoreProductCount.textContent=`${products.length} produse`;amoreProducts.replaceChildren();if(!products.length){const empty=document.createElement('p');empty.textContent=query?'Nu am găsit produse.':'Produsele din această categorie nu sunt disponibile încă.';amoreProducts.append(empty);}for(const product of products){const card=document.createElement('article');card.className='amore-product';const image=document.createElement('img');image.src=product.image;image.alt=product.name;image.loading='lazy';const info=document.createElement('div');info.className='amore-product-info';const name=document.createElement('strong');name.className='amore-product-name';name.textContent=product.name;const price=document.createElement('div');price.className='amore-product-price';price.textContent=formatPrice(product.price);if(product.oldPrice){const oldPrice=document.createElement('del');oldPrice.textContent=formatPrice(product.oldPrice);price.append(oldPrice);}const priceNote=product.priceNote?document.createElement('small'):null;if(priceNote){priceNote.textContent=product.priceNote;priceNote.style.color='var(--muted)';}const quantity=document.createElement('div');quantity.className='amore-quantity';const decrement=document.createElement('button');decrement.type='button';decrement.textContent='−';decrement.setAttribute('aria-label',`Scade ${product.name}`);decrement.dataset.quantityChange='-1';decrement.dataset.productId=product.id;const count=document.createElement('span');count.textContent=amoreDraft.get(product.id)||0;const increment=document.createElement('button');increment.type='button';increment.textContent='+';increment.setAttribute('aria-label',`Adaugă ${product.name}`);increment.dataset.quantityChange='1';increment.dataset.productId=product.id;quantity.append(decrement,count,increment);info.append(name,price);if(priceNote)info.append(priceNote);info.append(quantity);card.append(image,info);amoreProducts.append(card);}updateAmoreTotal();}
+    function samuraiOrder(quantities){
+      const lines=[];let total=0,count=0,unconfirmed=false;
+      for(const product of SAMURAI_PRODUCTS)for(let size=0;size<product.sizes.length;size++){
+        const quantity=quantities.get(`${product.id}:${size}`)||0;if(!quantity)continue;
+        count+=quantity;
+        if(product.sizes.length>1){unconfirmed=true;lines.push(`${product.name} (${product.sizes[size]}) × ${quantity} — preț de confirmat (în PDF: ${formatPrice(product.price)})`);}
+        else{total+=product.price*quantity;lines.push(`${product.name} (${product.sizes[size]}) × ${quantity} — ${formatPrice(product.price*quantity)}`);}
+      }
+      const totalText=unconfirmed?`Total parțial: ${formatPrice(total)}; prețurile celorlalte produse se confirmă.`:`Total produse: ${formatPrice(total)}`;
+      return {lines,count,totalText};
+    }
+    function renderSamuraiProducts(){
+      const query=amoreSearch.value.trim().toLocaleLowerCase('ro');
+      const products=SAMURAI_PRODUCTS.filter(product=>(query||activeAmoreCategory!=='Tempura'||SAMURAI_TEMPURA.has(product.name))&&product.name.toLocaleLowerCase('ro').includes(query));
+      amoreCategoryTitle.textContent=query?'Rezultatele căutării':activeAmoreCategory;
+      amoreProductCount.textContent=`${products.length} produse`;amoreProducts.replaceChildren();
+      if(!products.length){const empty=document.createElement('p');empty.textContent='Nu am găsit produse.';amoreProducts.append(empty);}
+      for(const product of products){
+        const card=document.createElement('article');card.className='amore-product';
+        const info=document.createElement('div');info.className='amore-product-info';
+        const name=document.createElement('strong');name.className='amore-product-name';name.textContent=product.name;
+        const price=document.createElement('div');price.className='amore-product-price';price.textContent=product.sizes.length>1?`În PDF: ${formatPrice(product.price)}`:formatPrice(product.price);
+        info.append(name,price);
+        if(product.sizes.length>1){const note=document.createElement('small');note.textContent='Prețul pentru fiecare porție se confirmă.';info.append(note);}
+        const options=document.createElement('div');options.className='samurai-options';
+        const selected=samuraiSizes.get(product.id)||0;
+        product.sizes.forEach((size,index)=>{
+          const label=document.createElement('label');
+          if(product.sizes.length>1){const radio=document.createElement('input');radio.type='radio';radio.name=`samurai-size-${product.id}`;radio.value=String(index);radio.dataset.samuraiSize=product.id;radio.checked=index===selected;label.append(radio);}
+          label.append(document.createTextNode(size));options.append(label);
+        });
+        const quantity=document.createElement('div');quantity.className='amore-quantity';
+        for(const change of [-1,0,1]){
+          if(change===0){const count=document.createElement('span');count.textContent=amoreDraft.get(`${product.id}:${selected}`)||0;quantity.append(count);continue;}
+          const button=document.createElement('button');button.type='button';button.textContent=change<0?'−':'+';button.dataset.quantityChange=String(change);button.dataset.productId=product.id;button.setAttribute('aria-label',`${change<0?'Scade':'Adaugă'} ${product.name}, ${product.sizes[selected]}`);quantity.append(button);
+        }
+        info.append(options,quantity);card.append(info);amoreProducts.append(card);
+      }
+      const selection=samuraiOrder(amoreDraft);amoreSelectionTotal.textContent=selection.count?`${selection.count} produse · ${selection.totalText}`:'Alege produse pentru a vedea totalul.';
+    }
     function updateAmoreTotal(){let count=0,total=0;for(const[productId,quantity]of amoreDraft){const product=activeCatalogProducts()[productId-1];count+=quantity;total+=productTotal(product,quantity);}amoreSelectionTotal.textContent=count?`${count} produse · Total: ${formatPrice(total)}`:'Alege produse pentru a vedea totalul.';}
     function renderAmoreCatalog(){renderAmoreCategories();renderAmoreProducts();}
     amoreCategories.addEventListener('click',event=>{const category=event.target.closest('[data-category]');if(!category)return;activeAmoreCategory=category.dataset.category;amoreSearch.value='';renderAmoreCatalog();});
     amoreSearch.addEventListener('input',renderAmoreProducts);
-    amoreProducts.addEventListener('click',event=>{const button=event.target.closest('[data-quantity-change]');if(!button)return;const productId=Number(button.dataset.productId),next=(amoreDraft.get(productId)||0)+Number(button.dataset.quantityChange);if(next>0)amoreDraft.set(productId,next);else amoreDraft.delete(productId);renderAmoreProducts();});
-    function openStoreDialog(store){activeStore=store;dialog.dataset.store=store;document.getElementById('dialog-store-name').textContent=store;const logo=document.getElementById('dialog-store-logo');logo.src=STORE_ASSETS[store];logo.alt=`Imagine ${store}`;const hasCatalog=store==='Amore Sushi'||store==='Davidan'||store==='Bravo';amoreCatalog.hidden=!hasCatalog;amoreCategories.hidden=store==='Davidan';storeInput.hidden=hasCatalog;dialogHelp.hidden=hasCatalog;if(hasCatalog){activeAmoreCategory='Toate produsele';amoreDraft=new Map(catalogQuantities.get(store)||[]);amoreSearch.value='';renderAmoreCatalog();}else{itemsInput.value=orderByStore.get(store)||'';}dialog.showModal();document.body.classList.add('dialog-open');if(!hasCatalog)itemsInput.focus();}
+    amoreProducts.addEventListener('change',event=>{if(!event.target.matches('[data-samurai-size]'))return;samuraiSizes.set(Number(event.target.dataset.samuraiSize),Number(event.target.value));renderAmoreProducts();});
+    amoreProducts.addEventListener('click',event=>{const button=event.target.closest('[data-quantity-change]');if(!button)return;const productId=Number(button.dataset.productId),key=activeStore==='Samurai Sushi'?`${productId}:${samuraiSizes.get(productId)||0}`:productId,next=(amoreDraft.get(key)||0)+Number(button.dataset.quantityChange);if(next>0)amoreDraft.set(key,next);else amoreDraft.delete(key);renderAmoreProducts();});
+    function openStoreDialog(store){activeStore=store;dialog.dataset.store=store;document.getElementById('dialog-store-name').textContent=store;const logo=document.getElementById('dialog-store-logo');logo.src=STORE_ASSETS[store];logo.alt=`Imagine ${store}`;const hasCatalog=store==='Amore Sushi'||store==='Davidan'||store==='Bravo'||store==='Samurai Sushi';amoreCatalog.hidden=!hasCatalog;amoreCategories.hidden=store==='Davidan';storeInput.hidden=hasCatalog;dialogHelp.hidden=hasCatalog;if(hasCatalog){activeAmoreCategory='Toate produsele';amoreDraft=new Map(catalogQuantities.get(store)||[]);amoreSearch.value='';renderAmoreCatalog();}else{itemsInput.value=orderByStore.get(store)||'';}dialog.showModal();document.body.classList.add('dialog-open');if(!hasCatalog)itemsInput.focus();}
     document.getElementById('stores').addEventListener('click',event=>{const card=event.target.closest('.store-card');if(card)openStoreDialog(card.dataset.store);});
-    function closeDialog(){dialog.close();document.body.classList.remove('dialog-open');}document.getElementById('cancel-products').addEventListener('click',closeDialog);dialog.addEventListener('close',()=>document.body.classList.remove('dialog-open'));document.getElementById('save-products').addEventListener('click',()=>{if(activeStore==='Amore Sushi'||activeStore==='Davidan'||activeStore==='Bravo'){const quantities=new Map(amoreDraft);catalogQuantities.set(activeStore,quantities);const selected=activeCatalogProducts().filter(product=>quantities.has(product.id));if(!selected.length){orderByStore.delete(activeStore);}else{const lines=selected.map(product=>`${product.name} × ${quantities.get(product.id)} — ${formatPrice(productTotal(product,quantities.get(product.id)))}`);const total=selected.reduce((sum,product)=>sum+productTotal(product,quantities.get(product.id)),0);orderByStore.set(activeStore,`${lines.join('\n')}\nTotal produse: ${formatPrice(total)}`);}}else{const items=itemsInput.value.trim();if(!items)orderByStore.delete(activeStore);else orderByStore.set(activeStore,items);}renderSummary();closeDialog();});
+    function closeDialog(){dialog.close();document.body.classList.remove('dialog-open');}document.getElementById('cancel-products').addEventListener('click',closeDialog);dialog.addEventListener('close',()=>document.body.classList.remove('dialog-open'));document.getElementById('save-products').addEventListener('click',()=>{if(activeStore==='Samurai Sushi'){const quantities=new Map(amoreDraft);catalogQuantities.set(activeStore,quantities);const selection=samuraiOrder(quantities);if(selection.count)orderByStore.set(activeStore,`${selection.lines.join('\n')}\n${selection.totalText}`);else orderByStore.delete(activeStore);}else if(activeStore==='Amore Sushi'||activeStore==='Davidan'||activeStore==='Bravo'){const quantities=new Map(amoreDraft);catalogQuantities.set(activeStore,quantities);const selected=activeCatalogProducts().filter(product=>quantities.has(product.id));if(!selected.length){orderByStore.delete(activeStore);}else{const lines=selected.map(product=>`${product.name} × ${quantities.get(product.id)} — ${formatPrice(productTotal(product,quantities.get(product.id)))}`);const total=selected.reduce((sum,product)=>sum+productTotal(product,quantities.get(product.id)),0);orderByStore.set(activeStore,`${lines.join('\n')}\nTotal produse: ${formatPrice(total)}`);}}else{const items=itemsInput.value.trim();if(!items)orderByStore.delete(activeStore);else orderByStore.set(activeStore,items);}renderSummary();closeDialog();});
     form.addEventListener('submit',async event=>{event.preventDefault();if(orderByStore.size===0){notice.className='notice error';notice.textContent='Alege cel puțin un magazin și salvează produsele dorite.';notice.style.display='block';document.getElementById('stores').scrollIntoView({behavior:'smooth',block:'center'});return;}if(!form.reportValidity())return;const option=localitySelect.selectedOptions[0],baseFee=Number(option.dataset.fee);if(!Number.isFinite(baseFee))return;const payload=Object.fromEntries(new FormData(form).entries());payload.deliveryFee=baseFee+Math.max(0,orderByStore.size-1)*10;payload.orders=Array.from(orderByStore,([store,items])=>({store,items}));submitButton.disabled=true;submitButton.textContent='Se trimite comanda…';notice.style.display='none';try{const response=await fetch(ORDER_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await response.json().catch(()=>({}));if(!response.ok||!result.ok)throw new Error(result.error||'Nu s-a putut trimite comanda.');form.reset();orderByStore.clear();catalogQuantities.clear();renderSummary();updateDeliveryPrice();notice.className='notice success';notice.textContent='Comanda a fost trimisă cu succes. Te vom contacta pentru confirmare.';notice.style.display='block';}catch(error){notice.className='notice error';notice.textContent=error.message||'Eroare la trimitere.';notice.style.display='block';}finally{submitButton.disabled=false;submitButton.innerHTML='Trimite comanda&nbsp; →';}});
     updateStoreCards();
   </script>
