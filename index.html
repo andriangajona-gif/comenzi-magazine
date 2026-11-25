@@ -267,9 +267,9 @@
       ['Bonito',60,'4 buc 118g','8 buc 235g'],
       ['Bushido',65,'4 buc 150g','8 buc 300g'],
       ['Caesar',45,'4 buc 113g','8 buc 225g'],
-      ['California cheese ebi',50,'4 buc 145g','8 buc 290g'],
-      ['California cheese kani',55,'4 buc 145g','8 buc 290g'],
-      ['California cheese sake',50,'4 buc 135g','8 buc 270g'],
+      ['California ebi',50,'4 buc 145g','8 buc 290g'],
+      ['California kani',55,'4 buc 145g','8 buc 290g'],
+      ['California sake',50,'4 buc 135g','8 buc 270g'],
       ['California salmon grill',55,'4 buc 135g','8 buc 270g'],
       ['California cheese unagi',55,'4 buc 150g','8 buc 300g'],
       ['Canada ebi tempura',75,'4 buc 168g','8 buc 335g'],
@@ -336,10 +336,10 @@
       ['Yakuza',65,'4 buc 123g','8 buc 265g']
     ].map(([name,price,...sizes],index)=>({id:index+1,name,price,sizes}));
     const SAMURAI_PRODUCT_IMAGES={
-      'Alaska':'uramaki-01.jpg','Arigato':'uramaki-02.jpg','Banzai':'uramaki-03.jpg',
-      'Bonito':'uramaki-04.jpg','Bushido':'uramaki-05.jpg','Caesar':'uramaki-06.jpg',
-      'California cheese ebi':'uramaki-07.jpg','California cheese kani':'uramaki-08.jpg',
-      'California cheese sake':'uramaki-09.jpg','California salmon grill':'uramaki-10.jpg',
+      'Alaska':'uramaki-pdf-01.png','Arigato':'uramaki-pdf-02.png','Banzai':'uramaki-pdf-03.png',
+      'Bonito':'uramaki-pdf-04.png','Bushido':'uramaki-pdf-05.png','Caesar':'uramaki-pdf-06.png',
+      'California ebi':'uramaki-pdf-07.png','California kani':'uramaki-pdf-08.png',
+      'California sake':'uramaki-pdf-09.png','California salmon grill':'uramaki-pdf-10.png',
       'Creveți Tempura':'tempura-01.jpg','Ebi tempura':'tempura-02.jpg',
       'Kani tempura':'tempura-03.jpg','Kunsei Tempura':'tempura-04.jpg',
       'Maguro spicy tempura':'tempura-05.jpg','Maguro tempura':'tempura-06.jpg',
@@ -349,8 +349,8 @@
     SAMURAI_PRODUCTS.forEach(product=>{if(SAMURAI_PRODUCT_IMAGES[product.name])product.image=`assets/samurai-menu/${SAMURAI_PRODUCT_IMAGES[product.name]}`;});
     const SAMURAI_PORTION_PRICES={
       'Alaska':[55,100], 'Arigato':[40,75], 'Banzai':[55,105], 'Bonito':[60,110],
-      'Bushido':[65,120], 'Caesar':[45,85], 'California cheese ebi':[50,95],
-      'California cheese kani':[55,105], 'California cheese sake':[50,95],
+      'Bushido':[65,120], 'Caesar':[45,85], 'California ebi':[50,95],
+      'California kani':[55,105], 'California sake':[50,95],
       'California cheese unagi':[55,105], 'California salmon grill':[55,100], 'Canada ebi tempura':[75,145],
       'Canada Elite':[80,150], 'Canada Kani':[65,125], 'Canada Light':[70,135],
       'Ebi spicy':[55,100], 'Ebi tempura':[60,115], 'Flamingo':[65,120],
