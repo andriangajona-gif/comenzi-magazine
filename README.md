@@ -18,7 +18,7 @@ Worker-ul acceptă cereri doar de la originea GitHub Pages a acestui repository 
 
 Primul magazin comandat este inclus în taxa de livrare, iar fiecare magazin suplimentar adaugă 10 lei. După modificarea `worker.js`, publică din nou codul în Cloudflare pentru ca validarea prețului și notificările comenzilor să rămână sincronizate cu site-ul.
 
-Clientul alege mai întâi localitatea, apoi produsele. După salvarea produselor, pagina afișează suma lor, livrarea și totalul de plată. Produsele unui magazin pot fi eliminate din sumar sau din fereastra magazinului, iar totalul se recalculează. Pentru produse introduse manual fără preț, totalul este marcat ca parțial; interpretarea prețurilor trebuie păstrată în concordanță cu `getProductSubtotal` din `worker.js`.
+Clientul alege mai întâi produsele, apoi localitatea și datele pentru livrare. Înainte de trimitere, pagina afișează suma produselor, livrarea și totalul de plată. Produsele unui magazin pot fi eliminate din sumar sau din fereastra magazinului, iar totalul se recalculează. Pentru produse introduse manual fără preț, totalul este marcat ca parțial; interpretarea prețurilor trebuie păstrată în concordanță cu `getProductSubtotal` din `worker.js`.
 
 Catalogul Amore Sushi include 84 de produse și imaginile lor în categoriile Rolluri, Sushi Fastfood, Sushi, Pizza, Seturi și Fastfood. Produsele selectate și totalul lor sunt atașate comenzii către curier.
 
