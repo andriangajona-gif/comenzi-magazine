@@ -20,13 +20,13 @@ Primul magazin comandat este inclus în taxa de livrare, iar fiecare magazin sup
 
 Clientul alege mai întâi produsele, apoi localitatea și datele pentru livrare. Selecția temporară este păstrată la revenirea în magazin, dar este inclusă în comandă numai după apăsarea „Salvează produsele”. Înainte de trimitere, pagina afișează suma produselor, livrarea și totalul de plată. Produsele unui magazin pot fi eliminate din sumar, iar totalul se recalculează. Pentru produse introduse manual fără preț, totalul este marcat ca parțial; interpretarea prețurilor trebuie păstrată în concordanță cu `getProductSubtotal` din `worker.js`.
 
-Catalogul Amore Sushi include 84 de produse și imaginile lor în categoriile Rolluri, Sushi Fastfood, Sushi, Pizza, Seturi și Fastfood. Produsele selectate și totalul lor sunt atașate comenzii către curier.
+Catalogul Amore Sushi afișează toate cele 84 de produse și imaginile lor într-o singură listă, fără categorii. Produsele selectate și totalul lor sunt atașate comenzii către curier.
 
-Catalogul Davidan permite căutarea și selectarea produselor de patiserie, cu prețurile afișate separat de fotografii. Produsele și totalul lor sunt atașate comenzii către curier.
+Catalogul Davidan afișează produsele de patiserie într-o singură listă, cu prețurile și fotografiile lor. Produsele și totalul lor sunt atașate comenzii către curier.
 
-Catalogul Bravo este organizat în categoriile Pizza, Plăcinte și Băuturi. Pentru fiecare pizza, alege prin buton radio felia de 130 g (26 MDL) sau pizza întreagă de 520 g (105 MDL). Coca-Cola și Sprite de 0,5 l au prețul afișat per unitate.
+Catalogul Bravo afișează toate produsele într-o singură listă, fără categorii. Pentru fiecare pizza, alege prin buton radio felia de 130 g (26 MDL) sau pizza întreagă de 520 g (105 MDL). Coca-Cola și Sprite de 0,5 l au prețul afișat per unitate.
 
-Catalogul Panda include 46 de produse și prețurile din meniul furnizat, organizate în categoriile Pizza, Shaorma, Hot dog, Burger, Aperitive și Deserte. Cele 38 de fotografii incluse în meniu sunt asociate produselor pe care le ilustrează; produsele fără fotografie în sursă nu primesc imagini inventate. Cafeaua, cocktailurile și băuturile cu sau fără alcool nu sunt incluse. Selecția include prețul fiecărui produs în suma comenzii.
+Catalogul Panda afișează 46 de produse și prețurile într-o singură listă, fără categorii. Cele 38 de fotografii incluse în meniu sunt asociate produselor pe care le ilustrează; produsele fără fotografie în sursă nu primesc imagini inventate. Cafeaua, cocktailurile și băuturile cu sau fără alcool nu sunt incluse. Selecția include prețul fiecărui produs în suma comenzii.
 
 Catalogul Samurai Sushi include Uramaki, Tempura, Gunkan, Hossomaki, Nigiri, Poke Bowl, Roll Dog, Sushi Burger și Seturi, cu produse selectabile, fotografiile disponibile și prețurile din meniurile furnizate. Cele 25 de seturi vizibile în capturile de meniu au fotografii asociate individual; produsele adăugate sunt Lovitura Samuraiului, Set Aiko și Set California. PDF-ul Uramaki include fotografii pentru primele 10 produse; celelalte produse nu au fotografii în fișier. Uramaki și Tempura permit alegerea porției de 4 sau 8 bucăți folosind prețurile din fotografiile meniului. Hossomaki oferă aceleași opțiuni, iar până la primirea unui preț separat pentru fiecare porție folosește prețul listat în PDF.
 
