@@ -18,6 +18,8 @@ Worker-ul acceptă cereri doar de la originea GitHub Pages a acestui repository 
 
 Primul magazin comandat este inclus în taxa de livrare, iar fiecare magazin suplimentar adaugă 10 lei. După modificarea `worker.js`, publică din nou codul în Cloudflare pentru ca validarea prețului și notificările comenzilor să rămână sincronizate cu site-ul.
 
+Clientul alege mai întâi localitatea, apoi produsele. După salvarea produselor, pagina afișează suma lor, livrarea și totalul de plată. Pentru produse introduse manual fără preț, totalul este marcat ca parțial; interpretarea prețurilor trebuie păstrată în concordanță cu `getProductSubtotal` din `worker.js`.
+
 Catalogul Amore Sushi include 84 de produse și imaginile lor în categoriile Rolluri, Sushi Fastfood, Sushi, Pizza, Seturi și Fastfood. Produsele selectate și totalul lor sunt atașate comenzii către curier.
 
 Catalogul Davidan permite căutarea și selectarea produselor de patiserie, cu prețurile afișate separat de fotografii. Produsele și totalul lor sunt atașate comenzii către curier.
