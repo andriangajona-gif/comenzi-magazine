@@ -133,7 +133,6 @@ export default {
       ...orders.flatMap(entry => [
         `\n🏬 ${entry.store}`,
         entry.items.trim(),
-        ...(entry.store === 'Panda' ? ['Prețurile produselor vor fi comunicate curierului la magazin.'] : []),
       ]),
       '',
       `Client: ${order.name.trim()}`,
