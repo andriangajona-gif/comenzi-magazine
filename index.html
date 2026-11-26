@@ -273,22 +273,7 @@
       'Ecler':'ecler.webp',
       'Macarons':'macarons.webp',
       'Plăcintă cu carne':'placinta-carne.webp',
-      'Plăcintă cu cartofi':'placinta-cartofi.webp',
-      'Limonadă cu afine':'limonada-afine.webp',
-      'Limonadă cu banane':'limonada-banane.webp',
-      'Blue Dragon Cocktail':'blue-dragon.webp',
-      'Bubble Tea':'bubble-tea.webp',
-      'Limonadă cu căpșuni':'limonada-capsuni.webp',
-      'Limonadă cu fructul pasiunii':'limonada-fructul-pasiunii.webp',
-      'Limonadă cu kiwi':'limonada-kiwi.webp',
-      'Limonadă cu mango':'limonada-mango.webp',
-      'Limonadă cu măr verde':'limonada-mar-verde.webp',
-      'Milkshake':'milkshake.webp',
-      'Mojito Cocktail':'mojito.webp',
-      'Limonadă cu pepene roșu':'limonada-pepene-rosu.webp',
-      'Pina Colada Cocktail':'pina-colada.webp',
-      'Limonadă Yuzu':'limonada-yuzu.webp',
-      'Ceai':'ceai.webp'
+      'Plăcintă cu cartofi':'placinta-cartofi.webp'
     };
     const PANDA_PRODUCTS=[
       {name:'Pizza 4 Formaggi',price:130,category:'Pizza'},
@@ -337,58 +322,6 @@
       {name:'Plăcintă cu carne',price:24,category:'Deserte'},
       {name:'Plăcintă cu cartofi',price:20,category:'Deserte'},
       {name:'Plăcintă cu varză',price:20,category:'Deserte'},
-      {name:'Limonadă cu afine',price:35,category:'Cocktail'},
-      {name:'Limonadă cu banane',price:35,category:'Cocktail'},
-      {name:'Blue Dragon Cocktail',price:35,category:'Cocktail'},
-      {name:'Bubble Tea',price:55,category:'Cocktail'},
-      {name:'Limonadă cu căpșuni',price:35,category:'Cocktail'},
-      {name:'Fără gheață',price:10,category:'Cocktail'},
-      {name:'Limonadă cu fructul pasiunii',price:35,category:'Cocktail'},
-      {name:'Limonadă cu kiwi',price:35,category:'Cocktail'},
-      {name:'Limonadă cu mango',price:35,category:'Cocktail'},
-      {name:'Limonadă cu măr verde',price:35,category:'Cocktail'},
-      {name:'Milkshake',price:45,category:'Cocktail'},
-      {name:'Mojito Cocktail',price:35,category:'Cocktail'},
-      {name:'Limonadă cu pepene roșu',price:35,category:'Cocktail'},
-      {name:'Pina Colada Cocktail',price:35,category:'Cocktail'},
-      {name:'Limonadă Yuzu',price:35,category:'Cocktail'},
-      {name:'Ceai',price:15,category:'Băuturi'},
-      {name:'Ceai Kraft',price:25,category:'Băuturi'},
-      {name:'Apă 0,5 l',price:15,category:'Băuturi'},
-      {name:'Pepsi / Mirinda / 7UP 0,5 l',price:20,category:'Băuturi'},
-      {name:'Cola / Fanta / Sprite 0,5 l',price:25,category:'Băuturi'},
-      {name:'Prigat 0,5 l',price:25,category:'Băuturi'},
-      {name:'Ceai rece 0,5 l',price:25,category:'Băuturi'},
-      {name:'Jaffa 0,5 l',price:25,category:'Băuturi'},
-      {name:'Red Bull 0,25 l',price:55,category:'Băuturi'},
-      {name:'Energizant',price:20,category:'Băuturi'},
-      {name:'Suc pentru copii 0,25 l',price:12,category:'Băuturi'},
-      {name:'Pepsi doză',price:15,category:'Băuturi'},
-      {name:'Cafea decofeinizată',price:5,category:'Cafea'},
-      {name:'Cappuccino Dublu',price:28,category:'Cafea'},
-      {name:'Espresso',price:16,category:'Cafea'},
-      {name:'Espresso Dublu',price:22,category:'Cafea'},
-      {name:'Espresso Macchiato',price:20,category:'Cafea'},
-      {name:'Flat White',price:25,category:'Cafea'},
-      {name:'Americano',price:16,category:'Cafea'},
-      {name:'Americano cu lapte',price:18,category:'Cafea'},
-      {name:'Americano Dublu',price:25,category:'Cafea'},
-      {name:'Cappuccino',price:22,category:'Cafea'},
-      {name:'Latte Macchiato',price:24,category:'Cafea'},
-      {name:'Ciocolată caldă',price:24,category:'Cafea'},
-      {name:'Nesquik',price:15,category:'Cafea'},
-      {name:'Ice Latte',price:30,category:'Cafea'},
-      {name:'Red Latte',price:35,category:'Cafea'},
-      {name:'Sirop pentru cafea',price:5,category:'Cafea'},
-      {name:'Lapte vegetal pentru cafea',price:6,category:'Cafea'},
-      {name:'Pahar de unică folosință',price:2,category:'Cafea'},
-      {name:'Suport pentru 2 cafele',price:2,category:'Cafea'},
-      {name:'Suport pentru 4 cafele',price:4,category:'Cafea'},
-      {name:'Cocktail cu alcool',price:35,category:'Băuturi cu alcool'},
-      {name:'Aperol',price:70,category:'Băuturi cu alcool'},
-      {name:'Bere doză',price:40,category:'Băuturi cu alcool'},
-      {name:'Coniac 50 ml',price:30,category:'Băuturi cu alcool'},
-      {name:'Vodka 0,5 l',price:35,category:'Băuturi cu alcool'}
     ].map((product,index)=>({...product,id:index+1,image:PANDA_PRODUCT_IMAGES[product.name]?`assets/panda-menu/${PANDA_PRODUCT_IMAGES[product.name]}`:undefined}));
     const BRAVO_PRODUCTS=[
       {name:'Saralie cu dovleac',price:10.5,category:'Plăcinte',image:'placinte'},
@@ -737,7 +670,7 @@
     function activeCatalogProducts(){return activeStore==='Panda'?PANDA_PRODUCTS:activeStore==='Davidan'?DAVIDAN_PRODUCTS:activeStore==='Bravo'?BRAVO_PRODUCTS:AMORE_PRODUCTS;}
     const AMORE_CATEGORIES=['Rolluri','Sushi Fastfood','Sushi','Seturi','Pizza','Fastfood'];
     const BRAVO_CATEGORIES=['Pizza','Plăcinte','Băuturi'];
-    const PANDA_CATEGORIES=['Pizza','Shaorma','Hot dog','Burger','Aperitive','Deserte','Cocktail','Băuturi','Cafea','Băuturi cu alcool'];
+    const PANDA_CATEGORIES=['Pizza','Shaorma','Hot dog','Burger','Aperitive','Deserte'];
     const amoreCategoryImages={'Rolluri':'assets/amore-menu/category-rolluri.jpg','Sushi Fastfood':'assets/amore-menu/category-sushi-fastfood.jpg','Sushi':'assets/amore-menu/category-sushi.jpg','Seturi':'assets/amore-menu/category-seturi.jpg','Pizza':'assets/amore-menu/category-pizza.jpg','Fastfood':'assets/amore-menu/category-fastfood.png'};
     const bravoCategoryImages={'Pizza':'assets/bravo-menu/pizza-1.jpg','Plăcinte':'assets/bravo-menu/placinte.jpg','Băuturi':'assets/bravo-menu/coca-cola-05.jpg'};
     const activeCatalogCategories=()=>activeStore==='Panda'?PANDA_CATEGORIES:activeStore==='Bravo'?BRAVO_CATEGORIES:AMORE_CATEGORIES;
