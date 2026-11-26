@@ -1,6 +1,6 @@
 # ComandăLocal
 
-Site în limba română pentru comenzi de la Bravo, Amore Sushi, Panda, Farmacie, Samurai Sushi și Davidan. Clientul completează formularul și trimite comanda direct pe Telegram printr-un Cloudflare Worker; pagina nu redirecționează clientul în Telegram.
+Site în limba română pentru comenzi de la Bravo, Amore Sushi, Panda, Farmacie, Samurai Sushi, Davidan și Casa perfectă și curată. Clientul completează formularul și trimite comanda direct pe Telegram printr-un Cloudflare Worker; pagina nu redirecționează clientul în Telegram.
 
 ## Activarea trimiterii comenzilor în Telegram
 
