@@ -38,7 +38,7 @@ Catalogul Amore Sushi afișează toate cele 84 de produse și imaginile lor înt
 
 Catalogul Davidan afișează produsele de patiserie într-o singură listă, cu prețurile și fotografiile lor. Produsele și totalul lor sunt atașate comenzii către curier.
 
-Catalogul Casa perfectă și curată afișează produse de îngrijire a copiilor, produse din hârtie, articole de curățenie și produse de îngrijire personală, cu prețurile lizibile din fotografiile furnizate. Produsele sunt grupate pe categorii, iar imaginile decupate și optimizate din `assets/casa-curata-catalog/` nu afișează etichetele de preț de la raft.
+Catalogul Casa perfectă și curată afișează produsele de îngrijire a copiilor, produsele din hârtie, articolele de curățenie și produsele de îngrijire personală într-o singură listă, cu prețurile lizibile din fotografiile furnizate. Imaginile decupate și optimizate din `assets/casa-curata-catalog/` nu afișează etichetele de preț de la raft.
 
 Catalogul Bravo afișează toate produsele într-o singură listă, fără categorii. Pentru fiecare pizza, alege prin buton radio felia de 130 g (26 MDL) sau pizza întreagă de 520 g (105 MDL). Coca-Cola și Sprite de 0,5 l au prețul afișat per unitate.
 
