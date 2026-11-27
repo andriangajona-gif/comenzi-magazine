@@ -11,10 +11,24 @@ Site-ul GitHub Pages este static, așa că tokenul Telegram nu trebuie pus în `
 3. Află ID-ul numeric al conversației tale (de exemplu, printr-un bot de tip `getUpdates` după ce ai scris botului) și păstrează-l privat.
 4. În Cloudflare, creează un Worker nou și publică conținutul din `worker.js`.
 5. În Worker **Settings → Variables and Secrets**, adaugă ca **secrets** `TELEGRAM_BOT_TOKEN` (tokenul de la BotFather) și `TELEGRAM_CHAT_ID` (ID-ul conversației destinatare). Nu le adăuga în repository.
-6. În `index.html`, înlocuiește `https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev` din `ORDER_API_URL` cu URL-ul Worker-ului publicat și salvează modificarea.
-7. Pentru ca botul să poată trimite mesaje, ai nevoie să fi pornit conversația cu botul; apoi testează o comandă.
+6. Pentru numerele magazinelor, adaugă tot ca **secret** `STORE_PHONE_NUMBERS`, cu o valoare JSON. Exemplu de structură:
 
-Worker-ul acceptă cereri doar de la originea GitHub Pages a acestui repository și trimite prin Telegram numele, telefonul, adresa și detaliile comenzii. Mesajul include suma produselor și livrarea, iar totalul de plată apare pe ultimul rând, evidențiat cu aldine. Pentru Farmacie, prețurile pot lipsi; Telegram indică suma și totalul ca parțiale, fără să estimeze produsele neprețuite. Configurează politicile de confidențialitate și păstrează tokenul botului secret. Înainte de configurare, formularul nu trimite nicio comandă și afișează un mesaj informativ.
+   ```json
+   {
+     "Amore Sushi": [{"number": "+373 XX XXX XXX"}],
+     "Bravo": [{"number": "+373 XX XXX XXX"}],
+     "Davidan": [
+       {"label": "Iuliana", "number": "0XXXXXXXX"},
+       {"number": "0XXXXXXXX"}
+     ]
+   }
+   ```
+
+   Adaugă doar magazinele pentru care ai număr. Aceste contacte apar numai în mesajele trimise de Worker către conversația Telegram configurată; nu sunt incluse în site sau în repository. Nu publica valoarea secretului.
+7. În `index.html`, înlocuiește `https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev` din `ORDER_API_URL` cu URL-ul Worker-ului publicat și salvează modificarea.
+8. Pentru ca botul să poată trimite mesaje, ai nevoie să fi pornit conversația cu botul; apoi testează o comandă.
+
+Worker-ul acceptă cereri doar de la originea GitHub Pages a acestui repository și trimite prin Telegram numele, telefonul, adresa și detaliile comenzii. Dacă este configurat `STORE_PHONE_NUMBERS`, atașează fiecărui magazin comandat numărul lui de telefon, vizibil doar în conversația Telegram destinatară. Mesajul include suma produselor și livrarea, iar totalul de plată apare pe ultimul rând, evidențiat cu aldine. Pentru Farmacie, prețurile pot lipsi; Telegram indică suma și totalul ca parțiale, fără să estimeze produsele neprețuite. Configurează politicile de confidențialitate și păstrează tokenul botului secret. Înainte de configurare, formularul nu trimite nicio comandă și afișează un mesaj informativ.
 
 Primul magazin comandat este inclus în taxa de livrare, iar fiecare magazin suplimentar adaugă 10 lei. După modificarea `worker.js`, publică din nou codul în Cloudflare pentru ca validarea prețului și notificările comenzilor să rămână sincronizate cu site-ul.
 

@@ -39,6 +39,30 @@ function formatAmount(cents) {
   return new Intl.NumberFormat('ro-MD', { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(cents / 100);
 }
 
+function parseStorePhoneNumbers(value) {
+  if (!value) return {};
+
+  let numbers;
+  try {
+    numbers = JSON.parse(value);
+  } catch {
+    throw new Error('Configurarea numerelor magazinelor nu este validă.');
+  }
+  if (!numbers || typeof numbers !== 'object' || Array.isArray(numbers)) {
+    throw new Error('Configurarea numerelor magazinelor nu este validă.');
+  }
+
+  for (const [store, contacts] of Object.entries(numbers)) {
+    if (!ALLOWED_STORES.includes(store) || !Array.isArray(contacts) || contacts.length > 5
+      || contacts.some(contact => !contact || typeof contact.number !== 'string'
+        || !/^[+\d\s().-]{5,40}$/u.test(contact.number)
+        || (contact.label !== undefined && (typeof contact.label !== 'string' || contact.label.length > 60)))) {
+      throw new Error('Configurarea numerelor magazinelor nu este validă.');
+    }
+  }
+  return numbers;
+}
+
 function json(body, status = 200, origin = '') {
   const headers = { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' };
   if (origin === ALLOWED_ORIGIN) {
@@ -67,6 +91,13 @@ export default {
     if (request.method !== 'POST') return json({ ok: false, error: 'Metodă nepermisă.' }, 405, origin);
     if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) {
       return json({ ok: false, error: 'Serverul Telegram nu este configurat.' }, 503, origin);
+    }
+
+    let storePhoneNumbers;
+    try {
+      storePhoneNumbers = parseStorePhoneNumbers(env.STORE_PHONE_NUMBERS);
+    } catch {
+      return json({ ok: false, error: 'Configurarea numerelor magazinelor nu este validă.' }, 503, origin);
     }
 
     let order;
@@ -132,6 +163,7 @@ export default {
       '🛍 COMANDĂ NOUĂ',
       ...orders.flatMap(entry => [
         `\n🏬 ${entry.store}`,
+        ...(storePhoneNumbers[entry.store] || []).map(contact => `📞 ${contact.label ? `${contact.label}: ` : ''}${contact.number}`),
         entry.items.trim(),
       ]),
       '',
