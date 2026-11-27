@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://curierfloresti.github.io/comenzi-magazine/sitemap.xml
