@@ -53,3 +53,5 @@ Catalogul Samurai Sushi include Uramaki, Tempura, Gunkan, Hossomaki, Nigiri, Pok
 ## Instalare pe Android
 
 Site-ul poate fi instalat din Google Chrome pe Android: deschide site-ul, apasă meniul **⋮** și alege **Instalează aplicația** sau **Adaugă pe ecranul principal**. Site-ul rămâne disponibil în browser; aplicația folosește aceeași pagină și același sistem de comenzi. Este necesară conexiune la internet pentru încărcarea catalogului și trimiterea comenzilor.
+
+Pe iPhone, deschide site-ul în Safari și alege **Partajează → Adaugă la ecranul principal**. Pentru a vedea o pictogramă actualizată, poate fi necesar să elimini pictograma veche de pe ecranul principal și să adaugi din nou site-ul.

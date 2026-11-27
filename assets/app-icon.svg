@@ -1,12 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#267ba5"/>
-  <path d="M92 207a20 20 0 0 1 20-20h186a20 20 0 0 1 20 20v146H92z" fill="#fff"/>
-  <path d="M318 241h72l42 54v58H318z" fill="#fff"/>
-  <path d="M340 260h39l26 34h-65z" fill="#267ba5"/>
-  <path d="M117 216h174v18H117z" fill="#d9eff8"/>
-  <circle cx="171" cy="359" r="37" fill="#19334b"/>
-  <circle cx="171" cy="359" r="16" fill="#fff"/>
-  <circle cx="369" cy="359" r="37" fill="#19334b"/>
-  <circle cx="369" cy="359" r="16" fill="#fff"/>
-  <path d="M229 280h38m-19-19v38" fill="none" stroke="#267ba5" stroke-linecap="round" stroke-width="14"/>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#155577"/>
+      <stop offset="1" stop-color="#39a4c7"/>
+    </linearGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#72d8ed" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#b6eff8"/>
+      <stop offset="1" stop-color="#72d8ed" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#background)"/>
+  <circle cx="256" cy="247" r="189" fill="#fff" opacity=".06"/>
+  <text x="256" y="146" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="54" font-weight="800" letter-spacing="3">CURIER</text>
+  <path d="M92 235h67M78 256h66M96 276h48" fill="none" stroke="#bceff8" stroke-linecap="round" stroke-width="9" opacity=".8"/>
+  <rect x="142" y="194" width="63" height="57" rx="8" fill="#ffd46c" transform="rotate(-8 173 222)"/>
+  <path d="M155 205l39-5" stroke="#f5a747" stroke-linecap="round" stroke-width="5"/>
+  <circle cx="293" cy="190" r="23" fill="#ffe2b7"/>
+  <path d="M271 186a24 24 0 0 1 43-12l7 14-50 7z" fill="#fff"/>
+  <path d="M278 216c-19 2-29 17-38 34l-35 21 16 22 51-29 18-21 27 23 22-7-36-38c-7-6-15-7-25-5z" fill="#fff"/>
+  <path d="M268 259l-9 28-45 18M285 257l28 30 28-3" fill="none" stroke="#173951" stroke-linecap="round" stroke-linejoin="round" stroke-width="15"/>
+  <circle cx="169" cy="320" r="39" fill="#163952" stroke="#d8f6ff" stroke-width="8"/>
+  <circle cx="169" cy="320" r="13" fill="#9ad8ea"/>
+  <circle cx="363" cy="320" r="39" fill="#163952" stroke="#d8f6ff" stroke-width="8"/>
+  <circle cx="363" cy="320" r="13" fill="#9ad8ea"/>
+  <path d="M170 316l32-43h62l25 43h-68l-20-19-20 19zm113 0 45-52h23l-15 17-24 35z" fill="#ffcf62" stroke="#fff4d5" stroke-linejoin="round" stroke-width="5"/>
+  <path d="M336 264l-9-24h-16M350 264l13 55" fill="none" stroke="#d8f6ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+  <path d="M96 376h320" stroke="url(#road)" stroke-linecap="round" stroke-width="8"/>
 </svg>
