@@ -55,3 +55,7 @@ Catalogul Samurai Sushi include Uramaki, Tempura, Gunkan, Hossomaki, Nigiri, Pok
 Site-ul poate fi instalat din Google Chrome pe Android: deschide site-ul, apasă meniul **⋮** și alege **Instalează aplicația** sau **Adaugă pe ecranul principal**. Site-ul rămâne disponibil în browser; aplicația folosește aceeași pagină și același sistem de comenzi. Este necesară conexiune la internet pentru încărcarea catalogului și trimiterea comenzilor.
 
 Pe iPhone, deschide site-ul în Safari și alege **Partajează → Adaugă la ecranul principal**. Pentru a vedea o pictogramă actualizată, poate fi necesar să elimini pictograma veche de pe ecranul principal și să adaugi din nou site-ul.
+
+## Aplicația Android
+
+Codul aplicației Android se află în `android/`. Aplicația deschide site-ul existent într-un WebView și are nevoie de internet pentru catalog și comenzi. Fluxul GitHub Actions construiește un APK release nesemnat; înainte de distribuire, APK-ul trebuie aliniat și semnat cu `zipalign` și `apksigner`. Cheia de semnare trebuie păstrată privată și în siguranță: actualizările unui APK instalat trebuie semnate cu aceeași cheie.
