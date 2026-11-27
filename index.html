@@ -134,6 +134,18 @@
     .winter-snow span:nth-child(6) { left:68%; font-size:24px; animation-duration:26s; animation-delay:-16s; }
     .winter-snow span:nth-child(7) { left:79%; font-size:34px; animation-duration:20s; animation-delay:-10s; }
     .winter-snow span:nth-child(8) { left:92%; font-size:28px; animation-duration:25s; animation-delay:-21s; }
+    .winter-store-snow { display:none; }
+    .winter-season .stores { position:relative; }
+    .winter-season .winter-store-snow { position:absolute; inset:0; z-index:3; display:block; overflow:hidden; pointer-events:none; }
+    .winter-store-snow span { position:absolute; top:-36px; left:8%; color:rgba(38,123,165,.72); font-size:28px; text-shadow:0 0 5px rgba(255,255,255,.95); animation:store-snowfall 8s linear infinite; }
+    .winter-store-snow span:nth-child(2) { left:20%; font-size:22px; animation-duration:9s; animation-delay:-4s; }
+    .winter-store-snow span:nth-child(3) { left:33%; font-size:34px; animation-duration:7s; animation-delay:-2s; }
+    .winter-store-snow span:nth-child(4) { left:46%; font-size:24px; animation-duration:10s; animation-delay:-7s; }
+    .winter-store-snow span:nth-child(5) { left:59%; font-size:32px; animation-duration:8s; animation-delay:-5s; }
+    .winter-store-snow span:nth-child(6) { left:72%; font-size:26px; animation-duration:9s; animation-delay:-3s; }
+    .winter-store-snow span:nth-child(7) { left:85%; font-size:36px; animation-duration:7s; animation-delay:-6s; }
+    .winter-store-snow span:nth-child(8) { left:96%; font-size:23px; animation-duration:10s; animation-delay:-1s; }
+    @keyframes store-snowfall { 0% { top:-36px; opacity:0; transform:translateX(-8px) rotate(0); } 12%,84% { opacity:.9; } 100% { top:calc(100% + 40px); opacity:0; transform:translateX(18px) rotate(300deg); } }
     @keyframes winter-snowfall { 0% { opacity:0; transform:translate3d(-12px,-3vh,0) rotate(0); } 12%,82% { opacity:.78; } 100% { opacity:0; transform:translate3d(28px,112vh,0) rotate(320deg); } }
     .winter-season main,.winter-season footer { position:relative; z-index:1; }
     .winter-season .top { border-bottom-color:rgba(255,255,255,.9); background:rgba(248,252,255,.8); box-shadow:0 2px 0 rgba(211,174,94,.22),0 1px 18px rgba(38,71,54,.05); }
@@ -145,7 +157,7 @@
     .winter-season .delivery-price { background:rgba(226,241,250,.8); color:#194d6c; }
     .winter-season .submit { background:linear-gradient(180deg,#328ab6,#216b91); }
     .winter-season .notice.success { border-color:#3786a9; background:#e0f2eb; color:#174f43; }
-    @media(prefers-reduced-motion:reduce){.winter-snow span{animation:none;opacity:.65;top:20%;}}
+    @media(prefers-reduced-motion:reduce){.winter-snow span,.winter-store-snow span{animation:none;opacity:.65;top:20%;}}
     @media(max-width:650px){main{margin-top:28px}.stores{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:17px}.hero-image{border-radius:20px}}@media(max-width:460px){.fields{grid-template-columns:1fr}.wide,.delivery-price{grid-column:auto}.store-card{min-height:138px}.amore-category{min-height:86px;padding:10px}.amore-selection-total{padding:9px;font-size:13px}}
   </style>
 </head>
@@ -168,6 +180,7 @@
           <button class="store-card" type="button" data-store="Farmacie" aria-pressed="false"><img src="assets/farmacie-logo.png" alt="Farmacia Familiei"><strong>Farmacie</strong><small data-store-description="Produse farmaceutice">Produse farmaceutice</small><span class="store-status"></span></button>
           <button class="store-card" type="button" data-store="Davidan" aria-pressed="false"><img src="assets/davidan-store.jpeg" alt="Magazin Davidan"><strong>Davidan</strong><small data-store-description="Cafenea și produse de patiserie">Cafenea și produse de patiserie</small><span class="store-status"></span></button>
           <button class="store-card" type="button" data-store="Casa perfectă și curată" aria-pressed="false"><img src="assets/casa-perfecta-si-curata.png" alt="Casa perfectă și curată"><strong>Casa perfectă și curată</strong><small data-store-description="Produse pentru casă și curățenie">Produse pentru casă și curățenie</small><span class="store-status"></span></button>
+          <div class="winter-store-snow" aria-hidden="true"><span>❄</span><span>❄</span><span>❄</span><span>❄</span><span>❄</span><span>❄</span><span>❄</span><span>❄</span></div>
         </div>
         <p class="all-stores-closed" id="all-stores-closed" role="status" aria-live="polite" hidden></p>
         <p class="hint">Apasă pe un magazin ca să alegi sau să scrii produsele dorite. Lista fiecărui magazin se salvează separat. Primul magazin este inclus în livrare; fiecare magazin suplimentar adaugă 10 lei.</p><div class="summary" id="order-summary" aria-live="polite"></div>
