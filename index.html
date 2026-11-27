@@ -4,8 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#eef3ef">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="description" content="Cauți un curier în Florești? Comandă de la magazine locale și primește produsele acasă. Verifică localitățile deservite și costul livrării.">
   <meta name="robots" content="index,follow">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/app-icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="./assets/app-icon-192.png">
   <link rel="canonical" href="https://curierfloresti.github.io/comenzi-magazine/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ro_MD">
@@ -876,6 +882,13 @@
     }
     updateWinterTheme();setInterval(updateWinterTheme,60*60*1000);
     updateStoreCards();setInterval(refreshStoreAvailability,30000);
+  </script>
+  <script>
+    if('serviceWorker' in navigator){
+      window.addEventListener('load',()=>{
+        navigator.serviceWorker.register('./service-worker.js').catch(error=>console.error('Nu s-a putut activa aplicația instalabilă:',error));
+      });
+    }
   </script>
 </body>
 </html>

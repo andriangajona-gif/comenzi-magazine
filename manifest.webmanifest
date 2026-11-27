@@ -1,0 +1,27 @@
+{
+  "id": "./",
+  "name": "Curier Florești",
+  "short_name": "Curier",
+  "description": "Comandă de la magazinele locale din Florești și satele din apropiere.",
+  "lang": "ro-MD",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eef3ef",
+  "theme_color": "#267ba5",
+  "icons": [
+    {
+      "src": "./assets/app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./assets/app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
