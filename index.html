@@ -126,14 +126,14 @@
     body.winter-season { --ink:#19334b; --muted:#5e7387; --green:#267ba5; --line:rgba(255,255,255,.86); --glass:rgba(248,252,255,.72); isolation:isolate; background-color:#edf4fa; background-image:radial-gradient(3px 3px at 24px 32px,rgba(255,255,255,.86) 48%,transparent 60%),radial-gradient(2px 2px at 115px 92px,rgba(255,255,255,.78) 48%,transparent 60%),radial-gradient(3px 3px at 78px 148px,rgba(255,255,255,.72) 48%,transparent 60%),radial-gradient(2px 2px at 152px 62px,rgba(255,255,255,.76) 48%,transparent 60%),radial-gradient(2px 2px at 38px 126px,rgba(255,255,255,.8) 48%,transparent 60%),radial-gradient(circle at 12% 8%,rgba(174,217,243,.66),transparent 30%),radial-gradient(circle at 92% 18%,rgba(246,230,190,.48),transparent 30%),radial-gradient(circle at 70% 92%,rgba(190,224,242,.6),transparent 34%); background-repeat:repeat,repeat,repeat,repeat,repeat,no-repeat,no-repeat,no-repeat; background-size:170px 180px,230px 240px,290px 310px,360px 390px,440px 470px,auto,auto,auto; }
     .winter-snow { display:none; }
     .winter-season .winter-snow { position:fixed; inset:0; z-index:0; display:block; overflow:hidden; pointer-events:none; }
-    .winter-snow span { position:absolute; top:-8vh; left:8%; color:rgba(255,255,255,.88); font-size:20px; text-shadow:0 1px 5px rgba(74,129,161,.28); animation:winter-snowfall 19s linear infinite; }
-    .winter-snow span:nth-child(2) { left:19%; font-size:14px; animation-duration:24s; animation-delay:-13s; }
-    .winter-snow span:nth-child(3) { left:31%; font-size:24px; animation-duration:21s; animation-delay:-6s; }
-    .winter-snow span:nth-child(4) { left:43%; font-size:16px; animation-duration:27s; animation-delay:-19s; }
-    .winter-snow span:nth-child(5) { left:56%; font-size:22px; animation-duration:23s; animation-delay:-3s; }
-    .winter-snow span:nth-child(6) { left:68%; font-size:15px; animation-duration:26s; animation-delay:-16s; }
-    .winter-snow span:nth-child(7) { left:79%; font-size:23px; animation-duration:20s; animation-delay:-10s; }
-    .winter-snow span:nth-child(8) { left:92%; font-size:17px; animation-duration:25s; animation-delay:-21s; }
+    .winter-snow span { position:absolute; top:-8vh; left:8%; color:rgba(255,255,255,.88); font-size:30px; text-shadow:0 1px 5px rgba(74,129,161,.28); animation:winter-snowfall 19s linear infinite; }
+    .winter-snow span:nth-child(2) { left:19%; font-size:22px; animation-duration:24s; animation-delay:-13s; }
+    .winter-snow span:nth-child(3) { left:31%; font-size:36px; animation-duration:21s; animation-delay:-6s; }
+    .winter-snow span:nth-child(4) { left:43%; font-size:26px; animation-duration:27s; animation-delay:-19s; }
+    .winter-snow span:nth-child(5) { left:56%; font-size:38px; animation-duration:23s; animation-delay:-3s; }
+    .winter-snow span:nth-child(6) { left:68%; font-size:24px; animation-duration:26s; animation-delay:-16s; }
+    .winter-snow span:nth-child(7) { left:79%; font-size:34px; animation-duration:20s; animation-delay:-10s; }
+    .winter-snow span:nth-child(8) { left:92%; font-size:28px; animation-duration:25s; animation-delay:-21s; }
     @keyframes winter-snowfall { 0% { opacity:0; transform:translate3d(-12px,-3vh,0) rotate(0); } 12%,82% { opacity:.78; } 100% { opacity:0; transform:translate3d(28px,112vh,0) rotate(320deg); } }
     .winter-season main,.winter-season footer { position:relative; z-index:1; }
     .winter-season .top { border-bottom-color:rgba(255,255,255,.9); background:rgba(248,252,255,.8); box-shadow:0 2px 0 rgba(211,174,94,.22),0 1px 18px rgba(38,71,54,.05); }
@@ -141,8 +141,6 @@
     .winter-season .hero-image { border-color:#d6eafa; box-shadow:0 18px 45px rgba(40,91,125,.16); }
     .winter-season .step { background:rgba(67,151,194,.14); }
     .winter-season .store-card[aria-pressed="true"] { border-color:rgba(38,123,165,.72); background:rgba(220,240,251,.78); box-shadow:0 0 0 3px rgba(38,123,165,.12); }
-    .winter-season .store-card::after,.winter-season .store-dialog-banner::after { position:absolute; top:6px; right:7px; z-index:2; display:grid; width:30px; height:30px; place-items:center; border:1px solid rgba(255,255,255,.9); border-radius:50%; background:rgba(255,255,255,.82); content:"🎅"; font-size:19px; line-height:1; filter:drop-shadow(0 2px 3px rgba(34,70,95,.2)); pointer-events:none; }
-    .winter-season .store-dialog-banner { position:relative; }
     .winter-season .amore-selection-total { background:#e2f1fa; color:#194d6c; }
     .winter-season .delivery-price { background:rgba(226,241,250,.8); color:#194d6c; }
     .winter-season .submit { background:linear-gradient(180deg,#328ab6,#216b91); }
