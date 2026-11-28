@@ -56,7 +56,7 @@ Imaginile din cataloage folosesc variante WebP `*-optimized.webp`, redimensionat
 
 `admin.html` oferă autentificare și butoane pentru închiderea/redeschiderea comenzilor. Parola unică `ORDERS_ADMIN_PASSWORD` trebuie configurată ca Worker secret și să aibă cel puțin 14 caractere; binding-ul KV trebuie să se numească `ORDERS_STATUS`. Worker-ul servește starea publică la `/status`, validează autentificarea la `/admin/auth` și `/admin/status` și refuză comenzile cât timp starea salvată în KV este închisă. Nu pune parola în cod, URL, GitHub sau mesaje.
 
-Pentru instalarea inițială, creează un KV namespace în Cloudflare, atașează-l la Worker cu binding `ORDERS_STATUS`, configurează secretul `ORDERS_ADMIN_PASSWORD` și publică `worker.js`. Publică apoi site-ul cu pagina `admin.html`. După configurare, deschide `https://curierfloresti.github.io/comenzi-magazine/admin.html` și autentifică-te cu parola păstrată în secretul Worker.
+Pentru instalarea inițială, creează un KV namespace în Cloudflare, atașează-l la Worker cu binding `ORDERS_STATUS`, configurează secretul `ORDERS_ADMIN_PASSWORD` și publică `worker.js`. Publică apoi site-ul cu pagina `admin.html`. După configurare, apasă „Pentru administrator” în partea de jos a site-ului sau deschide `https://curierfloresti.github.io/comenzi-magazine/admin.html` și autentifică-te cu parola păstrată în secretul Worker. Linkul este vizibil tuturor, dar schimbarea stării comenzilor necesită parola.
 
 ## Instalare pe Android
 
