@@ -1,5 +1,5 @@
 const ALLOWED_ORIGIN = 'https://curierfloresti.github.io';
-const ORDERS_STATUS_URL = 'https://curierfloresti.github.io/comenzi-magazine/orders-status.json';
+const ORDERS_STATUS_KEY = 'orders';
 const ALLOWED_STORES = ['Bravo', 'Amore Sushi', 'Panda', 'Farmacie', 'Samurai Sushi', 'Davidan', 'Casa perfectă și curată'];
 const DELIVERY_FEES = {
   'Florești':55,'Vărvăreuca':60,'Bubulești':80,'Alexeevca':90,'Gura Camencii':90,'Mărculești':100,'Lunga':110,'Gura Căinarului':120,'Cenușa':130,'Roșietici':130,'Ghindești':140,'Prajila':140,'Răduleni Vechi':140,'Rogojeni':140,'Sevirova':150,'Cașunca':160,'Vadeni':160,'Putinești':180,'Ciripcău':190,'Trifănești':190,'Ciutulești':200,'Nicolaevca':210,'Izvoare':230,'Domulgeni':250,'Temeleuți':330,'Ștefănești':350,
@@ -73,37 +73,105 @@ function json(body, status = 200, origin = '') {
   return new Response(JSON.stringify(body), { status, headers });
 }
 
+async function getOrdersStatus(env) {
+  const status = await env.ORDERS_STATUS.get(ORDERS_STATUS_KEY, { type: 'json' });
+  if (status === null) return { closed: false, message: 'Comenzile sunt deschise.' };
+  if (!status || typeof status.closed !== 'boolean'
+    || typeof status.message !== 'string' || status.message.length > 200) {
+    throw new Error('Starea comenzilor nu este validă.');
+  }
+  return status;
+}
+
+async function hasAdminPassword(request, env) {
+  if (typeof env.ORDERS_ADMIN_PASSWORD !== 'string' || !env.ORDERS_ADMIN_PASSWORD) return false;
+  const authorization = request.headers.get('Authorization') || '';
+  if (!authorization.startsWith('Bearer ')) return false;
+  const supplied = authorization.slice(7);
+  if (!supplied || supplied.length > 256) return false;
+  const encoder = new TextEncoder();
+  const [expectedHash, suppliedHash] = await Promise.all([
+    crypto.subtle.digest('SHA-256', encoder.encode(env.ORDERS_ADMIN_PASSWORD)),
+    crypto.subtle.digest('SHA-256', encoder.encode(supplied)),
+  ]);
+  const expected = new Uint8Array(expectedHash);
+  const actual = new Uint8Array(suppliedHash);
+  let difference = 0;
+  for (let index = 0; index < expected.length; index += 1) difference |= expected[index] ^ actual[index];
+  return difference === 0;
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin') || '';
     if (origin !== ALLOWED_ORIGIN) return json({ ok: false, error: 'Origine nepermisă.' }, 403);
+    const pathname = new URL(request.url).pathname.replace(/\/+$/u, '') || '/';
     if (request.method === 'OPTIONS') {
       return new Response(null, {
         status: 204,
         headers: {
           'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
-          'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type',
+          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Authorization, Content-Type',
           'Access-Control-Max-Age': '86400',
           Vary: 'Origin',
         },
       });
     }
-    if (request.method !== 'POST') return json({ ok: false, error: 'Metodă nepermisă.' }, 405, origin);
-    try {
-      const statusResponse = await fetch(ORDERS_STATUS_URL, { cache: 'no-store' });
-      if (statusResponse.ok) {
-        const status = await statusResponse.json();
-        if (status.closed === true) {
-          return json({
-            ok: false,
-            error: typeof status.message === 'string' && status.message.trim()
-              ? status.message
-              : 'Comenzile sunt închise momentan.',
-          }, 503, origin);
-        }
+    if (pathname === '/status' && request.method === 'GET') {
+      try {
+        return json(await getOrdersStatus(env), 200, origin);
+      } catch {
+        return json({ ok: false, error: 'Nu am putut verifica starea comenzilor.' }, 503, origin);
       }
-    } catch {}
+    }
+    if (pathname === '/admin/auth' && request.method === 'POST') {
+      if (!env.ORDERS_STATUS || typeof env.ORDERS_ADMIN_PASSWORD !== 'string'
+        || env.ORDERS_ADMIN_PASSWORD.length < 16) {
+        return json({ ok: false, error: 'Administrarea comenzilor nu este configurată.' }, 503, origin);
+      }
+      if (!await hasAdminPassword(request, env)) return json({ ok: false, error: 'Parola nu este corectă.' }, 401, origin);
+      return json({ ok: true }, 200, origin);
+    }
+    if (pathname === '/admin/status' && request.method === 'POST') {
+      if (!env.ORDERS_STATUS) return json({ ok: false, error: 'Stocarea stării comenzilor nu este configurată.' }, 503, origin);
+      if (typeof env.ORDERS_ADMIN_PASSWORD !== 'string' || env.ORDERS_ADMIN_PASSWORD.length < 16) {
+        return json({ ok: false, error: 'Configurează o parolă de administrare de cel puțin 16 caractere.' }, 503, origin);
+      }
+      if (!await hasAdminPassword(request, env)) return json({ ok: false, error: 'Parola nu este corectă.' }, 401, origin);
+      let update;
+      try {
+        update = await request.json();
+      } catch {
+        return json({ ok: false, error: 'Datele stării comenzilor nu sunt valide.' }, 400, origin);
+      }
+      if (!update || typeof update.closed !== 'boolean'
+        || (update.message !== undefined && (typeof update.message !== 'string' || update.message.length > 200))) {
+        return json({ ok: false, error: 'Datele stării comenzilor nu sunt valide.' }, 400, origin);
+      }
+      const status = {
+        closed: update.closed,
+        message: update.closed
+          ? (typeof update.message === 'string' && update.message.trim() ? update.message.trim() : 'Comenzile sunt închise momentan.')
+          : 'Comenzile sunt deschise.',
+        updatedAt: new Date().toISOString(),
+      };
+      try {
+        await env.ORDERS_STATUS.put(ORDERS_STATUS_KEY, JSON.stringify(status));
+        return json(status, 200, origin);
+      } catch {
+        return json({ ok: false, error: 'Nu am putut salva starea comenzilor.' }, 503, origin);
+      }
+    }
+    if (pathname !== '/') return json({ ok: false, error: 'Rută negăsită.' }, 404, origin);
+    if (request.method !== 'POST') return json({ ok: false, error: 'Metodă nepermisă.' }, 405, origin);
+    if (!env.ORDERS_STATUS) return json({ ok: false, error: 'Stocarea stării comenzilor nu este configurată.' }, 503, origin);
+    try {
+      const status = await getOrdersStatus(env);
+      if (status.closed) return json({ ok: false, error: status.message }, 503, origin);
+    } catch {
+      return json({ ok: false, error: 'Nu am putut verifica starea comenzilor. Încearcă din nou.' }, 503, origin);
+    }
     if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) {
       return json({ ok: false, error: 'Serverul Telegram nu este configurat.' }, 503, origin);
     }

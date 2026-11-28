@@ -886,7 +886,8 @@
     updateWinterTheme();setInterval(updateWinterTheme,60*60*1000);
     async function refreshOrdersStatus(){
       try{
-        const response=await fetch('./orders-status.json',{cache:'no-store'});
+        let response=await fetch(new URL('status',ORDER_API_URL),{cache:'no-store'});
+        if(!response.ok)response=await fetch('./orders-status.json',{cache:'no-store'});
         if(!response.ok)return;
         const status=await response.json();
         ordersOpen=status.closed!==true;

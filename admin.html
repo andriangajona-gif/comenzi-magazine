@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#267ba5">
+  <title>Administrare comenzi</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;padding:20px;background:#edf4fa;color:#19334b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    main{width:min(100%,440px);padding:26px;border:1px solid #fff;border-radius:22px;background:#ffffffd9;box-shadow:0 18px 50px #19334b1a}
+    h1{margin:0 0 8px;font-size:26px}
+    p{line-height:1.5}
+    label{display:grid;gap:8px;margin-top:20px;font-weight:700}
+    input{width:100%;padding:14px;border:1px solid #b8cbd6;border-radius:12px;font:inherit}
+    button{width:100%;margin-top:12px;padding:14px;border:0;border-radius:12px;background:#267ba5;color:#fff;font:700 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer}
+    button:disabled{opacity:.55;cursor:wait}
+    #controls{margin-top:18px}
+    #state{padding:14px;border-radius:12px;background:#e4f3e8;font-weight:750;text-align:center}
+    #state.closed{background:#ffebe6;color:#8d2b1d}
+    #message{min-height:24px;color:#8d2b1d}
+    .note{color:#5e7387;font-size:14px}
+    [hidden]{display:none!important}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Administrare comenzi</h1>
+    <p>Pagina aceasta schimbă starea comenzilor de pe site.</p>
+    <form id="login">
+      <label for="password">Parola de administrare</label>
+      <input id="password" type="password" autocomplete="current-password" minlength="16" maxlength="256" required>
+      <button type="submit">Verifică parola</button>
+    </form>
+    <section id="controls" hidden>
+      <p id="state" role="status"></p>
+      <button id="toggle" type="button"></button>
+      <button id="logout" type="button">Ieșire</button>
+    </section>
+    <p id="message" role="alert"></p>
+    <p class="note">Folosește această pagină doar tu. Nu trimite parola în mesaje.</p>
+  </main>
+  <script>
+    const API='https://comenzitelegram.andriangajona.workers.dev/';
+    const login=document.getElementById('login');
+    const controls=document.getElementById('controls');
+    const passwordInput=document.getElementById('password');
+    const stateLabel=document.getElementById('state');
+    const toggleButton=document.getElementById('toggle');
+    const message=document.getElementById('message');
+    let password='';
+    let isClosed=false;
+
+    async function request(path,options={}){
+      const response=await fetch(new URL(path,API),{
+        ...options,
+        headers:{...(options.headers||{}),Authorization:`Bearer ${password}`},
+        cache:'no-store',
+      });
+      const result=await response.json().catch(()=>({}));
+      if(!response.ok)throw new Error(result.error||'Nu s-a putut contacta serverul.');
+      return result;
+    }
+
+    function render(status){
+      isClosed=status.closed===true;
+      stateLabel.textContent=status.message|| (isClosed?'Comenzile sunt închise.':'Comenzile sunt deschise.');
+      stateLabel.classList.toggle('closed',isClosed);
+      toggleButton.textContent=isClosed?'Deschide comenzile':'Închide comenzile';
+      controls.hidden=false;
+    }
+
+    login.addEventListener('submit',async event=>{
+      event.preventDefault();
+      message.textContent='';
+      password=passwordInput.value;
+      passwordInput.value='';
+      login.querySelector('button').disabled=true;
+      try{
+        await request('admin/auth',{method:'POST'});
+        render(await request('status'));
+        login.hidden=true;
+      }catch(error){
+        password='';
+        message.textContent=error.message;
+      }finally{
+        login.querySelector('button').disabled=false;
+      }
+    });
+
+    toggleButton.addEventListener('click',async()=>{
+      if(!isClosed&&!window.confirm('Închizi comenzile pentru toți clienții?'))return;
+      toggleButton.disabled=true;
+      message.textContent='';
+      try{
+        render(await request('admin/status',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({closed:!isClosed}),
+        }));
+      }catch(error){
+        message.textContent=error.message;
+      }finally{
+        toggleButton.disabled=false;
+      }
+    });
+
+    document.getElementById('logout').addEventListener('click',()=>{
+      password='';
+      controls.hidden=true;
+      login.hidden=false;
+      message.textContent='';
+      passwordInput.focus();
+    });
+  </script>
+</body>
+</html>

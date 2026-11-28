@@ -52,9 +52,11 @@ Catalogul Samurai Sushi include Uramaki, Tempura, Gunkan, Hossomaki, Nigiri, Pok
 
 Imaginile din cataloage folosesc variante WebP `*-optimized.webp`, redimensionate pentru afișare pe telefon; imaginile originale rămân păstrate. Când se adaugă o fotografie JPG sau PNG la catalog, creează și varianta WebP cu același nume de bază plus `-optimized` în directorul ei. Pagina revine la original dacă varianta optimizată lipsește.
 
-## Închiderea și redeschiderea comenzilor
+## Administrarea stării comenzilor
 
-Fișierul `orders-status.json` controlează acceptarea comenzilor. Pentru închidere, setează `"closed": true` și un mesaj în `message`; pentru redeschidere, setează `"closed": false`. Pagina verifică starea la deschidere și la fiecare 30 de secunde. Worker-ul verifică și el starea înainte de a trimite o comandă în Telegram. După schimbarea stării, publică commit-ul; deploy-ul GitHub Pages afișează imediat starea pentru clienți, iar schimbarea codului Worker trebuie publicată în Cloudflare pentru blocarea completă la server.
+`admin.html` oferă autentificare și butoane pentru închiderea/redeschiderea comenzilor. Parola unică `ORDERS_ADMIN_PASSWORD` trebuie configurată ca Worker secret și să aibă cel puțin 16 caractere; binding-ul KV trebuie să se numească `ORDERS_STATUS`. Worker-ul servește starea publică la `/status`, validează autentificarea la `/admin/auth` și `/admin/status` și refuză comenzile cât timp starea salvată în KV este închisă. Nu pune parola în cod, URL, GitHub sau mesaje.
+
+Pentru instalarea inițială, creează un KV namespace în Cloudflare, atașează-l la Worker cu binding `ORDERS_STATUS`, configurează secretul `ORDERS_ADMIN_PASSWORD` și publică `worker.js`. Publică apoi site-ul cu pagina `admin.html`. După configurare, deschide `https://curierfloresti.github.io/comenzi-magazine/admin.html` și autentifică-te cu parola păstrată în secretul Worker.
 
 ## Instalare pe Android
 
