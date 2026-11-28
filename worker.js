@@ -127,7 +127,7 @@ export default {
     }
     if (pathname === '/admin/auth' && request.method === 'POST') {
       if (!env.ORDERS_STATUS || typeof env.ORDERS_ADMIN_PASSWORD !== 'string'
-        || env.ORDERS_ADMIN_PASSWORD.length < 16) {
+        || env.ORDERS_ADMIN_PASSWORD.length < 14) {
         return json({ ok: false, error: 'Administrarea comenzilor nu este configurată.' }, 503, origin);
       }
       if (!await hasAdminPassword(request, env)) return json({ ok: false, error: 'Parola nu este corectă.' }, 401, origin);
@@ -135,8 +135,8 @@ export default {
     }
     if (pathname === '/admin/status' && request.method === 'POST') {
       if (!env.ORDERS_STATUS) return json({ ok: false, error: 'Stocarea stării comenzilor nu este configurată.' }, 503, origin);
-      if (typeof env.ORDERS_ADMIN_PASSWORD !== 'string' || env.ORDERS_ADMIN_PASSWORD.length < 16) {
-        return json({ ok: false, error: 'Configurează o parolă de administrare de cel puțin 16 caractere.' }, 503, origin);
+      if (typeof env.ORDERS_ADMIN_PASSWORD !== 'string' || env.ORDERS_ADMIN_PASSWORD.length < 14) {
+        return json({ ok: false, error: 'Configurează o parolă de administrare de cel puțin 14 caractere.' }, 503, origin);
       }
       if (!await hasAdminPassword(request, env)) return json({ ok: false, error: 'Parola nu este corectă.' }, 401, origin);
       let update;
