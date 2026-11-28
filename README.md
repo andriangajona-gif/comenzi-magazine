@@ -52,6 +52,10 @@ Catalogul Samurai Sushi include Uramaki, Tempura, Gunkan, Hossomaki, Nigiri, Pok
 
 Imaginile din cataloage folosesc variante WebP `*-optimized.webp`, redimensionate pentru afișare pe telefon; imaginile originale rămân păstrate. Când se adaugă o fotografie JPG sau PNG la catalog, creează și varianta WebP cu același nume de bază plus `-optimized` în directorul ei. Pagina revine la original dacă varianta optimizată lipsește.
 
+## Închiderea și redeschiderea comenzilor
+
+Fișierul `orders-status.json` controlează acceptarea comenzilor. Pentru închidere, setează `"closed": true` și un mesaj în `message`; pentru redeschidere, setează `"closed": false`. Pagina verifică starea la deschidere și la fiecare 30 de secunde. Worker-ul verifică și el starea înainte de a trimite o comandă în Telegram. După schimbarea stării, publică commit-ul; deploy-ul GitHub Pages afișează imediat starea pentru clienți, iar schimbarea codului Worker trebuie publicată în Cloudflare pentru blocarea completă la server.
+
 ## Instalare pe Android
 
 Site-ul poate fi instalat din Google Chrome pe Android: deschide site-ul, apasă meniul **⋮** și alege **Instalează aplicația** sau **Adaugă pe ecranul principal**. Site-ul rămâne disponibil în browser; aplicația folosește aceeași pagină și același sistem de comenzi. Este necesară conexiune la internet pentru încărcarea catalogului și trimiterea comenzilor.

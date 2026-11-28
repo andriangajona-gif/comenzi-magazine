@@ -1,4 +1,4 @@
-const CACHE_NAME='comenzi-floresti-pwa-v1';
+const CACHE_NAME='comenzi-floresti-pwa-v2';
 const APP_SHELL='./index.html';
 
 self.addEventListener('install',event=>{
