@@ -50,6 +50,16 @@ Catalogul Samurai Sushi include Uramaki, Tempura, Gunkan, Hossomaki, Nigiri, Pok
 
 În repository mergi la **Settings → Pages**, alege **Deploy from a branch**, ramura `main` și folderul `/ (root)`. Site-ul este la `https://curierfloresti.github.io/comenzi-magazine/` după publicare.
 
+## Prezența în Google
+
+Pagina are titlu, descriere, adresă canonică și date structurate pentru serviciul de livrare din Florești, Republica Moldova. Pentru a ajuta Google să descopere site-ul:
+
+1. În [Google Search Console](https://search.google.com/search-console/), adaugă proprietatea de tip „Prefix URL” `https://curierfloresti.github.io/comenzi-magazine/` și verifică proprietatea folosind metoda oferită de Google.
+2. În secțiunea „Sitemapuri”, trimite `https://curierfloresti.github.io/comenzi-magazine/sitemap.xml`. Folosește „Inspectarea adresei URL” pentru a verifica pagina principală și a solicita indexarea.
+3. Dacă serviciul este eligibil, creează sau revendică un [Profil de companie pe Google](https://www.google.com/business/) și completează numai informații reale și actuale despre serviciu și zona deservită.
+
+Fișierul `robots.txt` din acest repository este publicat sub `/comenzi-magazine/`; Google caută regulile robots la rădăcina domeniului, `/robots.txt`. Prin urmare, trimite sitemapul direct în Search Console. Indexarea și poziția în rezultate sunt decise de Google și nu pot fi garantate.
+
 Imaginile din cataloage folosesc variante WebP `*-optimized.webp`, redimensionate pentru afișare pe telefon; imaginile originale rămân păstrate. Când se adaugă o fotografie JPG sau PNG la catalog, creează și varianta WebP cu același nume de bază plus `-optimized` în directorul ei. Pagina revine la original dacă varianta optimizată lipsește.
 
 ## Administrarea stării comenzilor
