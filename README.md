@@ -50,6 +50,8 @@ Catalogul Samurai Sushi include Uramaki, Tempura, Gunkan, Hossomaki, Nigiri, Pok
 
 În repository mergi la **Settings → Pages**, alege **Deploy from a branch**, ramura `main` și folderul `/ (root)`. Site-ul este la `https://curierfloresti.github.io/comenzi-magazine/` după publicare.
 
+Imaginile din cataloage folosesc variante WebP `*-optimized.webp`, redimensionate pentru afișare pe telefon; imaginile originale rămân păstrate. Când se adaugă o fotografie JPG sau PNG la catalog, creează și varianta WebP cu același nume de bază plus `-optimized` în directorul ei. Pagina revine la original dacă varianta optimizată lipsește.
+
 ## Instalare pe Android
 
 Site-ul poate fi instalat din Google Chrome pe Android: deschide site-ul, apasă meniul **⋮** și alege **Instalează aplicația** sau **Adaugă pe ecranul principal**. Site-ul rămâne disponibil în browser; aplicația folosește aceeași pagină și același sistem de comenzi. Este necesară conexiune la internet pentru încărcarea catalogului și trimiterea comenzilor.
