@@ -1,4 +1,4 @@
-const CACHE_NAME='comenzi-floresti-pwa-v2';
+const CACHE_NAME='comenzi-floresti-pwa-v3';
 const APP_SHELL='./index.html';
 
 self.addEventListener('install',event=>{
@@ -15,7 +15,10 @@ self.addEventListener('activate',event=>{
 
 self.addEventListener('fetch',event=>{
   const request=event.request;
-  if(request.method!=='GET'||request.mode!=='navigate'||new URL(request.url).origin!==self.location.origin)return;
+  const url=new URL(request.url);
+  const home=new URL('./',self.location.href);
+  if(request.method!=='GET'||request.mode!=='navigate'||url.origin!==home.origin
+    ||(url.pathname!==home.pathname&&url.pathname!==new URL(APP_SHELL,home).pathname))return;
   event.respondWith(
     fetch(request).then(response=>{
       if(response.ok)return caches.open(CACHE_NAME).then(cache=>cache.put(APP_SHELL,response.clone()).then(()=>response));

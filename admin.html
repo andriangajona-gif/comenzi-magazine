@@ -30,7 +30,7 @@
     <p>Pagina aceasta schimbă starea comenzilor de pe site.</p>
     <form id="login">
       <label for="password">Parola de administrare</label>
-      <input id="password" type="password" autocomplete="current-password" minlength="14" maxlength="256" required>
+      <input id="password" name="password" type="password" autocomplete="current-password" minlength="14" maxlength="256" required>
       <button type="submit">Verifică parola</button>
     </form>
     <section id="controls" hidden>
@@ -75,7 +75,6 @@
       event.preventDefault();
       message.textContent='';
       password=passwordInput.value;
-      passwordInput.value='';
       login.querySelector('button').disabled=true;
       try{
         await request('admin/auth',{method:'POST'});
@@ -83,6 +82,7 @@
         login.hidden=true;
       }catch(error){
         password='';
+        passwordInput.value='';
         message.textContent=error.message;
       }finally{
         login.querySelector('button').disabled=false;
@@ -108,6 +108,7 @@
 
     document.getElementById('logout').addEventListener('click',()=>{
       password='';
+      passwordInput.value='';
       controls.hidden=true;
       login.hidden=false;
       message.textContent='';
